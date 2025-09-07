@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float speed;
     [SerializeField] private float acceleration;
+    [SerializeField] private GameObject forward;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
