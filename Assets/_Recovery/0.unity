@@ -500,7 +500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerView
   CameraObj: {fileID: 330585545}
-  sensitivity: 1
+  sensitivity: 0.3
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
