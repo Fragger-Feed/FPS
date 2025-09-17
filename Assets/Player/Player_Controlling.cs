@@ -1,28 +1,26 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+
 public class PlayerController : MonoBehaviour
 {
     // == Player Scripts ==
-    [SerializeField] PlayerMovement playerMovement;
-    [SerializeField] PlayerView playerView;
+    [SerializeField] private PlayerMovement playerMovement;
 
-
+    [SerializeField] private PlayerView playerView;
 
     // == Data ==
-    [SerializeField] Controlling_Data ControllingData;
+    [SerializeField] private Controlling_Data ControllingData;
 
-
-
-
-
+    private void Awake()
+    {
+        ControllingData = new Controlling_Data();
+    }
 
     private void OnEnable()
     {
         ControllingData.Enable();
     }
-
-
 
     private void Update()
     {
@@ -31,9 +29,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        print(ControllingData.Player.Move.ReadValue<Vector2>());
         playerMovement.UPDATE_Movement(ControllingData.Player.Move.ReadValue<Vector2>());
     }
-
-
-   
 }

@@ -9,16 +9,18 @@ public class PlayerMovement : MonoBehaviour
     // == Objects ==
     [SerializeField] private GameObject Forward;
 
-
     // == Configs ==
     [SerializeField] private float speed;
+
     [SerializeField] private float acceleration;
 
-
+    private void Start()
+    {
+    }
 
     // == UPDATE ==
-    public void UPDATE_Movement(Vector3 InputData) {
-
+    public void UPDATE_Movement(Vector2 InputData)
+    {
         // Move
         Vector3 currentVelocity = RB.linearVelocity;
         Vector3 targetVelocity = new Vector3(InputData.x, 0, InputData.y) * speed;

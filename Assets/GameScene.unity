@@ -417,8 +417,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 801decfacae76afffb15cc4e934fa68e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  RB: {fileID: 0}
-  Forward: {fileID: 0}
+  RB: {fileID: 361129544}
+  Forward: {fileID: 466002037}
   speed: 20
   acceleration: 4
 --- !u!136 &361129540
