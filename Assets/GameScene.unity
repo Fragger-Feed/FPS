@@ -378,9 +378,10 @@ GameObject:
   m_Component:
   - component: {fileID: 361129543}
   - component: {fileID: 361129540}
-  - component: {fileID: 361129539}
-  - component: {fileID: 361129538}
   - component: {fileID: 361129544}
+  - component: {fileID: 361129538}
+  - component: {fileID: 361129539}
+  - component: {fileID: 361129545}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -400,8 +401,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64392623323e5d12c8793eb4abac2096, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  cam: {fileID: 330585545}
-  sensitivity: 0.13
+  playerMovement: {fileID: 361129539}
+  playerView: {fileID: 361129545}
 --- !u!114 &361129539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,10 +415,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 801decfacae76afffb15cc4e934fa68e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  rb: {fileID: 0}
+  RB: {fileID: 0}
+  Forward: {fileID: 0}
   speed: 20
   acceleration: 4
-  forward: {fileID: 0}
 --- !u!136 &361129540
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -484,6 +485,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!114 &361129545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 361129537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 679b8af3d9c08064ca8f9eb86f56fa50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerView
+  CameraObj: {fileID: 0}
+  sensitivity: 0
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
