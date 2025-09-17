@@ -415,8 +415,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   rb: {fileID: 0}
-  speed: 10
-  acceleration: 1
+  speed: 20
+  acceleration: 4
   forward: {fileID: 0}
 --- !u!136 &361129540
 CapsuleCollider:
