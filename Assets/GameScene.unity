@@ -499,8 +499,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 679b8af3d9c08064ca8f9eb86f56fa50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerView
-  CameraObj: {fileID: 0}
-  sensitivity: 0
+  CameraObj: {fileID: 330585545}
+  sensitivity: 0.3
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0

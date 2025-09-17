@@ -11,12 +11,9 @@ public class PlayerMovement : MonoBehaviour
 
     // == Configs ==
     [SerializeField] private float speed;
-
     [SerializeField] private float acceleration;
 
-    private void Start()
-    {
-    }
+   
 
     // == UPDATE ==
     public void UPDATE_Movement(Vector2 InputData)
