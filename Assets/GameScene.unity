@@ -501,6 +501,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerView
   CameraObj: {fileID: 330585545}
   sensitivity: 0.3
+  offset: {x: 0, y: 0, z: 0}
+  forward: {fileID: 466002038}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
