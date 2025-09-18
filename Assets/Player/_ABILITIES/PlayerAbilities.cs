@@ -39,8 +39,10 @@ public class PlayerAbilities : MonoBehaviour
             GameObject AbilityObj = Instantiate(AbilitySample, AbilityLists.transform);
             AbilityObj.transform.localPosition = new Vector3(i * -55, 0, 0);
             Texture2D tex = AbilitiesData.AllAbilities[AbilitiesData.CurrentAbilities[i]].SmallTexture;
-            AbilityObj.GetComponent<Image>().sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+            if (tex != null) {
+                AbilityObj.GetComponent<Image>().sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
 
+            }
         }
     }
 }
