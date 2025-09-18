@@ -11,16 +11,16 @@ public class PlayerMovement : MonoBehaviour
 
     // == Configs ==
     [SerializeField] private float speed;
-    [SerializeField] private float acceleration;
 
-   
+    [SerializeField] private float acceleration;
 
     // == UPDATE ==
     public void UPDATE_Movement(Vector2 InputData)
     {
+        Vector3 inputDirection = Forward.transform.localRotation * new Vector3(InputData.x, 0, InputData.y);
         // Move
         Vector3 currentVelocity = RB.linearVelocity;
-        Vector3 targetVelocity = new Vector3(InputData.x, 0, InputData.y) * speed;
+        Vector3 targetVelocity = inputDirection * speed;
 
         Vector3 newVelocity = Vector3.MoveTowards(currentVelocity, targetVelocity, acceleration);
         Vector3 finalVelocity = new Vector3(newVelocity.x, currentVelocity.y, newVelocity.z);

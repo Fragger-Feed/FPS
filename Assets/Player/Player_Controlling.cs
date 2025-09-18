@@ -24,12 +24,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        playerView.UPDATE_View(ControllingData.Player.Look.ReadValue<Vector2>());
+        playerView.UPDATE_View(ControllingData.Player.Look.ReadValue<Vector2>(), transform.position);
     }
 
     private void FixedUpdate()
     {
-        print(ControllingData.Player.Move.ReadValue<Vector2>());
         playerMovement.UPDATE_Movement(ControllingData.Player.Move.ReadValue<Vector2>());
     }
 }
