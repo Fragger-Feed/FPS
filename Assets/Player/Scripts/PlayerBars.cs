@@ -2,15 +2,12 @@ using UnityEngine;
 
 public class PlayerBars : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public int MaxTapeInRoll;
+    public int MaxTape;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int CurrentTapeInRoll;
+    public int CurrentTape;
+
+    public GameObject TapeRollObj;
+    public GameObject TapeLine;
 }
