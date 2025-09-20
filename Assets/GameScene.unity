@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 50167614}
   - component: {fileID: 50167613}
   - component: {fileID: 50167612}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TestMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -299,7 +299,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 63
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -405,6 +405,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   playerMovement: {fileID: 361129539}
   playerView: {fileID: 361129545}
+  gcSize: {x: 0.15, y: 0.15, z: 0.15}
+  gcoffset: {x: 0, y: -1.37, z: 0}
+  ground:
+    serializedVersion: 2
+    m_Bits: 8
+  grounded: 0
 --- !u!114 &361129539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,6 +427,9 @@ MonoBehaviour:
   Forward: {fileID: 466002037}
   speed: 20
   acceleration: 4
+  timeToApex: 0.81
+  jumpHeight: 4.54
+  gravity: 0
 --- !u!136 &361129540
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -501,6 +510,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerView
   CameraObj: {fileID: 330585545}
   sensitivity: 0.3
+  offset: {x: 0, y: 0.9, z: 0}
+  forward: {fileID: 466002038}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -721,7 +732,7 @@ GameObject:
   - component: {fileID: 1768289209}
   - component: {fileID: 1768289208}
   - component: {fileID: 1768289207}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -846,14 +857,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1855578082}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1768289206}
   m_Father: {fileID: 466002038}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!23 &1855578084
 MeshRenderer:
   m_ObjectHideFlags: 0
