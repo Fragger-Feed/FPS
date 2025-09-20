@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour
 {
     // == Player Scripts ==
     [SerializeField] private PlayerMovement playerMovement;
-
     [SerializeField] private PlayerView playerView;
 
     // == Data ==
