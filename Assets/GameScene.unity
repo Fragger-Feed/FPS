@@ -585,7 +585,7 @@ MonoBehaviour:
   acceleration: 4
   timeToApex: 0.81
   jumpHeight: 4.54
-  gravity: 0
+  gravity: 0.03
 --- !u!136 &361129540
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -667,8 +667,6 @@ MonoBehaviour:
   CameraObj: {fileID: 330585545}
   sensitivity: 0.3
   offset: {x: 0, y: 0.9, z: 0}
-  forward: {fileID: 466002038}
-  offset: {x: 0, y: 0, z: 0}
   forward: {fileID: 466002038}
 --- !u!114 &361129546
 MonoBehaviour:
