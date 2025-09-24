@@ -14,11 +14,9 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float acceleration;
 
-    [SerializeField] private float timeToApex;
+    [SerializeField] public float timeToApex;
 
-    [SerializeField] private float jumpHeight;
-
-    [SerializeField] private float gravity;
+    [SerializeField] public float jumpHeight;
 
     // == UPDATE ==
     public void UPDATE_Movement(Vector2 InputData)
@@ -34,11 +32,6 @@ public class PlayerMovement : MonoBehaviour
         RB.linearVelocity = finalVelocity;
     }
 
-    public void Gravity()
-    {
-        gravity = -(2 * jumpHeight) / (timeToApex * timeToApex);
-        RB.AddForce(new Vector3(0, gravity, 0), ForceMode.Acceleration);
-    }
 
     public void Jump()
     {

@@ -6,7 +6,10 @@ public class PlayerController : MonoBehaviour
 {
     // == Player Scripts ==
     [SerializeField] private PlayerMovement playerMovement;
+
     [SerializeField] private PlayerView playerView;
+
+    [SerializeField] private PlayerPhysics physics;
 
     // == Data ==
     [SerializeField] private Controlling_Data ControllingData;
@@ -39,8 +42,8 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         playerMovement.UPDATE_Movement(ControllingData.Player.Move.ReadValue<Vector2>());
-        if (!grounded)
-            playerMovement.Gravity();
+
+        physics.PhysicsUpdate(grounded, ControllingData);
     }
 
     private void groundCheck()
