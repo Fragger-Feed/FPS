@@ -100,4 +100,4 @@ InitTestScene*.unity*
 
 #Fucking jetbrains files
 /.idea/
-/.vsconfig/
+.vsconfig/
