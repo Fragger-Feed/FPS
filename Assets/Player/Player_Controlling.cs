@@ -22,6 +22,15 @@ public class PlayerController : MonoBehaviour
 
     public bool grounded;
 
+    //Timers
+
+    float dashTimer;
+    float jumpTimer;
+
+    //Input
+
+    Vector2 movementInput;
+
     private void Awake()
     {
         ControllingData = new Controlling_Data();
@@ -34,14 +43,29 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        jumpTimer -= Time.deltaTime;
+        dashTimer -= Time.deltaTime;
+
+        movementInput = ControllingData.Player.Move.ReadValue<Vector2>();
+
         groundCheck();
         playerView.UPDATE_View(ControllingData.Player.Look.ReadValue<Vector2>(), transform.position);
-        if (ControllingData.Player.Jump.WasPressedThisFrame() && grounded) playerMovement.Jump();
+        if (ControllingData.Player.Jump.WasPressedThisFrame() && grounded && jumpTimer < 0)
+        {
+            playerMovement.Jump();
+            jumpTimer = 0.1f;
+        }
+        if (ControllingData.Player.Dash.WasPressedThisFrame() && dashTimer < 0)
+        {
+            StartCoroutine(playerMovement.Dash(movementInput));
+            dashTimer = 0f;
+        }
+        
     }
 
     private void FixedUpdate()
     {
-        playerMovement.UPDATE_Movement(ControllingData.Player.Move.ReadValue<Vector2>());
+        playerMovement.UPDATE_Movement(movementInput);
 
         physics.PhysicsUpdate(grounded, ControllingData);
     }

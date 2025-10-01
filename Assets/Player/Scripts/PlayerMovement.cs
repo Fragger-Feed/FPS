@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Threading;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Windows;
 
@@ -18,9 +21,16 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] public float jumpHeight;
 
+    [SerializeField] float dashTime;
+
+    [SerializeField] float dashSpeed;
+
+    bool isDashing;
+
     // == UPDATE ==
     public void UPDATE_Movement(Vector2 InputData)
     {
+        if (isDashing) return;
         Vector3 inputDirection = Forward.transform.localRotation * new Vector3(InputData.x, 0, InputData.y);
         // Move
         Vector3 currentVelocity = RB.linearVelocity;
@@ -32,6 +42,21 @@ public class PlayerMovement : MonoBehaviour
         RB.linearVelocity = finalVelocity;
     }
 
+    public IEnumerator Dash(Vector2 InputData)
+    {
+        Vector3 inputDirection = Forward.transform.localRotation * new Vector3(InputData.x, 0, InputData.y);
+        if (inputDirection == Vector3.zero) inputDirection = Forward.transform.localRotation * new Vector3(0, 0, 1);
+        float dashDuration = dashTime;
+        isDashing = true;
+        while (dashDuration > 0)
+        {
+            dashDuration -= Time.deltaTime;
+            RB.linearVelocity = inputDirection * dashSpeed;
+            print("dashing");
+            yield return null;
+        }
+        isDashing = false;
+    }
 
     public void Jump()
     {
