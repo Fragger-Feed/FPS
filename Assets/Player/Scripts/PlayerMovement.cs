@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         isDashing = false;
+        
     }
 
     public void Jump()
