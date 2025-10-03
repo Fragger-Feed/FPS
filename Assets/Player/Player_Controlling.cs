@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
 
     public bool grounded;
 
+
     private void Awake()
     {
         ControllingData = new Controlling_Data();
