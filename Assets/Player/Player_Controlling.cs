@@ -1,4 +1,5 @@
 using System;
+using System.Data.Common;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -27,6 +28,8 @@ public class PlayerController : MonoBehaviour
     float dashTimer;
     float jumpTimer;
 
+    float stickTimer;
+
     //Input
 
     Vector2 movementInput;
@@ -45,6 +48,7 @@ public class PlayerController : MonoBehaviour
     {
         jumpTimer -= Time.deltaTime;
         dashTimer -= Time.deltaTime;
+        stickTimer -= Time.deltaTime;
 
         movementInput = ControllingData.Player.Move.ReadValue<Vector2>();
 
@@ -54,10 +58,12 @@ public class PlayerController : MonoBehaviour
         {
             playerMovement.Jump();
             jumpTimer = 0.1f;
+            stickTimer = 0.1f;
         }
         if (ControllingData.Player.Dash.WasPressedThisFrame() && dashTimer < 0)
         {
             StartCoroutine(playerMovement.Dash(movementInput));
+            stickTimer = 0.1f;
             dashTimer = 0f;
         }
         
@@ -66,7 +72,10 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         playerMovement.UPDATE_Movement(movementInput);
-
+        if (stickTimer <= 0)
+        {
+            physics.StickToTheGround(ground);
+        } 
         physics.PhysicsUpdate(grounded, ControllingData);
     }
 

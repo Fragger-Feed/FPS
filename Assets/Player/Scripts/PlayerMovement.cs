@@ -25,7 +25,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] float dashSpeed;
 
-    bool isDashing;
+    public bool isDashing;
+    public bool isJumping;
 
     // == UPDATE ==
     public void UPDATE_Movement(Vector2 InputData)
@@ -40,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 finalVelocity = new Vector3(newVelocity.x, currentVelocity.y, newVelocity.z);
 
         RB.linearVelocity = finalVelocity;
-        print(new Vector3(RB.linearVelocity.x,0,RB.linearVelocity.z).magnitude);
+        //print(new Vector3(RB.linearVelocity.x,0,RB.linearVelocity.z).magnitude);
     }
 
     public IEnumerator Dash(Vector2 InputData)
@@ -62,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
+        isJumping = true;
         RB.linearVelocity = new Vector3(RB.linearVelocity.x, (2 * jumpHeight) / timeToApex, RB.linearVelocity.z);
     }
 }
