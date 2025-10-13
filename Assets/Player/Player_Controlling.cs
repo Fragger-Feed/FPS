@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
         if (ControllingData.Player.Jump.WasPressedThisFrame() && grounded && jumpTimer < 0)
         {
             playerMovement.Jump();
-            jumpTimer = 0.1f;
+            jumpTimer = 1f;
             stickTimer = 0.1f;
         }
         if (ControllingData.Player.Dash.WasPressedThisFrame() && dashTimer < 0)
