@@ -13,17 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject Forward;
 
     // == Configs ==
-    [SerializeField] private float speed;
-
-    [SerializeField] private float acceleration;
-
-    [SerializeField] public float timeToApex;
-
-    [SerializeField] public float jumpHeight;
-
-    [SerializeField] float dashTime;
-
-    [SerializeField] float dashSpeed;
+    [SerializeField] PlayerData data;
 
     public bool isDashing;
     public bool isJumping;
@@ -35,9 +25,9 @@ public class PlayerMovement : MonoBehaviour
         Vector3 inputDirection = Forward.transform.localRotation * new Vector3(InputData.x, 0, InputData.y);
         // Move
         Vector3 currentVelocity = RB.linearVelocity;
-        Vector3 targetVelocity = inputDirection * speed;
+        Vector3 targetVelocity = inputDirection * data.speed;
 
-        Vector3 newVelocity = Vector3.MoveTowards(currentVelocity, targetVelocity, acceleration);
+        Vector3 newVelocity = Vector3.MoveTowards(currentVelocity, targetVelocity, data.acceleration);
         Vector3 finalVelocity = new Vector3(newVelocity.x, currentVelocity.y, newVelocity.z);
 
         RB.linearVelocity = finalVelocity;
@@ -48,12 +38,12 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 inputDirection = Forward.transform.localRotation * new Vector3(InputData.x, 0, InputData.y);
         if (inputDirection == Vector3.zero) inputDirection = Forward.transform.localRotation * new Vector3(0, 0, 1);
-        float dashDuration = dashTime;
+        float dashDuration = data.dashTime;
         isDashing = true;
         while (dashDuration > 0)
         {
             dashDuration -= Time.deltaTime;
-            RB.linearVelocity = inputDirection * dashSpeed;
+            RB.linearVelocity = inputDirection * data.dashSpeed;
             print("dashing");
             yield return null;
         }
@@ -64,6 +54,6 @@ public class PlayerMovement : MonoBehaviour
     public void Jump()
     {
         isJumping = true;
-        RB.linearVelocity = new Vector3(RB.linearVelocity.x, (2 * jumpHeight) / timeToApex, RB.linearVelocity.z);
+        RB.linearVelocity = new Vector3(RB.linearVelocity.x, 2 * data.jumpHeight / data.timeToApex, RB.linearVelocity.z);
     }
 }

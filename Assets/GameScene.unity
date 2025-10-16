@@ -1192,12 +1192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   RB: {fileID: 361129544}
   Forward: {fileID: 466002037}
-  speed: 20
-  acceleration: 3
-  timeToApex: 0.81
-  jumpHeight: 4.54
-  dashTime: 0.1
-  dashSpeed: 50
+  data: {fileID: 11400000, guid: dadc20dac29451a40b592d0d4f1eaa74, type: 2}
   isDashing: 0
   isJumping: 0
 --- !u!136 &361129540
@@ -1232,7 +1227,7 @@ Transform:
   m_GameObject: {fileID: 361129537}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.40924, y: 1.794, z: -7.079}
+  m_LocalPosition: {x: 0.40924, y: 1.89, z: -7.079}
   m_LocalScale: {x: 1, y: 1.4402, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -11,5 +11,14 @@ public class PlayerData : ScriptableObject
 
     [SerializeField] public float jumpHeight;
 
+
+    [SerializeField] public float dashTime;
+
+    [SerializeField] public float dashSpeed;
+
+    [SerializeField] public float sdfghjuygfyvubuhabfuabfuhasbhab;
+
+    bool spit = true;
+
     [SerializeField] public int heath;
 }

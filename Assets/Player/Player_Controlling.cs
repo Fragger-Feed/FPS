@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
         if (ControllingData.Player.Jump.WasPressedThisFrame() && grounded && jumpTimer < 0)
         {
             playerMovement.Jump();
-            jumpTimer = 1f;
+            jumpTimer = 0.1f;
             stickTimer = 0.1f;
         }
         if (ControllingData.Player.Dash.WasPressedThisFrame() && dashTimer < 0)
@@ -84,6 +84,7 @@ public class PlayerController : MonoBehaviour
         if (Physics.CheckBox(transform.position + gcoffset, gcSize, new Quaternion(0, 0, 0, 0), ground))
         {
             grounded = true;
+            playerMovement.isJumping = false;
         }
 
         else grounded = false;
