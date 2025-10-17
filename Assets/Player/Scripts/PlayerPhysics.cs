@@ -14,10 +14,11 @@ public class PlayerPhysics : MonoBehaviour
 
     public void PhysicsUpdate(bool grounded, Controlling_Data input)
     {
+        float gravity = -(2 * data.jumpHeight) / (data.timeToApex * data.timeToApex);
         if (rb.linearVelocity.y > 0 && !input.Player.Jump.IsPressed() && !grounded)
-            Gravity(-70);
+            Gravity(gravity*2);
         else if (!grounded)
-            Gravity(-(2 * data.jumpHeight) / (data.timeToApex * data.timeToApex));
+            Gravity(gravity);
     }
 
     public void StickToTheGround(LayerMask ground)
