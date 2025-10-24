@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
   speed: 20
   acceleration: 3
-  timeToApex: 0.5
-  jumpHeight: 24.31
+  timeToApex: 0.61
+  jumpHeight: 6.78
   dashTime: 0.1
   dashSpeed: 50
-  sdfghjuygfyvubuhabfuabfuhasbhab: -194.48
+  sdfghjuygfyvubuhabfuabfuhasbhab: -36.441814
   heath: 0
