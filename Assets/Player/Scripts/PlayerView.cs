@@ -12,6 +12,7 @@ public class PlayerView : MonoBehaviour
     [Header("Configs")]
     [SerializeField] private float sensitivity;
     [SerializeField] private Vector3 offset;
+    [SerializeField] private float viewDistance;
 
 
     // Hash
@@ -28,6 +29,13 @@ public class PlayerView : MonoBehaviour
 
     // == UPDATE ==
     public void UPDATE_View() {
+        
+    }
+
+
+
+    // Camera Rotate
+    public void CameraRotate() {
         Vector3 InputData = PlayerC.ControllingData.Player.Look.ReadValue<Vector2>();
 
         PlayerC.CameraObj.transform.position = transform.position + offset;
@@ -37,5 +45,19 @@ public class PlayerView : MonoBehaviour
 
         PlayerC.CameraObj.transform.localRotation = Quaternion.Euler(Hash.x, Hash.y, 0);
         PlayerC.ForwardObj.transform.localRotation = Quaternion.Euler(0, Hash.y, 0);
+    }
+
+
+    // Interactions
+    public void UpdateInteractions() {
+
+        if (PlayerC.ControllingData.Player.Interact.WasPressedThisFrame())
+        {
+            foreach (RaycastHit raycastHit in Physics.RaycastAll(PlayerC.CameraObj.transform.position, PlayerC.CameraObj.transform.forward, viewDistance))
+            {
+
+            }
+        }
+
     }
 }

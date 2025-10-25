@@ -6,7 +6,6 @@ public class PlayerMovement : MonoBehaviour
     // == Data ==
     [Header("Data")]
     [SerializeField] private PlayerController PlayerC;
-    [SerializeField] PlayerData data;
 
 
     // == Configs ==
