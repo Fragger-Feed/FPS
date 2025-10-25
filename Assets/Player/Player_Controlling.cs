@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(playerMovement.Dash(movementInput));
             stickTimer = 0.1f;
-            dashTimer = 0.1f;
+            dashTimer = 0.5f;
         }
         
     }

@@ -27,19 +27,18 @@ public class PlayerPhysics : MonoBehaviour
         if (rb.linearVelocity != Vector3.zero)
         {
             RaycastHit raycastHit;
-            if (Physics.Raycast(transform.position, -transform.up, out raycastHit, playerFeet + 0.1f, ground))
+            if (Physics.Raycast(transform.position, -transform.up, out raycastHit, playerFeet + 1f, ground))
             {
                 Vector3 targetPos = new Vector3(transform.position.x, transform.position.y - raycastHit.distance + playerFeet, transform.position.z);
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 10);
+                transform.position = Vector3.MoveTowards(transform.position, targetPos,raycastHit.distance * Time.deltaTime * 10);
 
                 //if (rb.linearVelocity.y > 0) rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-                print(playerFeet + " Num");
             }
         }
         if (rb.linearVelocity.x == 0 && rb.linearVelocity.z == 0)
         {
             RaycastHit raycastHit;
-            if (Physics.Raycast(transform.position, -transform.up, out raycastHit, playerFeet + 0.1f, ground))
+            if (Physics.Raycast(transform.position, -transform.up, out raycastHit, playerFeet + 1f, ground))
                 rb.linearVelocity = Vector3.zero;
         }
 
