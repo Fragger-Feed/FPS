@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a324a407bd1ecb34692226859d1023be, type: 3}
   m_Name: Run
   m_EditorClassIdentifier: Assembly-CSharp::Run_Data
-  Locations: {fileID: 0}
+  Locations: {fileID: 11400000, guid: e08ede0267409704c91c4f2cdd31b181, type: 2}
   LocationsPull:
-  - 
-  - 
+  - 1
+  - 2
   CurrentLocation: 0

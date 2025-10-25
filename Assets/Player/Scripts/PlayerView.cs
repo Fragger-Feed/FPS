@@ -6,33 +6,33 @@ public class PlayerView : MonoBehaviour
 {
     // == Objects ==
     [SerializeField] private Camera CameraObj;
+    [SerializeField] private Transform forward;
 
     // == Configs ==
     [SerializeField] private float sensitivity;
-
     [SerializeField] private Vector3 offset;
-    [SerializeField] private Transform forward;
+
 
     // Hash
-    private float x = 0;
+    public Vector2 Hash = Vector2.zero;
 
-    private float y = 0;
 
-    // == Start ==
-    private void Start()
-    {
+
+    // == START ==
+    private void Start() {
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+
     // == UPDATE ==
-    public void UPDATE_View(Vector3 InputData, Vector3 playerPos)
-    {
+    public void UPDATE_View(Vector3 InputData, Vector3 playerPos) {
+
         CameraObj.transform.position = playerPos + offset;
 
-        x -= InputData.y * sensitivity;
-        y += InputData.x * sensitivity;
-        x = Mathf.Clamp(x, -90, 90);
-        CameraObj.transform.localRotation = Quaternion.Euler(x, y, 0);
-        forward.localRotation = Quaternion.Euler(0, y, 0);
+        Hash.x = Mathf.Clamp(Hash.x - InputData.y * sensitivity, -90, 90);
+        Hash.y += InputData.x * sensitivity;
+
+        CameraObj.transform.localRotation = Quaternion.Euler(Hash.x, Hash.y, 0);
+        forward.localRotation = Quaternion.Euler(0, Hash.y, 0);
     }
 }

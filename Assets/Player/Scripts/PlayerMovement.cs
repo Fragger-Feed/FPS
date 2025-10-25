@@ -31,7 +31,6 @@ public class PlayerMovement : MonoBehaviour
         Vector3 finalVelocity = new Vector3(newVelocity.x, currentVelocity.y, newVelocity.z);
 
         RB.linearVelocity = finalVelocity;
-        //print(new Vector3(RB.linearVelocity.x,0,RB.linearVelocity.z).magnitude);
     }
 
     public IEnumerator Dash(Vector2 InputData)
