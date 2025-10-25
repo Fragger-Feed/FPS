@@ -1079,7 +1079,6 @@ GameObject:
   - component: {fileID: 361129538}
   - component: {fileID: 361129539}
   - component: {fileID: 361129545}
-  - component: {fileID: 361129546}
   - component: {fileID: 361129548}
   m_Layer: 0
   m_Name: Player
@@ -1102,7 +1101,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   playerMovement: {fileID: 361129539}
   playerView: {fileID: 361129545}
-  physics: {fileID: 361129548}
+  playerPhysics: {fileID: 361129548}
+  RigidBodyC: {fileID: 361129544}
+  playerCollider: {fileID: 361129540}
+  ForwardObj: {fileID: 466002037}
+  CameraObj: {fileID: 330585545}
   gcSize: {x: 0.15, y: 0.15, z: 0.15}
   gcoffset: {x: 0, y: -1.28, z: 0}
   ground:
@@ -1121,11 +1124,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 801decfacae76afffb15cc4e934fa68e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  RB: {fileID: 361129544}
-  Forward: {fileID: 466002037}
+  PlayerC: {fileID: 361129538}
   data: {fileID: 11400000, guid: dadc20dac29451a40b592d0d4f1eaa74, type: 2}
+  speed: 20
+  acceleration: 3
+  timeToApex: 0.61
+  jumpHeight: 6.78
+  dashTime: 0.1
+  dashSpeed: 50
+  currentDirection: {x: 0, y: 0, z: 0}
   isDashing: 0
   isJumping: 0
+  dashTimer: 0
+  jumpTimer: 0
 --- !u!136 &361129540
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1204,22 +1215,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 679b8af3d9c08064ca8f9eb86f56fa50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerView
-  CameraObj: {fileID: 330585545}
+  PlayerC: {fileID: 361129538}
   sensitivity: 0.3
   offset: {x: 0, y: 0.9, z: 0}
-  forward: {fileID: 466002038}
---- !u!114 &361129546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 361129537}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60fa7b750d5fda049a9a5bfc6f0567c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAbilities
+  Hash: {x: 0, y: 0}
 --- !u!114 &361129548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1232,9 +1231,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50973a125adbfdf4894a151e16abe233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPhysics
-  data: {fileID: 11400000, guid: dadc20dac29451a40b592d0d4f1eaa74, type: 2}
-  rb: {fileID: 361129544}
-  playerCollider: {fileID: 361129540}
+  PlayerC: {fileID: 361129538}
+  GravityValue: -36.44181
+  gcSize: {x: 0.15, y: 0.15, z: 0.15}
+  gcoffset: {x: 0, y: -1.28, z: 0}
+  ground:
+    serializedVersion: 2
+    m_Bits: 8
+  stickTimer: 0
 --- !u!1 &396318566
 GameObject:
   m_ObjectHideFlags: 0

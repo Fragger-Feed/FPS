@@ -4,16 +4,18 @@ using UnityEngine.Windows;
 
 public class PlayerView : MonoBehaviour
 {
-    // == Objects ==
-    [SerializeField] private Camera CameraObj;
-    [SerializeField] private Transform forward;
+    // == Data ==
+    [Header("Data")]
+    [SerializeField] private PlayerController PlayerC;
 
     // == Configs ==
+    [Header("Configs")]
     [SerializeField] private float sensitivity;
     [SerializeField] private Vector3 offset;
 
 
     // Hash
+    [Header("Hash")]
     public Vector2 Hash = Vector2.zero;
 
 
@@ -25,14 +27,15 @@ public class PlayerView : MonoBehaviour
 
 
     // == UPDATE ==
-    public void UPDATE_View(Vector3 InputData, Vector3 playerPos) {
+    public void UPDATE_View() {
+        Vector3 InputData = PlayerC.ControllingData.Player.Look.ReadValue<Vector2>();
 
-        CameraObj.transform.position = playerPos + offset;
+        PlayerC.CameraObj.transform.position = transform.position + offset;
 
         Hash.x = Mathf.Clamp(Hash.x - InputData.y * sensitivity, -90, 90);
         Hash.y += InputData.x * sensitivity;
 
-        CameraObj.transform.localRotation = Quaternion.Euler(Hash.x, Hash.y, 0);
-        forward.localRotation = Quaternion.Euler(0, Hash.y, 0);
+        PlayerC.CameraObj.transform.localRotation = Quaternion.Euler(Hash.x, Hash.y, 0);
+        PlayerC.ForwardObj.transform.localRotation = Quaternion.Euler(0, Hash.y, 0);
     }
 }

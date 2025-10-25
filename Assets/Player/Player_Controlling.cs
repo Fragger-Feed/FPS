@@ -5,92 +5,46 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // == Player Scripts ==
-    [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private PlayerView playerView;
-    [SerializeField] private PlayerPhysics physics;
-
     // == Data ==
-    [SerializeField] private Controlling_Data ControllingData;
+    [Header("Data")]
+    [SerializeField] public Controlling_Data ControllingData;
 
-    [SerializeField] private Vector3 gcSize;
+    // == Player Scripts ==
+    [Header("Player Scripts")]
+    [SerializeField] public PlayerMovement playerMovement;
+    [SerializeField] public PlayerView playerView;
+    [SerializeField] public PlayerPhysics playerPhysics;
 
-    [SerializeField] private Vector3 gcoffset;
+    // == Components ==
+    [Header("Components")]
+    public Rigidbody RigidBodyC;
+    public CapsuleCollider playerCollider;
 
-    [SerializeField] private LayerMask ground;
 
-    public bool grounded;
+    // == Objects ==
+    [Header("Objects")]
+    public GameObject ForwardObj;
+    public Camera CameraObj;
 
-    //Timers
 
-    float dashTimer;
-    float jumpTimer;
 
-    float stickTimer;
+    // == Start ==
+    private void Awake() { ControllingData = new Controlling_Data(); }
+    private void OnEnable() { ControllingData.Enable(); }
 
-    //Input
 
-    Vector2 movementInput;
 
-    private void Awake()
-    {
-        ControllingData = new Controlling_Data();
+    // == Update ==
+    private void Update() {
+        playerView.UPDATE_View();
+        playerPhysics.UPDATE_Physics();
+        playerMovement.UPDATE_Movement();
     }
 
-    private void OnEnable()
-    {
-        ControllingData.Enable();
+    private void FixedUpdate() {
+        playerMovement.FIXED_UPDATE_Movement();
+        playerPhysics.FIXED_UPDATE_Physics();
     }
 
-    private void Update()
-    {
-        jumpTimer -= Time.deltaTime;
-        dashTimer -= Time.deltaTime;
-        stickTimer -= Time.deltaTime;
-
-        movementInput = ControllingData.Player.Move.ReadValue<Vector2>();
-
-        groundCheck();
-        playerView.UPDATE_View(ControllingData.Player.Look.ReadValue<Vector2>(), transform.position);
-        if (ControllingData.Player.Jump.WasPressedThisFrame() && grounded && jumpTimer < 0)
-        {
-            playerMovement.Jump();
-            jumpTimer = 0.1f;
-            stickTimer = 0.1f;
-        }
-        if (ControllingData.Player.Dash.WasPressedThisFrame() && dashTimer < 0)
-        {
-            StartCoroutine(playerMovement.Dash(movementInput));
-            stickTimer = 0.1f;
-            dashTimer = 0.5f;
-        }
-        
-    }
-
-    private void FixedUpdate()
-    {
-        playerMovement.UPDATE_Movement(movementInput);
-        if (stickTimer <= 0)
-        {
-            physics.StickToTheGround(ground);
-        } 
-        physics.PhysicsUpdate(grounded, ControllingData);
-    }
-
-    private void groundCheck()
-    {
-        if (Physics.CheckBox(transform.position + gcoffset, gcSize, new Quaternion(0, 0, 0, 0), ground))
-        {
-            grounded = true;
-            playerMovement.isJumping = false;
-        }
-
-        else grounded = false;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position + gcoffset, gcSize * 2);
-    }
+    
 }
