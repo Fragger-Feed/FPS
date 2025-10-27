@@ -111,6 +111,7 @@ public class PlayerPhysics : MonoBehaviour
             RaycastHit raycastHit;
             if (Physics.Raycast(transform.position, -transform.up, out raycastHit, playerFeet + 1f, ground))
             {
+                
                 Vector3 targetPos = new Vector3(transform.position.x, transform.position.y - raycastHit.distance + playerFeet, transform.position.z);
                 transform.position = Vector3.MoveTowards(transform.position, targetPos,raycastHit.distance * Time.deltaTime * 10);
 
