@@ -34,7 +34,10 @@ public class PlayerPhysics : MonoBehaviour
     {
         stickTimer -= Time.deltaTime;
         groundCheck();
-
+        if (stickTimer <= 0)
+        {
+            StickToTheGround(ground);
+        }
     }
     public void FIXED_UPDATE_Physics()
     {
@@ -45,10 +48,7 @@ public class PlayerPhysics : MonoBehaviour
             Gravity(gravity);
 
 
-        if (stickTimer <= 0)
-        {
-            StickToTheGround(ground);
-        }
+
     }
 
 
@@ -111,12 +111,16 @@ public class PlayerPhysics : MonoBehaviour
             RaycastHit raycastHit;
             if (Physics.Raycast(transform.position, -transform.up, out raycastHit, playerFeet + 1f, ground))
             {
-                
-                Vector3 targetPos = new Vector3(transform.position.x, transform.position.y - raycastHit.distance + playerFeet, transform.position.z);
-                transform.position = Vector3.MoveTowards(transform.position, targetPos,raycastHit.distance * Time.deltaTime * 10);
 
-                //if (rb.linearVelocity.y > 0) rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+                Vector3 targetPos = new Vector3(transform.position.x, transform.position.y - raycastHit.distance + playerFeet, transform.position.z);
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, raycastHit.distance * Time.deltaTime * 10);
+
+                //if (PlayerC.RigidBodyC.linearVelocity.y > 0) PlayerC.RigidBodyC.linearVelocity = new Vector3(PlayerC.RigidBodyC.linearVelocity.x, 0f, PlayerC.RigidBodyC.linearVelocity.z);
             }
+        }
+        if(grounded && PlayerC.ControllingData.Player.Move.ReadValue<Vector2>() == Vector2.zero)
+        {
+            PlayerC.RigidBodyC.linearVelocity = new Vector3(PlayerC.RigidBodyC.linearVelocity.x, 0f, PlayerC.RigidBodyC.linearVelocity.z);
         }
         if (PlayerC.RigidBodyC.linearVelocity.x == 0 && PlayerC.RigidBodyC.linearVelocity.z == 0)
         {
@@ -127,6 +131,21 @@ public class PlayerPhysics : MonoBehaviour
 
 
     }
+    
+
+    /*
+        public void StickToTheGround(LayerMask ground)
+    {
+        float num = (PlayerC.playerCollider.height / 2f - PlayerC.playerCollider.center.y) * transform.lossyScale.y;
+        if (PlayerC.RigidBodyC.linearVelocity != Vector3.zero && Physics.Raycast(transform.position, -transform.up, out var hitInfo3, num + 1f, ground))
+        {
+            Vector3 target = new Vector3(transform.position.x, transform.position.y - hitInfo3.distance + num, transform.position.z);
+            transform.position = Vector3.MoveTowards(transform.position, target, hitInfo3.distance * Time.deltaTime * 10f);
+            if (PlayerC.RigidBodyC.linearVelocity.y > 0f)
+                PlayerC.RigidBodyC.linearVelocity = new Vector3(PlayerC.RigidBodyC.linearVelocity.x, 0f, PlayerC.RigidBodyC.linearVelocity.z); 
+        }
+    }
+    */
 
     private void Gravity(float gravity)
     {
