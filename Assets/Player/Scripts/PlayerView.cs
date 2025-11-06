@@ -32,8 +32,12 @@ public class PlayerView : MonoBehaviour
 
     // == UPDATE ==
     public void UPDATE_View() {
-        CameraRotate();
         UpdateInteractions();
+    }
+
+    public void late_Update_View()
+    {
+        CameraRotate();
     }
 
 

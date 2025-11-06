@@ -41,6 +41,11 @@ public class PlayerController : MonoBehaviour
         playerMovement.UPDATE_Movement();
     }
 
+    private void LateUpdate()
+    {
+        playerView.late_Update_View();
+    }
+
     private void FixedUpdate() {
         playerMovement.FIXED_UPDATE_Movement();
         playerPhysics.FIXED_UPDATE_Physics();
