@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b28339300ef386b48a7bf4e08387aafc, type: 3}
   m_Name: LocationData_1
   m_EditorClassIdentifier: Assembly-CSharp::LocationData
-  SceneID: 1
+  SceneID: 3
   MaxParts: 4
   CurrentParts: 1
