@@ -2,16 +2,17 @@ using UnityEngine;
 
 public class NPC_Object : MonoBehaviour
 {
-    public InteractionObject interactionObject;
+    [SerializeField] private GameObject dialogCameraHolder;
+    [SerializeField] private PlayerController PlayerC;
+    public bool inDialogWith;
 
-    void Start()
-    {
-        
+
+
+    public void StartDialog() {
+        inDialogWith = true;
+        PlayerC.playerView.CameraHolder = dialogCameraHolder;
+        PlayerC.playerView.toHolder = true;
+        print("AAAAAAAAAAA");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

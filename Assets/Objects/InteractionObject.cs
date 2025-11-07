@@ -1,35 +1,23 @@
 using UnityEngine;
+using UnityEngine.Events;
+
 
 public class InteractionObject : MonoBehaviour
 {
-    public delegate void fun();
-    public fun Interaction_ON_Function;
-    public fun Interaction_OFF_Function;
-    public fun Interaction_START_Function;
-    public bool interactionAbility = true;
+
+    public UnityEvent Interaction_ON_Function;
+    public UnityEvent Interaction_OFF_Function;
+    public UnityEvent Interaction_START_Function;
 
 
 
-
-    void Interaction_ON() {
-        print(gameObject.name + " interaction on!");
+    public void Interaction_ON() {
+        Interaction_ON_Function?.Invoke();
     }
-    void Interaction_OFF() {
-        print(gameObject.name + " interaction off!");
+    public void Interaction_OFF() {
+        Interaction_OFF_Function?.Invoke();
     }
-    void Interaction_START() {
-        print(gameObject.name + " interaction start!");
-        interactionAbility = false;
+    public void Interaction_START() {
+        Interaction_START_Function?.Invoke();
     }
-
-
-
-    public void Start()
-    {
-        Interaction_ON_Function = Interaction_ON;
-        Interaction_OFF_Function = Interaction_OFF;
-        Interaction_START_Function = Interaction_START;
-    }
-
-
 }
