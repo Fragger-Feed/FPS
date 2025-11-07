@@ -580,6 +580,42 @@ Transform:
   m_Children: []
   m_Father: {fileID: 652303103}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &253903219
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 253903220}
+  m_Layer: 5
+  m_Name: 'BasicMenu '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &253903220
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253903219}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 342894691}
+  m_Father: {fileID: 2141936060}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &265065236
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,6 +727,85 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 265065236}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &342894690
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 342894691}
+  - component: {fileID: 342894693}
+  - component: {fileID: 342894692}
+  m_Layer: 5
+  m_Name: Title
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &342894691
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342894690}
+  m_LocalRotation: {x: 0, y: 0, z: 0.008726558, w: 0.999962}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 253903220}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -642, y: 736}
+  m_SizeDelta: {x: 1600, y: 300}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &342894692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342894690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.12517802, g: 0.9150943, b: 0.25140858, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 150
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 256
+    m_Alignment: 3
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Menu
+--- !u!222 &342894693
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342894690}
+  m_CullTransparentMesh: 1
 --- !u!1 &381802595
 GameObject:
   m_ObjectHideFlags: 0
@@ -1817,12 +1932,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d8cc3616f374624eb882386159f8408, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoxButton
-  Save1Menu: {fileID: 1324809198}
-  Save2Menu: {fileID: 392668526}
-  Save3Menu: {fileID: 1937261565}
-  SettingsMenu: {fileID: 914020560}
-  QuitMenu: {fileID: 1839924609}
-  ID: 0
+  menuController: {fileID: 2141936061}
+  ID: Save1
   highlightColor: {r: 0.015686274, g: 1, b: 0.44471386, a: 1}
 --- !u!1 &1100770178
 GameObject:
@@ -1948,12 +2059,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d8cc3616f374624eb882386159f8408, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoxButton
-  Save1Menu: {fileID: 1324809198}
-  Save2Menu: {fileID: 392668526}
-  Save3Menu: {fileID: 1937261565}
-  SettingsMenu: {fileID: 914020560}
-  QuitMenu: {fileID: 1839924609}
-  ID: 2
+  menuController: {fileID: 2141936061}
+  ID: Save3
   highlightColor: {r: 0.015686274, g: 1, b: 0.44471386, a: 1}
 --- !u!1 &1135701599
 GameObject:
@@ -2079,12 +2186,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d8cc3616f374624eb882386159f8408, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoxButton
-  Save1Menu: {fileID: 1324809198}
-  Save2Menu: {fileID: 392668526}
-  Save3Menu: {fileID: 1937261565}
-  SettingsMenu: {fileID: 914020560}
-  QuitMenu: {fileID: 1839924609}
-  ID: 4
+  menuController: {fileID: 2141936061}
+  ID: Quit
   highlightColor: {r: 1, g: 0.044305433, b: 0.015686274, a: 1}
 --- !u!1 &1185055851
 GameObject:
@@ -3233,12 +3336,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d8cc3616f374624eb882386159f8408, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoxButton
-  Save1Menu: {fileID: 1324809198}
-  Save2Menu: {fileID: 392668526}
-  Save3Menu: {fileID: 1937261565}
-  SettingsMenu: {fileID: 914020560}
-  QuitMenu: {fileID: 1839924609}
-  ID: 3
+  menuController: {fileID: 2141936061}
+  ID: Settings
   highlightColor: {r: 1, g: 0.015686274, b: 0.9484514, a: 1}
 --- !u!1 &1846098907
 GameObject:
@@ -3722,12 +3821,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d8cc3616f374624eb882386159f8408, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoxButton
-  Save1Menu: {fileID: 1324809198}
-  Save2Menu: {fileID: 392668526}
-  Save3Menu: {fileID: 1937261565}
-  SettingsMenu: {fileID: 914020560}
-  QuitMenu: {fileID: 1839924609}
-  ID: 1
+  menuController: {fileID: 2141936061}
+  ID: Save2
   highlightColor: {r: 0.015686274, g: 1, b: 0.44471386, a: 1}
 --- !u!1 &2141936056
 GameObject:
@@ -3741,8 +3836,9 @@ GameObject:
   - component: {fileID: 2141936059}
   - component: {fileID: 2141936058}
   - component: {fileID: 2141936057}
+  - component: {fileID: 2141936061}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: MenuController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3823,11 +3919,12 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 914020561}
-  - {fileID: 1839924610}
+  - {fileID: 253903220}
   - {fileID: 1324809199}
   - {fileID: 392668527}
   - {fileID: 1937261566}
+  - {fileID: 914020561}
+  - {fileID: 1839924610}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3835,6 +3932,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2141936061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141936056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9acbc83b48799194ab8d91f97deb8954, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuController
+  CurrentMenuID: Basic
+  BasicMenu: {fileID: 253903219}
+  Save1Menu: {fileID: 1324809198}
+  Save2Menu: {fileID: 392668526}
+  Save3Menu: {fileID: 1937261565}
+  SettingsMenu: {fileID: 914020560}
+  QuitMenu: {fileID: 1839924609}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
