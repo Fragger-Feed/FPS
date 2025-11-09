@@ -11,34 +11,14 @@ public class BoxButton : MonoBehaviour
     public Color highlightColor = Color.yellow;
 
     // == Hash ==
-    private Color originalColor;
-    private Renderer rend;
+    public Color originalColor;
+    public Renderer rend;
+
+    public MenuController.states BoxState;
 
 
 
-    // == Start ==
-    void Start() {
-        rend = GetComponent<Renderer>();
-        originalColor = rend.material.color;
-    }
 
-
-
-    // == Update ==
-    void Update() {
-        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit)) {
-            if (hit.collider.gameObject == gameObject) {
-                rend.material.color = highlightColor;
-                if (Mouse.current.leftButton.wasPressedThisFrame) {
-                    menuController.TryToOpenMenu(ID);
-                }
-            }
-            else { rend.material.color = originalColor; }
-        }
-        else { rend.material.color = originalColor; }
-    }
 
 
 

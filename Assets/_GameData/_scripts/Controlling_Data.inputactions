@@ -50,6 +50,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Debug",
+                    "type": "Button",
+                    "id": "987f4045-2dee-43c8-92c0-5854ece6bc1d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -292,6 +301,45 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ad955c41-b92b-40ce-950e-b7657e6c95c7",
+                    "path": "<Keyboard>/backslash",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Debug",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Menu",
+            "id": "df8a23ec-3dbb-450c-ad63-ff4eaa169ba1",
+            "actions": [
+                {
+                    "name": "Go back",
+                    "type": "Button",
+                    "id": "8517d083-dacb-4168-acf8-6605a624da15",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "7efcecb3-7c98-4c0c-a52c-08b2970aef7d",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Go back",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

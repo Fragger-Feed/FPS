@@ -1,29 +1,81 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MenuController : MonoBehaviour
 {
     public string CurrentMenuID = "Basic";
 
-    public GameObject BasicMenu;
-    public GameObject Save1Menu;
-    public GameObject Save2Menu;
-    public GameObject Save3Menu;
-    public GameObject SettingsMenu;
-    public GameObject QuitMenu;
+    public List<GameObject> gameObjects = new List<GameObject>();
+    BoxButton box;
+
+    public enum states { Game, Settings, LevelSelect, Quit, Idle };
+
+    public states state = states.Idle;
+
+    public Animator animator;
+
+    Controlling_Data controllingData;
+
+    private void Awake() { controllingData = new Controlling_Data(); }
+    private void OnEnable() { controllingData.Enable(); }
+
+    void Update()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (gameObjects.Contains(hit.collider.gameObject))
+            {
+                box = hit.collider.gameObject.GetComponent<BoxButton>();
+                if (Mouse.current.leftButton.wasPressedThisFrame)
+                {
+                    state = box.BoxState;
+
+                }
+                print(hit.collider.gameObject);
+            }
+
+        }
+
+        switch (state)
+        {
+            case states.Game:
+                print("Game");
+                break;
+            case states.Settings:
+                animator.SetTrigger("Close");
+                if (controllingData.Menu.Goback.WasPressedThisFrame())
+                {
+                    state = states.Idle;
+                }
+                print("Settings");
+                break;
+            case states.LevelSelect:
+                print("Level select");
+                break;
+            case states.Quit:
+                animator.SetTrigger("Close");
+                if (controllingData.Menu.Goback.WasPressedThisFrame())
+                {
+                    state = states.Idle;
+                }
+                print("Quit");
+                break;
+            case states.Idle:
+                animator.SetTrigger("Idle");
+                print("Idle");
+                break;
+
+        }
+
+    }
+
+
 
     public void TryToOpenMenu(string menuName) {
-        BasicMenu.SetActive(false);
-        Save1Menu.SetActive(false);
-        Save2Menu.SetActive(false);
-        Save3Menu.SetActive(false);
-        SettingsMenu.SetActive(false);
-        QuitMenu.SetActive(false);
-
-        if (menuName == "Basic") { BasicMenu.SetActive(true); }
-        if (menuName == "Save1") { Save1Menu.SetActive(true); }
-        if (menuName == "Save2") { Save2Menu.SetActive(true); }
-        if (menuName == "Save3") { Save3Menu.SetActive(true); }
-        if (menuName == "Settings") { SettingsMenu.SetActive(true); }
-        if (menuName == "Quit") { QuitMenu.SetActive(true); }
+        print(menuName);
     }
 }
