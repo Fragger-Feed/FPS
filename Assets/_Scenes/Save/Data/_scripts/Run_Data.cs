@@ -12,23 +12,39 @@ public class Run_Data : ScriptableObject {
 
 
 
+   
+
     //
     public void RunStart() {
-        CurrentLocation = -1;
         Debug.Log("RUN START");
+        CurrentLocation = -1;
+        LoadNewLocationScene();
     }
 
     public void RunEnd() {
         Debug.Log("RUN END");
+        SceneManager.LoadScene(1);
+
     }
 
 
     //
     public void LoadNewLocationScene() {
+
+        // Increase Location Number
         CurrentLocation++;
         Debug.Log("LOAD LOCATION" + CurrentLocation.ToString());
 
-        SceneManager.LoadScene(Locations.LocationsData[LocationsPull[CurrentLocation - 1]].SceneID);
-        if (CurrentLocation >= LocationsPull.Count - 1) { RunEnd(); }
+        // Disable Controller
+        GameObject.Find("Player").GetComponent<PlayerController>().ControllingData.Disable();
+
+
+        // End
+        if (CurrentLocation >= LocationsPull.Count) { RunEnd(); }
+        // New Location
+        else {
+            SceneManager.LoadScene(Locations.LocationsData[LocationsPull[CurrentLocation]].SceneID);
+
+        }
     }
 }
