@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,6 +8,7 @@ public class MenuController : MonoBehaviour
     public string CurrentMenuID = "Basic";
 
     public List<GameObject> gameObjects = new List<GameObject>();
+    public List<GameObject> menus = new List<GameObject>();
     BoxButton box;
 
     public enum states { Game, Settings, LevelSelect, Quit, Idle };
@@ -46,6 +47,7 @@ public class MenuController : MonoBehaviour
                 print("Game");
                 break;
             case states.Settings:
+                animator.ResetTrigger("Idle");
                 animator.SetTrigger("Close");
                 if (controllingData.Menu.Goback.WasPressedThisFrame())
                 {
@@ -54,9 +56,12 @@ public class MenuController : MonoBehaviour
                 print("Settings");
                 break;
             case states.LevelSelect:
+                animator.ResetTrigger("Idle");
+                animator.SetTrigger("Select");
                 print("Level select");
                 break;
             case states.Quit:
+                animator.ResetTrigger("Idle");
                 animator.SetTrigger("Close");
                 if (controllingData.Menu.Goback.WasPressedThisFrame())
                 {
@@ -65,6 +70,8 @@ public class MenuController : MonoBehaviour
                 print("Quit");
                 break;
             case states.Idle:
+                animator.ResetTrigger("Close");
+                animator.ResetTrigger("Select");
                 animator.SetTrigger("Idle");
                 print("Idle");
                 break;
@@ -75,7 +82,4 @@ public class MenuController : MonoBehaviour
 
 
 
-    public void TryToOpenMenu(string menuName) {
-        print(menuName);
-    }
 }
