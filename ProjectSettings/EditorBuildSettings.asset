@@ -6,20 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Additional/TestScene.unity
-    guid: fe3610c9c2c7e9046bc461514e858b6b
-  - enabled: 1
-    path: Assets/_Scenes/Menu/MainMenu.unity
+    path: Assets/Main Menu/MainMenu.unity
     guid: 43a826485946d6045a68cd29d80f4a43
   - enabled: 1
-    path: Assets/_Scenes/Save/Hub.unity
+    path: Assets/Gameplay/_Static/Hub.unity
     guid: 5dfe6e2109d26854bbabd38e8f407863
   - enabled: 1
-    path: Assets/_Scenes/Save/Locations/1/1.unity
+    path: Assets/Gameplay/_Static/Locations/Primary processing shop/Scene.unity
     guid: e12dba8abf4813f43bb21752f4c0e133
   - enabled: 1
-    path: Assets/_Scenes/Save/Locations/2/2.unity
-    guid: 25d785eb310247c44a56753e1ab227be
+    path: Assets/Gameplay/_Static/Locations/Burried district/Scene.unity
+    guid: 25bdcb94c87d49e4cbacda616db17204
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
