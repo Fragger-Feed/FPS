@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b28339300ef386b48a7bf4e08387aafc, type: 3}
-  m_Name: LocationData_2
+  m_Name: Data
   m_EditorClassIdentifier: Assembly-CSharp::LocationData
-  SceneID: 3
-  MaxParts: 2
+  SceneID: 2
+  MaxParts: 4
   CurrentParts: 1
