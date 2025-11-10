@@ -58,6 +58,10 @@ public class MenuController : MonoBehaviour
             case states.LevelSelect:
                 animator.ResetTrigger("Idle");
                 animator.SetTrigger("Select");
+                if (controllingData.Menu.Goback.WasPressedThisFrame())
+                {
+                    state = states.Idle;
+                }
                 print("Level select");
                 break;
             case states.Quit:
