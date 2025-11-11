@@ -26,20 +26,7 @@ public class MenuController : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
-        {
-            if (gameObjects.Contains(hit.collider.gameObject))
-            {
-                box = hit.collider.gameObject.GetComponent<BoxButton>();
-                if (Mouse.current.leftButton.wasPressedThisFrame)
-                {
-                    state = box.BoxState;
-
-                }
-                print(hit.collider.gameObject);
-            }
-
-        }
+        Physics.Raycast(ray, out hit);
 
         switch (state)
         {
@@ -77,6 +64,16 @@ public class MenuController : MonoBehaviour
                 animator.ResetTrigger("Close");
                 animator.ResetTrigger("Select");
                 animator.SetTrigger("Idle");
+                if (gameObjects.Contains(hit.collider.gameObject))
+                {
+                    box = hit.collider.gameObject.GetComponent<BoxButton>();
+                    if (Mouse.current.leftButton.wasPressedThisFrame)
+                    {
+                        state = box.BoxState;
+
+                    }
+                    print(hit.collider.gameObject);
+                }
                 print("Idle");
                 break;
 
