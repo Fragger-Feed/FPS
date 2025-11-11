@@ -22,10 +22,11 @@ public class MenuController : MonoBehaviour
     private void Awake() { controllingData = new Controlling_Data(); }
     private void OnEnable() { controllingData.Enable(); }
 
+    RaycastHit hit;
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-        RaycastHit hit;
+
         Physics.Raycast(ray, out hit);
 
         switch (state)
