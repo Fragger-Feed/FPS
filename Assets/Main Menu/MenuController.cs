@@ -36,7 +36,7 @@ public class MenuController : MonoBehaviour
                     state = box.BoxState;
 
                 }
-                print(hit.collider.gameObject);
+                //print(hit.collider.gameObject);
             }
 
         }
@@ -44,7 +44,7 @@ public class MenuController : MonoBehaviour
         switch (state)
         {
             case states.Game:
-                print("Game");
+                //print("Game");
                 break;
             case states.Settings:
                 animator.ResetTrigger("Idle");
@@ -53,7 +53,7 @@ public class MenuController : MonoBehaviour
                 {
                     state = states.Idle;
                 }
-                print("Settings");
+                //print("Settings");
                 break;
             case states.LevelSelect:
                 animator.ResetTrigger("Idle");
@@ -62,7 +62,7 @@ public class MenuController : MonoBehaviour
                 {
                     state = states.Idle;
                 }
-                print("Level select");
+                //print("Level select");
                 break;
             case states.Quit:
                 animator.ResetTrigger("Idle");
@@ -71,13 +71,13 @@ public class MenuController : MonoBehaviour
                 {
                     state = states.Idle;
                 }
-                print("Quit");
+                //print("Quit");
                 break;
             case states.Idle:
                 animator.ResetTrigger("Close");
                 animator.ResetTrigger("Select");
                 animator.SetTrigger("Idle");
-                print("Idle");
+                //print("Idle");
                 break;
 
         }
