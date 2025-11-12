@@ -16,4 +16,5 @@ MonoBehaviour:
   LocationsPull:
   - Burried district
   - Primary processing shop
-  CurrentLocation: 2
+  - Shelter of the 2s
+  CurrentLocation: 3
