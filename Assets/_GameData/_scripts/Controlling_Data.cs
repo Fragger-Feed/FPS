@@ -145,6 +145,15 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""WeaponSlot_Plus"",
+                    ""type"": ""Button"",
+                    ""id"": ""4d2ead0f-7ba8-4f49-a582-1e70759b0e20"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -400,6 +409,39 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
                     ""action"": ""Debug"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""cfeaa86e-629c-4bbe-90a0-f815a9e4f58c"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WeaponSlot_Plus"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""77319992-145d-4a85-a48a-e82ed7fff9a5"",
+                    ""path"": ""<Mouse>/scroll/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WeaponSlot_Plus"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""413ebea1-4279-4f6a-bb7d-1bd9d5db6e66"",
+                    ""path"": ""<Mouse>/scroll/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WeaponSlot_Plus"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -503,6 +545,7 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Debug = m_Player.FindAction("Debug", throwIfNotFound: true);
+        m_Player_WeaponSlot_Plus = m_Player.FindAction("WeaponSlot_Plus", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Goback = m_Menu.FindAction("Go back", throwIfNotFound: true);
@@ -593,6 +636,7 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Debug;
+    private readonly InputAction m_Player_WeaponSlot_Plus;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -628,6 +672,10 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Debug".
         /// </summary>
         public InputAction @Debug => m_Wrapper.m_Player_Debug;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/WeaponSlot_Plus".
+        /// </summary>
+        public InputAction @WeaponSlot_Plus => m_Wrapper.m_Player_WeaponSlot_Plus;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -672,6 +720,9 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
             @Debug.started += instance.OnDebug;
             @Debug.performed += instance.OnDebug;
             @Debug.canceled += instance.OnDebug;
+            @WeaponSlot_Plus.started += instance.OnWeaponSlot_Plus;
+            @WeaponSlot_Plus.performed += instance.OnWeaponSlot_Plus;
+            @WeaponSlot_Plus.canceled += instance.OnWeaponSlot_Plus;
         }
 
         /// <summary>
@@ -701,6 +752,9 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
             @Debug.started -= instance.OnDebug;
             @Debug.performed -= instance.OnDebug;
             @Debug.canceled -= instance.OnDebug;
+            @WeaponSlot_Plus.started -= instance.OnWeaponSlot_Plus;
+            @WeaponSlot_Plus.performed -= instance.OnWeaponSlot_Plus;
+            @WeaponSlot_Plus.canceled -= instance.OnWeaponSlot_Plus;
         }
 
         /// <summary>
@@ -944,6 +998,13 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDebug(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "WeaponSlot_Plus" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnWeaponSlot_Plus(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Menu" which allows adding and removing callbacks.
