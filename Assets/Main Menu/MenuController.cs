@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -59,7 +60,6 @@ public class MenuController : MonoBehaviour
                 {
                     state = states.Idle;
                 }
-                //print("Quit");
                 break;
             case states.Idle:
                 animator.ResetTrigger("Close");
@@ -75,7 +75,8 @@ public class MenuController : MonoBehaviour
                     }
                     print(hit.collider.gameObject);
                 }
-                print("Idle");
+                
+                //print("Idle");
                 break;
 
         }
