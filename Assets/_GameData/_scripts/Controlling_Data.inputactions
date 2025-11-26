@@ -52,9 +52,54 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "UseArtifact_1",
+                    "type": "Button",
+                    "id": "07c4afd0-f88a-460f-930a-8edd47974da6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UseArtifact_2",
+                    "type": "Button",
+                    "id": "e72cd90a-9217-4ed4-be93-a9359043e2f9",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UseArtifact_3",
+                    "type": "Button",
+                    "id": "d72e70e8-a5f0-49b4-96b4-e9ceec127388",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UseArtifact_4",
+                    "type": "Button",
+                    "id": "4c3c65bd-2b69-4e9a-adff-00bdd15d1797",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Debug",
                     "type": "Button",
                     "id": "987f4045-2dee-43c8-92c0-5854ece6bc1d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "WeaponSlot_Plus",
+                    "type": "Button",
+                    "id": "4d2ead0f-7ba8-4f49-a582-1e70759b0e20",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -306,6 +351,50 @@
                 },
                 {
                     "name": "",
+                    "id": "7d32a3a8-295b-4785-9c7d-dd704cc55111",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseArtifact_1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f4e6f751-e888-46e6-a396-9e8d3a29faa1",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseArtifact_2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2837436b-1100-41ce-ac51-562ff771123a",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseArtifact_3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "20159db1-9ce0-4b2c-9c57-a2f923cd7617",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseArtifact_4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "ad955c41-b92b-40ce-950e-b7657e6c95c7",
                     "path": "<Keyboard>/backslash",
                     "interactions": "",
@@ -314,6 +403,39 @@
                     "action": "Debug",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "cfeaa86e-629c-4bbe-90a0-f815a9e4f58c",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "WeaponSlot_Plus",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "77319992-145d-4a85-a48a-e82ed7fff9a5",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "WeaponSlot_Plus",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "413ebea1-4279-4f6a-bb7d-1bd9d5db6e66",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "WeaponSlot_Plus",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },
