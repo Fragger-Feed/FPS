@@ -73,7 +73,6 @@ public class MenuController : MonoBehaviour
                         state = box.BoxState;
 
                     }
-                    print(hit.collider.gameObject);
                 }
                 
                 //print("Idle");
@@ -83,6 +82,6 @@ public class MenuController : MonoBehaviour
 
     }
 
-
+    public void SetIdle() => state = states.Idle;
 
 }

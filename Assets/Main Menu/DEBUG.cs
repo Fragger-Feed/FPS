@@ -10,7 +10,12 @@ public class DEBUG : MonoBehaviour
     {
         if (data.Player.Debug.WasPressedThisFrame())
         {
-            print("ZALUPA");
+            _DEBUG();
         }
+    }
+
+    public void _DEBUG()
+    {
+        print("ZALUPA");
     }
 }
