@@ -15,6 +15,6 @@ MonoBehaviour:
   Locations: {fileID: 11400000, guid: e08ede0267409704c91c4f2cdd31b181, type: 2}
   LocationsPull:
   - Burried district
-  - Primary processing shop
   - Shelter of the 2s
+  - Primary processing shop
   CurrentLocation: 3
