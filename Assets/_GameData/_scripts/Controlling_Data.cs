@@ -190,6 +190,15 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""8d424d1f-d4b9-498e-973c-7f99d5e9c785"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -522,6 +531,17 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
                     ""action"": ""WeaponSlot_Plus"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a82272d4-04a1-47c9-a755-cee86b698454"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -630,6 +650,7 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
         m_Player_UseArtifact_4 = m_Player.FindAction("UseArtifact_4", throwIfNotFound: true);
         m_Player_Debug = m_Player.FindAction("Debug", throwIfNotFound: true);
         m_Player_WeaponSlot_Plus = m_Player.FindAction("WeaponSlot_Plus", throwIfNotFound: true);
+        m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Goback = m_Menu.FindAction("Go back", throwIfNotFound: true);
@@ -725,6 +746,7 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_UseArtifact_4;
     private readonly InputAction m_Player_Debug;
     private readonly InputAction m_Player_WeaponSlot_Plus;
+    private readonly InputAction m_Player_Escape;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -780,6 +802,10 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/WeaponSlot_Plus".
         /// </summary>
         public InputAction @WeaponSlot_Plus => m_Wrapper.m_Player_WeaponSlot_Plus;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Escape".
+        /// </summary>
+        public InputAction @Escape => m_Wrapper.m_Player_Escape;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -839,6 +865,9 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
             @WeaponSlot_Plus.started += instance.OnWeaponSlot_Plus;
             @WeaponSlot_Plus.performed += instance.OnWeaponSlot_Plus;
             @WeaponSlot_Plus.canceled += instance.OnWeaponSlot_Plus;
+            @Escape.started += instance.OnEscape;
+            @Escape.performed += instance.OnEscape;
+            @Escape.canceled += instance.OnEscape;
         }
 
         /// <summary>
@@ -883,6 +912,9 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
             @WeaponSlot_Plus.started -= instance.OnWeaponSlot_Plus;
             @WeaponSlot_Plus.performed -= instance.OnWeaponSlot_Plus;
             @WeaponSlot_Plus.canceled -= instance.OnWeaponSlot_Plus;
+            @Escape.started -= instance.OnEscape;
+            @Escape.performed -= instance.OnEscape;
+            @Escape.canceled -= instance.OnEscape;
         }
 
         /// <summary>
@@ -1161,6 +1193,13 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnWeaponSlot_Plus(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Escape" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEscape(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Menu" which allows adding and removing callbacks.
