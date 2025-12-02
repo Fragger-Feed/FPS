@@ -1,13 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.Composites;
-using UnityEngine.Windows;
-using static UnityEditor.Experimental.GraphView.GraphView;
+using UnityEngine.UI;
 
 public class PlayerInventory : MonoBehaviour
 {
+
+    public Weapons_Data Weapons;
+
+
     public Inventory_Data InventoryData;
-    public PlayerController Pcontroller;
+    public PlayerController PlayerController;
 
     public List<GameObject> WeaponSlots = new List<GameObject>();
 
@@ -19,7 +21,7 @@ public class PlayerInventory : MonoBehaviour
 
     void Update()
     {
-        float input = Pcontroller.ControllingData.Player.WeaponSlot_Plus.ReadValue<float>();
+        float input = PlayerController.ControllingData.Player.WeaponSlot_Plus.ReadValue<float>();
         if (input != 0) { SelectWeaponSlot(input); }
     }
 
@@ -33,11 +35,18 @@ public class PlayerInventory : MonoBehaviour
         for (int i = 0; i < WeaponSlots.Count; i++) {
             if (i != InventoryData.CurrentWeaponSlot) {
                 WeaponSlots[i].transform.localScale = new Vector3(0.8f, 0.8f, 1);
+                if (InventoryData.WeaponsList[InventoryData.CurrentWeaponSlot] != "")
+                {
+                    WeaponSlots[i].GetComponent<Image>().sprite = Weapons.WeaponsData[InventoryData.WeaponsList[InventoryData.CurrentWeaponSlot]].PassiveInventoryIcon;
+                }
             }
             else {
                 WeaponSlots[i].transform.localScale = new Vector3(1, 1, 1);
+                if (InventoryData.WeaponsList[InventoryData.CurrentWeaponSlot] != "")
+                {
+                    WeaponSlots[i].GetComponent<Image>().sprite = Weapons.WeaponsData[InventoryData.WeaponsList[InventoryData.CurrentWeaponSlot]].ActiveInventoryIcon;
+                }
             }
         }
-        ;
     }
 }

@@ -10,5 +10,6 @@ public class Weapons_Data : ScriptableObject {
 
 [Serializable]
 public class Weapon {
-    public Texture2D InventoryIcon;
+    public Sprite PassiveInventoryIcon;
+    public Sprite ActiveInventoryIcon;
 }
