@@ -13,21 +13,40 @@ public class UIForwarder : MonoBehaviour,
     IEndDragHandler
 {
     [SerializeField] GameObject target;
+    [SerializeField] ScrollRect targetScrollRect;
 
     Button localButton;
+    ScrollRect localScrollRect;
 
     private void Start()
     {
         localButton = GetComponent<Button>();
+        localScrollRect = GetComponent<ScrollRect>();
         if (localButton != null)
         {
             localButton.onClick.AddListener(OnClick);
         }
+
     }
 
     void OnClick()
     {
         target.GetComponent<Button>().onClick.Invoke();
+
+    }
+    /*    public void OnScroll(PointerEventData eventData)
+        {
+            if (targetScrollRect != null) 
+                targetScrollRect.OnScroll(eventData);
+        }*/
+
+
+    private void Update()
+    {
+        if (localScrollRect != null && targetScrollRect != null)
+        {
+            targetScrollRect.verticalNormalizedPosition = localScrollRect.verticalNormalizedPosition;
+        }
     }
 
     private void Send<T>(BaseEventData data, ExecuteEvents.EventFunction<T> func)

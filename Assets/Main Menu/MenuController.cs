@@ -9,7 +9,7 @@ public class MenuController : MonoBehaviour
     public string CurrentMenuID = "Basic";
 
     public List<GameObject> gameObjects = new List<GameObject>();
-    public List<GameObject> menus = new List<GameObject>();
+    public List<MenuPair> menus = new List<MenuPair>();
     BoxButton box;
 
     public enum states { Game, Settings, LevelSelect, Quit, Idle };
@@ -38,6 +38,7 @@ public class MenuController : MonoBehaviour
             case states.Settings:
                 animator.ResetTrigger("Idle");
                 animator.SetTrigger("Close");
+                menus[0].SetActive(true);
                 if (controllingData.Menu.Goback.WasPressedThisFrame())
                 {
                     state = states.Idle;
@@ -56,6 +57,7 @@ public class MenuController : MonoBehaviour
             case states.Quit:
                 animator.ResetTrigger("Idle");
                 animator.SetTrigger("Close");
+                menus[1].SetActive(true);
                 if (controllingData.Menu.Goback.WasPressedThisFrame())
                 {
                     state = states.Idle;
@@ -65,7 +67,11 @@ public class MenuController : MonoBehaviour
                 animator.ResetTrigger("Close");
                 animator.ResetTrigger("Select");
                 animator.SetTrigger("Idle");
-                if (gameObjects.Contains(hit.collider.gameObject))
+                foreach (MenuPair menu in menus)
+                {
+                    menu.SetActive(false);
+                }
+                if (hit.collider != null && gameObjects.Contains(hit.collider.gameObject))
                 {
                     box = hit.collider.gameObject.GetComponent<BoxButton>();
                     if (Mouse.current.leftButton.wasPressedThisFrame)
@@ -84,4 +90,17 @@ public class MenuController : MonoBehaviour
 
     public void SetIdle() => state = states.Idle;
 
+}
+
+[System.Serializable]
+public class MenuPair
+{
+    public GameObject menuUI;
+    public GameObject menuProxy;
+
+    public void SetActive(bool active)
+    {
+        menuUI.SetActive(active);
+        menuProxy.SetActive(active);
+    }
 }
