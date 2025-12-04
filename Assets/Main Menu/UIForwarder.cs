@@ -22,18 +22,18 @@ public class UIForwarder : MonoBehaviour,
     {
         localButton = GetComponent<Button>();
         localScrollRect = GetComponent<ScrollRect>();
-        if (localButton != null)
+/*        if (localButton != null)
         {
             localButton.onClick.AddListener(OnClick);
-        }
+        }*/
 
     }
 
-    void OnClick()
+/*    void OnClick()
     {
         target.GetComponent<Button>().onClick.Invoke();
 
-    }
+    }*/
     /*    public void OnScroll(PointerEventData eventData)
         {
             if (targetScrollRect != null) 

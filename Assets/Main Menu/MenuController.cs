@@ -29,7 +29,6 @@ public class MenuController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
         Physics.Raycast(ray, out hit);
-
         switch (state)
         {
             case states.Game:
@@ -39,7 +38,7 @@ public class MenuController : MonoBehaviour
                 animator.ResetTrigger("Idle");
                 animator.SetTrigger("Close");
                 menus[0].SetActive(true);
-                if (controllingData.Menu.Goback.WasPressedThisFrame())
+                if (controllingData.Menu.Goback.WasPressedThisFrame() || (Mouse.current.leftButton.wasPressedThisFrame && !hit.collider.gameObject.GetComponent<RectTransform>()))
                 {
                     state = states.Idle;
                 }
@@ -58,7 +57,7 @@ public class MenuController : MonoBehaviour
                 animator.ResetTrigger("Idle");
                 animator.SetTrigger("Close");
                 menus[1].SetActive(true);
-                if (controllingData.Menu.Goback.WasPressedThisFrame())
+                if (controllingData.Menu.Goback.WasPressedThisFrame() || (Mouse.current.leftButton.wasPressedThisFrame && !hit.collider.gameObject.GetComponent<RectTransform>()))
                 {
                     state = states.Idle;
                 }
@@ -71,13 +70,20 @@ public class MenuController : MonoBehaviour
                 {
                     menu.SetActive(false);
                 }
+                foreach (GameObject gameObject in gameObjects)
+                {
+                    gameObject.SetActive(true);
+                }
                 if (hit.collider != null && gameObjects.Contains(hit.collider.gameObject))
                 {
                     box = hit.collider.gameObject.GetComponent<BoxButton>();
                     if (Mouse.current.leftButton.wasPressedThisFrame)
                     {
                         state = box.BoxState;
-
+                        foreach (GameObject gameObject in gameObjects)
+                        {
+                            gameObject.SetActive(false);
+                        }
                     }
                 }
                 
