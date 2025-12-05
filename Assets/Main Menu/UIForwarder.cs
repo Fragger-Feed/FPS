@@ -7,26 +7,32 @@ public class UIForwarder : MonoBehaviour,
     IPointerExitHandler,
     IPointerDownHandler,
     IPointerUpHandler,
-    IPointerClickHandler,
-    IBeginDragHandler,
-    IDragHandler,
-    IEndDragHandler
+    IPointerClickHandler
 {
     [SerializeField] GameObject target;
     [SerializeField] ScrollRect targetScrollRect;
+    [SerializeField] Slider targetSlider;
 
     Button localButton;
     ScrollRect localScrollRect;
+    Slider localSlider;
 
     private void Start()
     {
         localButton = GetComponent<Button>();
         localScrollRect = GetComponent<ScrollRect>();
-/*        if (localButton != null)
+        localSlider = GetComponent<Slider>();
+        /*        if (localButton != null)
+                {
+                    localButton.onClick.AddListener(OnClick);
+                }*/
+        if (localSlider != null && targetSlider != null)
         {
-            localButton.onClick.AddListener(OnClick);
-        }*/
-
+            localSlider.onValueChanged.AddListener((value) =>
+            {
+                targetSlider.value = value;
+            });
+        }
     }
 
 /*    void OnClick()
@@ -69,15 +75,6 @@ public class UIForwarder : MonoBehaviour,
 
     public void OnPointerClick(PointerEventData e) =>
         Send<IPointerClickHandler>(e, ExecuteEvents.pointerClickHandler);
-
-    public void OnBeginDrag(PointerEventData e) =>
-        Send<IBeginDragHandler>(e, ExecuteEvents.beginDragHandler);
-
-    public void OnDrag(PointerEventData e) =>
-        Send<IDragHandler>(e, ExecuteEvents.dragHandler);
-
-    public void OnEndDrag(PointerEventData e) =>
-        Send<IEndDragHandler>(e, ExecuteEvents.endDragHandler);
 }
 
     /* [SerializeField] Canvas uiCanvas;

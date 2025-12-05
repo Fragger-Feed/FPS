@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -13,6 +14,9 @@ public class SettingsButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public enum type { Bool, MultipleChoice, Slider}
     public type settingType;
 
+    public List<Vector2Int> resolutionOptions = new List<Vector2Int>();
+    public int currentResolutionIndex = 0;
+
     private void Start()
     {
         img = GetComponent<Image>();
@@ -23,6 +27,22 @@ public class SettingsButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         yes = !yes;
         text.text = yes ? "< YES >" : "< NO >";
+    }
+
+    // public void CycleResolution()
+    // {
+    //     if (resolutionOptions == null || resolutionOptions.Count == 0) return;
+
+    //     currentResolutionIndex = (currentResolutionIndex + 1) % resolutionOptions.Count;
+    //     Vector2Int res = resolutionOptions[currentResolutionIndex];
+    //     text.text = $"< {res.x} x {res.y} >";
+    //     Screen.SetResolution(res.x, res.y, Screen.fullScreen);
+    // }
+
+    public void CycleResolution(int a)
+    {
+        currentResolutionIndex = (currentResolutionIndex + a + resolutionOptions.Count) % resolutionOptions.Count;
+        text.text = $"<{resolutionOptions[currentResolutionIndex].x}x{resolutionOptions[currentResolutionIndex].y}>";
     }
 
     public void OnPointerEnter(PointerEventData e) =>
