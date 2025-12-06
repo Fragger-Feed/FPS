@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,6 +10,7 @@ public class SettingsButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] TMP_Text text;
     [SerializeField] bool yes;
     Image img;
+    Slider slider;
 
     public enum type { Bool, MultipleChoice, Slider}
     public type settingType;
@@ -19,6 +20,8 @@ public class SettingsButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     private void Start()
     {
+        if (settingType == type.Slider)
+            slider = GetComponent<Slider>();
         img = GetComponent<Image>();
         yes = true;
     }
@@ -39,10 +42,25 @@ public class SettingsButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     //     Screen.SetResolution(res.x, res.y, Screen.fullScreen);
     // }
 
+
     public void CycleResolution(int a)
     {
         currentResolutionIndex = (currentResolutionIndex + a + resolutionOptions.Count) % resolutionOptions.Count;
         text.text = $"<{resolutionOptions[currentResolutionIndex].x}x{resolutionOptions[currentResolutionIndex].y}>";
+    }
+
+    public void ChangeValue()
+    {
+        float value = slider.value;
+
+        string a = "<";
+
+        for(int i = 0; i < 9; i++)
+        {
+            a += (i < value) ? "■" : "□";
+        }
+
+        text.text = a;
     }
 
     public void OnPointerEnter(PointerEventData e) =>
