@@ -15,7 +15,9 @@ MonoBehaviour:
   WeaponsData:
     m_keys:
     - Gun
-    - Gun2
+    - Metal Pipe
     m_values:
-    - InventoryIcon: {fileID: 0}
-    - InventoryIcon: {fileID: 0}
+    - PassiveInventoryIcon: {fileID: 0}
+      ActiveInventoryIcon: {fileID: 0}
+    - PassiveInventoryIcon: {fileID: 2800000, guid: c23b9a77d6f824f42b0bb95b1a130308, type: 3}
+      ActiveInventoryIcon: {fileID: 0}

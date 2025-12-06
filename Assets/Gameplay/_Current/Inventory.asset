@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d88db322c855d9a47a6287d66ecb6a68, type: 3}
   m_Name: Inventory
   m_EditorClassIdentifier: Assembly-CSharp::Inventory_Data
-  CurrentWeaponSlot: 0
+  CurrentWeaponSlot: 2
+  WeaponsList:
+  - Metal Pipe
+  - 
+  - 
+  - 
