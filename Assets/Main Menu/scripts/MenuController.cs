@@ -32,7 +32,7 @@ public class MenuController : MonoBehaviour
 
 
     // Current State
-    public MenuStates CurrentMenuState = MenuStates.MainView;
+    public MenuStates CurrentMenuState = MenuStates.Idle;
     public void ChangeMenuState(MenuStates state) {
         CurrentMenuState = state;
 
@@ -88,6 +88,7 @@ public class MenuController : MonoBehaviour
                 if (controllingData.Menu.Goback.WasPressedThisFrame() || (Mouse.current.leftButton.wasPressedThisFrame && !hit.collider.gameObject.GetComponent<RectTransform>()))
                 {
                     state = MenuStates.Idle;
+                    print(0);
                 }
                 //print("Settings");
                 break;
@@ -97,6 +98,7 @@ public class MenuController : MonoBehaviour
                 if (controllingData.Menu.Goback.WasPressedThisFrame())
                 {
                     state = MenuStates.Idle;
+                    print(0);
                 }
                 //print("Level select");
                 break;
@@ -107,6 +109,7 @@ public class MenuController : MonoBehaviour
                 if (controllingData.Menu.Goback.WasPressedThisFrame() || (Mouse.current.leftButton.wasPressedThisFrame && !hit.collider.gameObject.GetComponent<RectTransform>()))
                 {
                     state = MenuStates.Idle;
+                    print(0);
                 }
                 break;
             case MenuStates.Idle:
