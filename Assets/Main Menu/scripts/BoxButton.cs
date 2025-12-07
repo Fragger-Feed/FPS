@@ -14,7 +14,7 @@ public class BoxButton : MonoBehaviour
     public Color originalColor;
     public Renderer rend;
 
-    public MenuController.states BoxState;
+    public MenuController.MenuStates BoxState;
 
 
 
