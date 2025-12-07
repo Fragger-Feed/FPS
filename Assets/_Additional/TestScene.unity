@@ -525,7 +525,7 @@ GameObject:
   - component: {fileID: 137769107}
   - component: {fileID: 137769106}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Pipe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2877,7 +2877,7 @@ GameObject:
   - component: {fileID: 531024802}
   - component: {fileID: 531024800}
   m_Layer: 0
-  m_Name: Main Camera (1)
+  m_Name: Weapon Render
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

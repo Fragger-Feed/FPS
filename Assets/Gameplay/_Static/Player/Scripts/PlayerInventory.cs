@@ -12,22 +12,10 @@ public class PlayerInventory : MonoBehaviour
     public PlayerController PlayerController;
 
     public List<GameObject> WeaponSlots = new List<GameObject>();
+ 
 
 
-    void Start()
-    {
-        SelectWeaponSlot(InventoryData.CurrentWeaponSlot);
-    }
-
-    void Update()
-    {
-        float input = PlayerController.ControllingData.Player.WeaponSlot_Plus.ReadValue<float>();
-        if (input != 0) { SelectWeaponSlot(input); }
-    }
-
-
-
-    public void SelectWeaponSlot(float offset = 0) {
+/*    public void SelectWeaponSlot(float offset = 0) {
         InventoryData.CurrentWeaponSlot += (int)offset;
         if (InventoryData.CurrentWeaponSlot < 0) InventoryData.CurrentWeaponSlot = 3;
         if (InventoryData.CurrentWeaponSlot > 3) InventoryData.CurrentWeaponSlot = 0;
@@ -48,5 +36,5 @@ public class PlayerInventory : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 }

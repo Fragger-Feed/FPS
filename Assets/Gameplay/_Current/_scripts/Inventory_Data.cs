@@ -6,8 +6,7 @@ using UnityEngine;
 public class Inventory_Data : ScriptableObject {
 
     public int CurrentWeaponSlot;
-
-    public List<string> WeaponsList = new List<string>();
+    public List<GameObject> WeaponsList = new List<GameObject>();
 
 
 }
