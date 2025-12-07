@@ -6,22 +6,69 @@ using UnityEngine.InputSystem;
 
 public class MenuController : MonoBehaviour
 {
+    // == Additional ==
+    public enum MenuStates { 
+        MainView,
+        TV,
+        Cassettes,
+        Table,
+
+        Game, 
+        Settings, 
+        LevelSelect, 
+        Quit, 
+        Idle 
+    };
+
+
+
+
+    // Controlling 
+    Controlling_Data controllingData;
+    private void Awake() { controllingData = new Controlling_Data(); }
+    private void OnEnable() { controllingData.Enable(); }
+
+
+
+
+    // Current State
+    public MenuStates CurrentMenuState = MenuStates.MainView;
+    public void ChangeMenuState(MenuStates state) {
+        CurrentMenuState = state;
+
+        switch (CurrentMenuState) {
+
+            case MenuStates.MainView:
+                break;
+
+            case MenuStates.TV:
+                break;
+
+            case MenuStates.Cassettes:
+                break;
+
+            case MenuStates.Table:
+                break;
+
+        }
+    }
+
+
+
+
+
+
     public string CurrentMenuID = "Basic";
 
     public List<GameObject> gameObjects = new List<GameObject>();
     public List<MenuPair> menus = new List<MenuPair>();
+
+
+    public MenuStates state = MenuStates.Idle;
     BoxButton box;
-
-    public enum states { Game, Settings, LevelSelect, Quit, Idle };
-
-    public states state = states.Idle;
 
     public Animator animator;
 
-    Controlling_Data controllingData;
-
-    private void Awake() { controllingData = new Controlling_Data(); }
-    private void OnEnable() { controllingData.Enable(); }
 
     RaycastHit hit;
     void Update()
@@ -31,38 +78,38 @@ public class MenuController : MonoBehaviour
         Physics.Raycast(ray, out hit);
         switch (state)
         {
-            case states.Game:
+            case MenuStates.Game:
                 //print("Game");
                 break;
-            case states.Settings:
+            case MenuStates.Settings:
                 animator.ResetTrigger("Idle");
                 animator.SetTrigger("Close");
                 menus[0].SetActive(true);
                 if (controllingData.Menu.Goback.WasPressedThisFrame() || (Mouse.current.leftButton.wasPressedThisFrame && !hit.collider.gameObject.GetComponent<RectTransform>()))
                 {
-                    state = states.Idle;
+                    state = MenuStates.Idle;
                 }
                 //print("Settings");
                 break;
-            case states.LevelSelect:
+            case MenuStates.LevelSelect:
                 animator.ResetTrigger("Idle");
                 animator.SetTrigger("Select");
                 if (controllingData.Menu.Goback.WasPressedThisFrame())
                 {
-                    state = states.Idle;
+                    state = MenuStates.Idle;
                 }
                 //print("Level select");
                 break;
-            case states.Quit:
+            case MenuStates.Quit:
                 animator.ResetTrigger("Idle");
                 animator.SetTrigger("Close");
                 menus[1].SetActive(true);
                 if (controllingData.Menu.Goback.WasPressedThisFrame() || (Mouse.current.leftButton.wasPressedThisFrame && !hit.collider.gameObject.GetComponent<RectTransform>()))
                 {
-                    state = states.Idle;
+                    state = MenuStates.Idle;
                 }
                 break;
-            case states.Idle:
+            case MenuStates.Idle:
                 animator.ResetTrigger("Close");
                 animator.ResetTrigger("Select");
                 animator.SetTrigger("Idle");
@@ -94,7 +141,7 @@ public class MenuController : MonoBehaviour
 
     }
 
-    public void SetIdle() => state = states.Idle;
+    public void SetIdle() => state = MenuStates.Idle;
 
 }
 
