@@ -12,12 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e96535beb8e99744a0bb9752f5e0487, type: 3}
   m_Name: Weapons_Data
   m_EditorClassIdentifier: Assembly-CSharp::Weapons_Data
-  WeaponsData:
-    m_keys:
-    - Gun
-    - Metal Pipe
-    m_values:
-    - PassiveInventoryIcon: {fileID: 0}
-      ActiveInventoryIcon: {fileID: 0}
-    - PassiveInventoryIcon: {fileID: 2800000, guid: c23b9a77d6f824f42b0bb95b1a130308, type: 3}
-      ActiveInventoryIcon: {fileID: 0}
+  PassiveInventoryIcon: {fileID: 0}
+  ActiveInventoryIcon: {fileID: 0}
+  behaviorPrefab: {fileID: 0}
