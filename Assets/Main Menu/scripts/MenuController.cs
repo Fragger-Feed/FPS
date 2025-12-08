@@ -32,22 +32,58 @@ public class MenuController : MonoBehaviour
 
 
     // Current State
-    public MenuStates CurrentMenuState = MenuStates.Idle;
+    public MenuStates CurrentMenuState = MenuStates.MainView;
+    public SerializableDictionary<string, GameObject> MenuStateTriggers;
+    public SerializableDictionary<string, List<MenuPair>> Menus;
+    public Animator CameraAnimator;
+
+
     public void ChangeMenuState(MenuStates state) {
         CurrentMenuState = state;
 
         switch (CurrentMenuState) {
 
             case MenuStates.MainView:
+                CameraAnimator.ResetTrigger("TV");
+                CameraAnimator.ResetTrigger("Cassettes");
+                CameraAnimator.ResetTrigger("Table");
+                CameraAnimator.SetTrigger("MainView");
+
+                foreach (var pair in MenuStateTriggers) {
+                    pair.Value.SetActive(pair.Key == "MainView");
+                }
+
+
                 break;
 
             case MenuStates.TV:
+                CameraAnimator.ResetTrigger("MainView");
+                CameraAnimator.SetTrigger("TV");
+
+                foreach (var pair in MenuStateTriggers) {
+                    pair.Value.SetActive(pair.Key == "TV");
+                }
+
                 break;
 
             case MenuStates.Cassettes:
+                CameraAnimator.ResetTrigger("MainView");
+                CameraAnimator.SetTrigger("Cassettes");
+
+                foreach (var pair in MenuStateTriggers) {
+                    pair.Value.SetActive(pair.Key == "Cassettes");
+                }
+
                 break;
 
             case MenuStates.Table:
+                CameraAnimator.ResetTrigger("MainView");
+                CameraAnimator.SetTrigger("Table");
+
+                foreach (var pair in MenuStateTriggers) {
+                    pair.Value.SetActive(pair.Key == "Table");
+                }
+
                 break;
 
         }
@@ -57,95 +93,23 @@ public class MenuController : MonoBehaviour
 
 
 
-
-    public string CurrentMenuID = "Basic";
-
-    public List<GameObject> gameObjects = new List<GameObject>();
-    public List<MenuPair> menus = new List<MenuPair>();
-
-
-    public MenuStates state = MenuStates.Idle;
-    BoxButton box;
-
-    public Animator animator;
-
-
-    RaycastHit hit;
-    void Update()
+    public void Update()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-
-        Physics.Raycast(ray, out hit);
-        switch (state)
-        {
-            case MenuStates.Game:
-                //print("Game");
-                break;
-            case MenuStates.Settings:
-                animator.ResetTrigger("Idle");
-                animator.SetTrigger("Close");
-                menus[0].SetActive(true);
-                if (controllingData.Menu.Goback.WasPressedThisFrame() || (Mouse.current.leftButton.wasPressedThisFrame && !hit.collider.gameObject.GetComponent<RectTransform>()))
-                {
-                    state = MenuStates.Idle;
-                    print(0);
-                }
-                //print("Settings");
-                break;
-            case MenuStates.LevelSelect:
-                animator.ResetTrigger("Idle");
-                animator.SetTrigger("Select");
-                if (controllingData.Menu.Goback.WasPressedThisFrame())
-                {
-                    state = MenuStates.Idle;
-                    print(0);
-                }
-                //print("Level select");
-                break;
-            case MenuStates.Quit:
-                animator.ResetTrigger("Idle");
-                animator.SetTrigger("Close");
-                menus[1].SetActive(true);
-                if (controllingData.Menu.Goback.WasPressedThisFrame() || (Mouse.current.leftButton.wasPressedThisFrame && !hit.collider.gameObject.GetComponent<RectTransform>()))
-                {
-                    state = MenuStates.Idle;
-                    print(0);
-                }
-                break;
-            case MenuStates.Idle:
-                animator.ResetTrigger("Close");
-                animator.ResetTrigger("Select");
-                animator.SetTrigger("Idle");
-                foreach (MenuPair menu in menus)
-                {
-                    menu.SetActive(false);
-                }
-                foreach (GameObject gameObject in gameObjects)
-                {
-                    gameObject.SetActive(true);
-                }
-                if (hit.collider != null && gameObjects.Contains(hit.collider.gameObject))
-                {
-                    box = hit.collider.gameObject.GetComponent<BoxButton>();
-                    if (Mouse.current.leftButton.wasPressedThisFrame)
-                    {
-                        state = box.BoxState;
-                        foreach (GameObject gameObject in gameObjects)
-                        {
-                            gameObject.SetActive(false);
-                        }
-                    }
-                }
-                
-                //print("Idle");
-                break;
-
+        // Go BACK
+        if (controllingData.Menu.Goback.WasPressedThisFrame() && CurrentMenuState != MenuStates.MainView) {
+            ChangeMenuState(MenuStates.MainView);
         }
 
+        // Raycast
+        if (Mouse.current.leftButton.wasPressedThisFrame) {
+            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+            if (Physics.Raycast(ray, out RaycastHit hit)) {
+                if (hit.collider.TryGetComponent(out BoxButton button)) {
+                    ChangeMenuState(button.BoxState);
+                }
+            }
+        }
     }
-
-    public void SetIdle() => state = MenuStates.Idle;
-
 }
 
 [System.Serializable]

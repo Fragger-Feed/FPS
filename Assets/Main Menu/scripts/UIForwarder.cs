@@ -22,10 +22,6 @@ public class UIForwarder : MonoBehaviour,
         localButton = GetComponent<Button>();
         localScrollRect = GetComponent<ScrollRect>();
         localSlider = GetComponent<Slider>();
-        /*        if (localButton != null)
-                {
-                    localButton.onClick.AddListener(OnClick);
-                }*/
         if (localSlider != null && targetSlider != null)
         {
             localSlider.onValueChanged.AddListener((value) =>
@@ -34,18 +30,6 @@ public class UIForwarder : MonoBehaviour,
             });
         }
     }
-
-/*    void OnClick()
-    {
-        target.GetComponent<Button>().onClick.Invoke();
-
-    }*/
-    /*    public void OnScroll(PointerEventData eventData)
-        {
-            if (targetScrollRect != null) 
-                targetScrollRect.OnScroll(eventData);
-        }*/
-
 
     private void Update()
     {
@@ -76,66 +60,4 @@ public class UIForwarder : MonoBehaviour,
     public void OnPointerClick(PointerEventData e) =>
         Send<IPointerClickHandler>(e, ExecuteEvents.pointerClickHandler);
 }
-
-    /* [SerializeField] Canvas uiCanvas;
-     [SerializeField] GraphicRaycaster raycaster;
-
-     private void Awake()
-     {
-         raycaster = uiCanvas.GetComponent<GraphicRaycaster>();
-     }
-
-     public void OnPointerClick(PointerEventData eventData)
-     {
-         Debug.Log("Proxy canvas clicked at: " + eventData.position);
-         ForwardEvent(eventData, ExecuteEvents.pointerClickHandler);
-     }
-
-     public void OnPointerDown(PointerEventData eventData)
-     {
-         print(1);
-         ForwardEvent(eventData, ExecuteEvents.pointerDownHandler);
-     }
-     public void OnPointerUp(PointerEventData eventData)
-     {
-         ForwardEvent(eventData, ExecuteEvents.pointerUpHandler);
-     }
-     public void OnBeginDrag(PointerEventData eventData)
-     {
-         print(1);
-         ForwardEvent(eventData, ExecuteEvents.beginDragHandler);
-     }
-     public void OnDrag(PointerEventData eventData)
-     {
-         print(1);
-         ForwardEvent(eventData, ExecuteEvents.dragHandler);
-     }
-     public void OnEndDrag(PointerEventData eventData)
-     {
-         print(1);
-         ForwardEvent(eventData, ExecuteEvents.endDragHandler);
-     }
-     public void OnScroll(PointerEventData eventData)
-     {
-         print(1);
-         ForwardEvent(eventData, ExecuteEvents.scrollHandler);
-     }
-
-
-     private void ForwardEvent<T>(PointerEventData eventData, ExecuteEvents.EventFunction<T> func)
-         where T : IEventSystemHandler
-     {
-         print(1);
-         var results = new List<RaycastResult>();
-         raycaster.Raycast(eventData, results);
-
-         Debug.Log("Number of UI elements hit: " + results.Count);
-
-         foreach (var r in results)
-         {
-             Debug.Log("Forwarding to: " + r.gameObject.name);
-             ExecuteEvents.Execute(r.gameObject, eventData, func);
-         }
-     }
- */
 
