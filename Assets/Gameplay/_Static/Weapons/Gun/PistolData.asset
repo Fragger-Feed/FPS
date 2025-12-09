@@ -14,6 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapons_Data
   PassiveInventoryIcon: {fileID: 21300000, guid: a950907361bc8824aa20e135f1cd9c3a, type: 3}
   ActiveInventoryIcon: {fileID: 21300000, guid: a950907361bc8824aa20e135f1cd9c3a, type: 3}
-  behaviorPrefab: {fileID: 0}
-  _3dmodel: {fileID: 0}
+  weaponPrefab: {fileID: 9087714225238801266, guid: 6674425755f3fb34ebc375eeb1411540, type: 3}
   damage: 0

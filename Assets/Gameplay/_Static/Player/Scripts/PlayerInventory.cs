@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,14 +11,18 @@ public class PlayerInventory : MonoBehaviour
 
     public Inventory_Data InventoryData;
     public PlayerController PlayerController;
+    public UseScript use;
 
     public Vector3 iconScale;
 
     public List<GameObject> WeaponSlots = new List<GameObject>();
+    public GameObject WeaponParent;
+    public GameObject currentWeapon;
 
     private void Start()
     {
         UpdateSlots();
+        UpdateWeapon();
     }
 
     private void Update()
@@ -39,6 +44,7 @@ public class PlayerInventory : MonoBehaviour
             InventoryData.CurrentWeaponSlot = value - 1; 
         }
         UpdateSlots();
+        UpdateWeapon();
     }
 
     void UpdateSlots()
@@ -79,6 +85,16 @@ public class PlayerInventory : MonoBehaviour
 
     void UpdateWeapon()
     {
-
+        Weapons_Data data = InventoryData.WeaponsList[InventoryData.CurrentWeaponSlot];
+        if (currentWeapon != null)
+        {
+            Destroy(currentWeapon);
+            currentWeapon = null;
+            use.currentWeapon = null;
+        }
+        if(data == null)
+            return;
+        currentWeapon = Instantiate(data.weaponPrefab, WeaponParent.transform);
+        use.currentWeapon = currentWeapon.GetComponent<WeaponScript>();
     }
 }
