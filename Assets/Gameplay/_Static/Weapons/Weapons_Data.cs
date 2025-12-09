@@ -7,4 +7,8 @@ public class Weapons_Data : ScriptableObject {
     public Sprite ActiveInventoryIcon;
     public GameObject behaviorPrefab;
 
+    public GameObject _3dmodel;
+
+    public float damage;
+
 }

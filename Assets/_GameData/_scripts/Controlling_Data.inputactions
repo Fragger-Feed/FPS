@@ -97,7 +97,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "WeaponSlot_Plus",
+                    "name": "Scroll",
                     "type": "Button",
                     "id": "4d2ead0f-7ba8-4f49-a582-1e70759b0e20",
                     "expectedControlType": "",
@@ -113,6 +113,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SelectWeapon",
+                    "type": "Value",
+                    "id": "4549f658-73a5-4ce4-8abb-da9158604e99",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -420,7 +429,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "WeaponSlot_Plus",
+                    "action": "Scroll",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -431,7 +440,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "WeaponSlot_Plus",
+                    "action": "Scroll",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -442,7 +451,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "WeaponSlot_Plus",
+                    "action": "Scroll",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -454,6 +463,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d88bc312-0460-4338-b742-a15f73800653",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "Scale",
+                    "groups": "",
+                    "action": "SelectWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "398875b6-3955-447a-accc-025f94ec7585",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "Scale(factor=2)",
+                    "groups": "",
+                    "action": "SelectWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "28aa2be0-5a31-4498-be13-5a5ad0aa7568",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "Scale(factor=3)",
+                    "groups": "",
+                    "action": "SelectWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4a05ab40-12c0-4f66-b014-5c027b8e7ce8",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "Scale(factor=4)",
+                    "groups": "",
+                    "action": "SelectWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

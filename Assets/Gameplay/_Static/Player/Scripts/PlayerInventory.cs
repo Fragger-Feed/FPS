@@ -11,30 +11,74 @@ public class PlayerInventory : MonoBehaviour
     public Inventory_Data InventoryData;
     public PlayerController PlayerController;
 
+    public Vector3 iconScale;
+
     public List<GameObject> WeaponSlots = new List<GameObject>();
- 
 
+    private void Start()
+    {
+        UpdateSlots();
+    }
 
-/*    public void SelectWeaponSlot(float offset = 0) {
-        InventoryData.CurrentWeaponSlot += (int)offset;
-        if (InventoryData.CurrentWeaponSlot < 0) InventoryData.CurrentWeaponSlot = 3;
-        if (InventoryData.CurrentWeaponSlot > 3) InventoryData.CurrentWeaponSlot = 0;
+    private void Update()
+    {
+        int scroll = (int)PlayerController.ControllingData.Player.Scroll.ReadValue<float>();
+        if (scroll != 0)  SelectWeaponSlot(scroll, false);
+        int select = (int)PlayerController.ControllingData.Player.SelectWeapon.ReadValue<float>();
+        if (select != 0) SelectWeaponSlot(select, true);
+    }
 
-        for (int i = 0; i < WeaponSlots.Count; i++) {
-            if (i != InventoryData.CurrentWeaponSlot) {
-                WeaponSlots[i].transform.localScale = new Vector3(0.8f, 0.8f, 1);
-                if (InventoryData.WeaponsList[InventoryData.CurrentWeaponSlot] != "")
+    public void SelectWeaponSlot(int value, bool direct)
+    {
+        if (!direct)
+        {
+            InventoryData.CurrentWeaponSlot = (InventoryData.CurrentWeaponSlot + value + WeaponSlots.Count) % WeaponSlots.Count;
+        }
+        else
+        {
+            InventoryData.CurrentWeaponSlot = value - 1; 
+        }
+        UpdateSlots();
+    }
+
+    void UpdateSlots()
+    {
+        for (int i = 0; i < WeaponSlots.Count; i++)
+        {
+            Image image = WeaponSlots[i].transform.GetChild(0).GetComponent<Image>();
+            if (i == InventoryData.CurrentWeaponSlot)
+            {
+                WeaponSlots[i].transform.localScale = iconScale;
+                if (InventoryData.WeaponsList[i] != null)
                 {
-                    WeaponSlots[i].GetComponent<Image>().sprite = Weapons.WeaponsData[InventoryData.WeaponsList[InventoryData.CurrentWeaponSlot]].PassiveInventoryIcon;
+                    image.sprite = InventoryData.WeaponsList[i].ActiveInventoryIcon;
+                    image.color = new Color(255,255,255, 1);
+                }
+                else
+                {
+                    image.sprite = null;
+                    image.color = new Color(255, 255, 255, 0);
                 }
             }
-            else {
-                WeaponSlots[i].transform.localScale = new Vector3(1, 1, 1);
-                if (InventoryData.WeaponsList[InventoryData.CurrentWeaponSlot] != "")
+            else
+            {
+                WeaponSlots[i].transform.localScale = Vector3.one;
+                if (InventoryData.WeaponsList[i] != null)
                 {
-                    WeaponSlots[i].GetComponent<Image>().sprite = Weapons.WeaponsData[InventoryData.WeaponsList[InventoryData.CurrentWeaponSlot]].ActiveInventoryIcon;
+                    image.sprite = InventoryData.WeaponsList[i].ActiveInventoryIcon;
+                    image.color = new Color(255, 255, 255, 1);
+                }
+                else
+                {
+                    image.sprite = null;
+                    image.color = new Color(255, 255, 255, 0);
                 }
             }
         }
-    }*/
+    }
+
+    void UpdateWeapon()
+    {
+
+    }
 }

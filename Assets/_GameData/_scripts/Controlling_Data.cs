@@ -183,7 +183,7 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""WeaponSlot_Plus"",
+                    ""name"": ""Scroll"",
                     ""type"": ""Button"",
                     ""id"": ""4d2ead0f-7ba8-4f49-a582-1e70759b0e20"",
                     ""expectedControlType"": """",
@@ -199,6 +199,15 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectWeapon"",
+                    ""type"": ""Value"",
+                    ""id"": ""4549f658-73a5-4ce4-8abb-da9158604e99"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -506,7 +515,7 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""WeaponSlot_Plus"",
+                    ""action"": ""Scroll"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -517,7 +526,7 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""WeaponSlot_Plus"",
+                    ""action"": ""Scroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -528,7 +537,7 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""WeaponSlot_Plus"",
+                    ""action"": ""Scroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -540,6 +549,50 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d88bc312-0460-4338-b742-a15f73800653"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale"",
+                    ""groups"": """",
+                    ""action"": ""SelectWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""398875b6-3955-447a-accc-025f94ec7585"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=2)"",
+                    ""groups"": """",
+                    ""action"": ""SelectWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""28aa2be0-5a31-4498-be13-5a5ad0aa7568"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=3)"",
+                    ""groups"": """",
+                    ""action"": ""SelectWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4a05ab40-12c0-4f66-b014-5c027b8e7ce8"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=4)"",
+                    ""groups"": """",
+                    ""action"": ""SelectWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -649,8 +702,9 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
         m_Player_UseArtifact_3 = m_Player.FindAction("UseArtifact_3", throwIfNotFound: true);
         m_Player_UseArtifact_4 = m_Player.FindAction("UseArtifact_4", throwIfNotFound: true);
         m_Player_Debug = m_Player.FindAction("Debug", throwIfNotFound: true);
-        m_Player_WeaponSlot_Plus = m_Player.FindAction("WeaponSlot_Plus", throwIfNotFound: true);
+        m_Player_Scroll = m_Player.FindAction("Scroll", throwIfNotFound: true);
         m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
+        m_Player_SelectWeapon = m_Player.FindAction("SelectWeapon", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Goback = m_Menu.FindAction("Go back", throwIfNotFound: true);
@@ -745,8 +799,9 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_UseArtifact_3;
     private readonly InputAction m_Player_UseArtifact_4;
     private readonly InputAction m_Player_Debug;
-    private readonly InputAction m_Player_WeaponSlot_Plus;
+    private readonly InputAction m_Player_Scroll;
     private readonly InputAction m_Player_Escape;
+    private readonly InputAction m_Player_SelectWeapon;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -799,13 +854,17 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Debug => m_Wrapper.m_Player_Debug;
         /// <summary>
-        /// Provides access to the underlying input action "Player/WeaponSlot_Plus".
+        /// Provides access to the underlying input action "Player/Scroll".
         /// </summary>
-        public InputAction @WeaponSlot_Plus => m_Wrapper.m_Player_WeaponSlot_Plus;
+        public InputAction @Scroll => m_Wrapper.m_Player_Scroll;
         /// <summary>
         /// Provides access to the underlying input action "Player/Escape".
         /// </summary>
         public InputAction @Escape => m_Wrapper.m_Player_Escape;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/SelectWeapon".
+        /// </summary>
+        public InputAction @SelectWeapon => m_Wrapper.m_Player_SelectWeapon;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -862,12 +921,15 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
             @Debug.started += instance.OnDebug;
             @Debug.performed += instance.OnDebug;
             @Debug.canceled += instance.OnDebug;
-            @WeaponSlot_Plus.started += instance.OnWeaponSlot_Plus;
-            @WeaponSlot_Plus.performed += instance.OnWeaponSlot_Plus;
-            @WeaponSlot_Plus.canceled += instance.OnWeaponSlot_Plus;
+            @Scroll.started += instance.OnScroll;
+            @Scroll.performed += instance.OnScroll;
+            @Scroll.canceled += instance.OnScroll;
             @Escape.started += instance.OnEscape;
             @Escape.performed += instance.OnEscape;
             @Escape.canceled += instance.OnEscape;
+            @SelectWeapon.started += instance.OnSelectWeapon;
+            @SelectWeapon.performed += instance.OnSelectWeapon;
+            @SelectWeapon.canceled += instance.OnSelectWeapon;
         }
 
         /// <summary>
@@ -909,12 +971,15 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
             @Debug.started -= instance.OnDebug;
             @Debug.performed -= instance.OnDebug;
             @Debug.canceled -= instance.OnDebug;
-            @WeaponSlot_Plus.started -= instance.OnWeaponSlot_Plus;
-            @WeaponSlot_Plus.performed -= instance.OnWeaponSlot_Plus;
-            @WeaponSlot_Plus.canceled -= instance.OnWeaponSlot_Plus;
+            @Scroll.started -= instance.OnScroll;
+            @Scroll.performed -= instance.OnScroll;
+            @Scroll.canceled -= instance.OnScroll;
             @Escape.started -= instance.OnEscape;
             @Escape.performed -= instance.OnEscape;
             @Escape.canceled -= instance.OnEscape;
+            @SelectWeapon.started -= instance.OnSelectWeapon;
+            @SelectWeapon.performed -= instance.OnSelectWeapon;
+            @SelectWeapon.canceled -= instance.OnSelectWeapon;
         }
 
         /// <summary>
@@ -1187,12 +1252,12 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDebug(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "WeaponSlot_Plus" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Scroll" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnWeaponSlot_Plus(InputAction.CallbackContext context);
+        void OnScroll(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Escape" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -1200,6 +1265,13 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnEscape(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SelectWeapon" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelectWeapon(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Menu" which allows adding and removing callbacks.

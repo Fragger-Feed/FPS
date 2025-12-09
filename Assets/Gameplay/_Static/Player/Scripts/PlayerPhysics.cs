@@ -44,11 +44,8 @@ public class PlayerPhysics : MonoBehaviour
         float gravity = -(2 * PlayerC.playerMovement.jumpHeight) / (PlayerC.playerMovement.timeToApex * PlayerC.playerMovement.timeToApex);
         if (PlayerC.RigidBodyC.linearVelocity.y > 0 && !PlayerC.ControllingData.Player.Jump.IsPressed() && !grounded)
             Gravity(gravity*2);
-        else if (grounded)
+        else if (!grounded)
             Gravity(gravity);
-
-
-
     }
 
 
