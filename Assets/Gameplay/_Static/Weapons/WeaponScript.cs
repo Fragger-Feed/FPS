@@ -7,6 +7,6 @@ public abstract class WeaponScript : MonoBehaviour
     public Animator weaponAnimator;
     public Transform firePoint;
 
-    public abstract void PrimaryFire();
-    public abstract void SecondaryFire();
+    public abstract void PrimaryFire(Transform cameraPos);
+    public abstract void SecondaryFire(Transform cameraPos);
 }

@@ -10,11 +10,11 @@ public class UseScript : MonoBehaviour
 
         if (currentWeapon != null && playerController.ControllingData.Player.PrimaryFire.WasPressedThisFrame()) 
         { 
-            currentWeapon.PrimaryFire();
+            currentWeapon.PrimaryFire(playerController.CameraObj.transform);
         }
         if (currentWeapon != null && playerController.ControllingData.Player.SecondaryFire.WasPressedThisFrame()) 
         { 
-            currentWeapon.SecondaryFire();
+            currentWeapon.SecondaryFire(playerController.CameraObj.transform);
         }
     }
 }

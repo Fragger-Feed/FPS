@@ -8,6 +8,6 @@ public class Weapons_Data : ScriptableObject {
 
     public GameObject weaponPrefab;
 
-    public float damage;
-
+    public int damage;
+    public float range;
 }

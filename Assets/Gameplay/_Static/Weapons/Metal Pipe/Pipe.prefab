@@ -105,3 +105,4 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 85be277bea802704caf5c5c1a322441e, type: 2}
   weaponAnimator: {fileID: 0}
   firePoint: {fileID: 0}
+  offset: {x: 0, y: 0, z: 0.9}

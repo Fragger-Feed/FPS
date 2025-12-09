@@ -16,9 +16,12 @@ public class Entity_Object : MonoBehaviour
     }
 
 
-    public void Damage() {
+    public void Damage(int damage) {
 
         //
+        print($"took {damage} damage");
+        HealthPoints -= damage;
+        if(HealthPoints <= 0) Death();
         onDamageGetting?.Invoke();
     }
 
@@ -26,6 +29,8 @@ public class Entity_Object : MonoBehaviour
     public void Death() {
 
         //
+        print($"I'm obect {gameObject} and I'm dead");
+        HealthPoints = 100;
         onDeath?.Invoke();
     }
 }
