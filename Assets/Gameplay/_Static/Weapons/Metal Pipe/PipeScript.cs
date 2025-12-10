@@ -4,25 +4,30 @@ public class PipeScript : WeaponScript
 {
     Transform suka;
     public Vector3 offset;
-public override void PrimaryFire(Transform cameraPos)
-{
-    Vector3 half = new Vector3(0.5f, 0.5f, data.range * 0.5f);
-    Vector3 center = cameraPos.position + cameraPos.forward * (data.range * 0.5f);
-    center += cameraPos.rotation * offset;
-
-    Collider[] hit = Physics.OverlapBox(center, half, cameraPos.rotation);
-
-    foreach (var item in hit)
+    float cooldown;
+    public override void PrimaryFire(Transform cameraPos)
     {
-        Debug.Log("Hit " + item.transform.name);
+        if (Time.time < cooldown)
+            return;
 
-        Entity_Object entity = item.GetComponent<Entity_Object>();
-        if (entity != null)
-            entity.Damage(data.damage);
+        Vector3 half = new Vector3(0.5f, 0.5f, data.range * 0.5f);
+        Vector3 center = cameraPos.position + cameraPos.forward * (data.range * 0.5f);
+        center += cameraPos.rotation * offset;
+
+        Collider[] hit = Physics.OverlapBox(center, half, cameraPos.rotation);
+
+        foreach (var item in hit)
+        {
+            Debug.Log("Hit " + item.transform.name);
+
+            Entity_Object entity = item.GetComponent<Entity_Object>();
+            if (entity != null)
+                entity.Damage(data.damage);
+        }
+
+        suka = cameraPos;
+        cooldown = Time.time + data.fireRate;
     }
-
-    suka = cameraPos;
-}
 
     public override void SecondaryFire(Transform cameraPos)
     {

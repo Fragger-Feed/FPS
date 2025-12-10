@@ -10,4 +10,5 @@ public class Weapons_Data : ScriptableObject {
 
     public int damage;
     public float range;
+    public float fireRate;
 }

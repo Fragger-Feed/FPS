@@ -1,9 +1,14 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PistolScript : WeaponScript
 {
+    float cooldown;
     public override void PrimaryFire(Transform cameraPos)
     {
+        if (Time.time < cooldown)
+            return;
+
         Debug.Log("Pew Pew suka");
         RaycastHit hit;
         if (Physics.Raycast(cameraPos.position, cameraPos.forward, out hit, data.range))
@@ -16,6 +21,8 @@ public class PistolScript : WeaponScript
             }
             Debug.DrawRay(cameraPos.position, cameraPos.forward * hit.distance, Color.red, 1f);
         }
+
+        cooldown = Time.time + data.fireRate;
     }
 
     public override void SecondaryFire(Transform cameraPos)

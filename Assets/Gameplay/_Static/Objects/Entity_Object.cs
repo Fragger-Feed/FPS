@@ -29,7 +29,7 @@ public class Entity_Object : MonoBehaviour
     public void Death() {
 
         //
-        print($"I'm obect {gameObject} and I'm dead");
+        print($"I'm object {gameObject} and I'm dead");
         HealthPoints = 100;
         onDeath?.Invoke();
     }

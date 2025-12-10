@@ -7858,6 +7858,7 @@ GameObject:
   - component: {fileID: 2048451869}
   - component: {fileID: 2048451868}
   - component: {fileID: 2048451866}
+  - component: {fileID: 2048451872}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -7974,12 +7975,34 @@ Transform:
   m_GameObject: {fileID: 2048451865}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -31.998, y: 18.19, z: -0.536}
+  m_LocalPosition: {x: -31.998, y: 17.29, z: -0.536}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2048451872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048451865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b107af5783da32445aacf5b2dae793b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Entity_Object
+  HealthPoints: 100
+  onSpawn:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  onDamageGetting:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!43 &2061892593
 Mesh:
   m_ObjectHideFlags: 0
