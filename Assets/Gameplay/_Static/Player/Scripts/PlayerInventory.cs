@@ -71,7 +71,7 @@ public class PlayerInventory : MonoBehaviour
                 WeaponSlots[i].transform.localScale = Vector3.one;
                 if (InventoryData.WeaponsList[i] != null)
                 {
-                    image.sprite = InventoryData.WeaponsList[i].ActiveInventoryIcon;
+                    image.sprite = InventoryData.WeaponsList[i].PassiveInventoryIcon;
                     image.color = new Color(255, 255, 255, 1);
                 }
                 else

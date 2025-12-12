@@ -11,7 +11,7 @@ public class PistolScript : WeaponScript
 
         Debug.Log("Pew Pew suka");
         RaycastHit hit;
-        if (Physics.Raycast(cameraPos.position, cameraPos.forward, out hit, data.range))
+        if (Physics.Raycast(cameraPos.position, cameraPos.forward, out hit, data.range, mask))
         {
             Debug.Log("Hit " + hit.transform.name);
             Entity_Object entity = hit.transform.GetComponent<Entity_Object>();

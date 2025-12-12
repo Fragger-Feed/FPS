@@ -17,4 +17,4 @@ MonoBehaviour:
   weaponPrefab: {fileID: 9167056706417798712, guid: 161c427d90150434ebf1076b8074d790, type: 3}
   damage: 30
   range: 2
-  fireRate: 1
+  fireRate: 0.53

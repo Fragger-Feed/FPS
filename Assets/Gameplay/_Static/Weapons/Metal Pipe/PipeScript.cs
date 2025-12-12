@@ -2,19 +2,24 @@ using UnityEngine;
 
 public class PipeScript : WeaponScript
 {
-    Transform suka;
+    Transform cameraPos;
     public Vector3 offset;
     float cooldown;
+
     public override void PrimaryFire(Transform cameraPos)
     {
-        if (Time.time < cooldown)
-            return;
+        weaponAnimator.SetBool("Attack", true);
 
+        this.cameraPos = cameraPos;
+    }
+
+    public void Attack()
+    {
         Vector3 half = new Vector3(0.5f, 0.5f, data.range * 0.5f);
         Vector3 center = cameraPos.position + cameraPos.forward * (data.range * 0.5f);
         center += cameraPos.rotation * offset;
 
-        Collider[] hit = Physics.OverlapBox(center, half, cameraPos.rotation);
+        Collider[] hit = Physics.OverlapBox(center, half, cameraPos.rotation, mask);
 
         foreach (var item in hit)
         {
@@ -24,9 +29,6 @@ public class PipeScript : WeaponScript
             if (entity != null)
                 entity.Damage(data.damage);
         }
-
-        suka = cameraPos;
-        cooldown = Time.time + data.fireRate;
     }
 
     public override void SecondaryFire(Transform cameraPos)
@@ -36,15 +38,15 @@ public class PipeScript : WeaponScript
 
     private void OnDrawGizmos()
     {
-        if (suka == null) return;
+        if (cameraPos == null) return;
 
         Gizmos.color = Color.red;
 
         Vector3 half = new Vector3(0.5f, 0.5f, data.range * 0.5f);
-        Vector3 center = suka.position + suka.forward * (data.range * 0.5f);
-        center += suka.rotation * offset;
+        Vector3 center = cameraPos.position + cameraPos.forward * (data.range * 0.5f);
+        center += cameraPos.rotation * offset;
 
-        Gizmos.matrix = Matrix4x4.TRS(center, suka.rotation, Vector3.one);
+        Gizmos.matrix = Matrix4x4.TRS(center, cameraPos.rotation, Vector3.one);
         Gizmos.DrawWireCube(Vector3.zero, half * 2f);
     }
 
