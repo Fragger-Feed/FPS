@@ -12,7 +12,6 @@ public abstract class WeaponScript : MonoBehaviour
     protected virtual void Awake()
     {
         mask = ~LayerMask.GetMask("Player");
-        weaponAnimator = GetComponent<Animator>();
     }
 
     public abstract void PrimaryFire(Transform cameraPos);
