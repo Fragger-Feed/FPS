@@ -35,6 +35,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void SelectWeaponSlot(int value, bool direct)
     {
+        int previousSlot = InventoryData.CurrentWeaponSlot;
         if (!direct)
         {
             InventoryData.CurrentWeaponSlot = (InventoryData.CurrentWeaponSlot + value + WeaponSlots.Count) % WeaponSlots.Count;
@@ -43,8 +44,11 @@ public class PlayerInventory : MonoBehaviour
         {
             InventoryData.CurrentWeaponSlot = value - 1; 
         }
-        UpdateSlots();
-        UpdateWeapon();
+        if (previousSlot != InventoryData.CurrentWeaponSlot)
+        {
+            UpdateSlots();
+            UpdateWeapon();
+        }
     }
 
     void UpdateSlots()
