@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class PipeScript : WeaponScript
 {
-    Transform cameraPos;
+    private Transform cameraPos;
     public Vector3 offset;
-    float cooldown;
+    private float cooldown;
 
     public override void PrimaryFire(Transform cameraPos)
     {
@@ -25,7 +25,7 @@ public class PipeScript : WeaponScript
         {
             Debug.Log("Hit " + item.transform.name);
 
-            EnemieScript enemie = item.GetComponent<EnemieScript>();
+            EntityStates enemie = item.GetComponent<EntityStates>();
             if (enemie != null)
                 enemie.Damage(data.damage);
         }
@@ -49,6 +49,4 @@ public class PipeScript : WeaponScript
         Gizmos.matrix = Matrix4x4.TRS(center, cameraPos.rotation, Vector3.one);
         Gizmos.DrawWireCube(Vector3.zero, half * 2f);
     }
-
-
 }
