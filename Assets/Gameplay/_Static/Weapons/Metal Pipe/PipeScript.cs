@@ -25,9 +25,9 @@ public class PipeScript : WeaponScript
         {
             Debug.Log("Hit " + item.transform.name);
 
-            Entity_Object entity = item.GetComponent<Entity_Object>();
-            if (entity != null)
-                entity.Damage(data.damage);
+            EnemieScript enemie = item.GetComponent<EnemieScript>();
+            if (enemie != null)
+                enemie.Damage(data.damage);
         }
     }
 

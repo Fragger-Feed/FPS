@@ -6,6 +6,7 @@ public class Enemie_Data : ScriptableObject
 {
     public int health;
     public int speed;
+    public int acceleration;
     public int attackCooldown;
     public int attackDamage;
     public float attackRange;

@@ -14,10 +14,10 @@ public class PistolScript : WeaponScript
         if (Physics.Raycast(cameraPos.position, cameraPos.forward, out hit, data.range, mask))
         {
             Debug.Log("Hit " + hit.transform.name);
-            Entity_Object entity = hit.transform.GetComponent<Entity_Object>();
-            if (entity != null)
+            EnemieScript enemie = hit.transform.GetComponent<EnemieScript>();
+            if (enemie != null)
             {
-                entity.Damage(data.damage);
+                enemie.Damage(data.damage);
             }
             Debug.DrawRay(cameraPos.position, cameraPos.forward * hit.distance, Color.red, 1f);
         }
