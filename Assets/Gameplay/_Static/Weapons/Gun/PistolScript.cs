@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class PistolScript : WeaponScript
 {
-    float cooldown;
+    private float cooldown;
+
     public override void PrimaryFire(Transform cameraPos)
     {
         if (Time.time < cooldown)
@@ -14,7 +15,7 @@ public class PistolScript : WeaponScript
         if (Physics.Raycast(cameraPos.position, cameraPos.forward, out hit, data.range, mask))
         {
             Debug.Log("Hit " + hit.transform.name);
-            EnemieScript enemie = hit.transform.GetComponent<EnemieScript>();
+            EntityStates enemie = hit.transform.GetComponent<EntityStates>();
             if (enemie != null)
             {
                 enemie.Damage(data.damage);

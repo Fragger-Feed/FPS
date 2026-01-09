@@ -11,6 +11,7 @@ public abstract class EnemieScript : MonoBehaviour
     public PlayerController player;
 
     public NavMeshAgent nav;
+
     public enum EnemieState
     {
         Idle,
@@ -32,7 +33,6 @@ public abstract class EnemieScript : MonoBehaviour
         nav.speed = data.speed;
     }
 
-
     public virtual void Update()
     {
         switch (currentState)
@@ -40,15 +40,19 @@ public abstract class EnemieScript : MonoBehaviour
             case EnemieState.Idle:
                 Idle();
                 break;
+
             case EnemieState.Move:
                 Move();
                 break;
+
             case EnemieState.Attack:
                 Attack();
                 break;
+
             case EnemieState.Stunned:
                 Stunned();
                 break;
+
             case EnemieState.Dead:
                 break;
         }
@@ -61,37 +65,20 @@ public abstract class EnemieScript : MonoBehaviour
             currentState = EnemieState.Move;
         }
     }
+
     public virtual void Move()
     {
-
     }
+
     public virtual void Attack()
     {
-
-    }
-    public virtual void Stunned()
-    {
-
-    }
-
-    public virtual void Damage(int damage)
-    {
-        print($"took {damage} damage");
-        currentHealth -= damage;
-        if (currentHealth <= 0)
+        if (Vector3.Distance(transform.position, player.transform.position) >= data.attackRange)
         {
-            currentState = EnemieState.Dead;
-            Die();
+            currentState = EnemieState.Move;
         }
     }
 
-
-    public void Die()
+    public virtual void Stunned()
     {
-        print($"I'm object {gameObject} and I'm dead");
-        nav.enabled = false;
-        Rigidbody rb = gameObject.AddComponent<Rigidbody>();
-        rb.mass = 11241;
-        transform.Rotate(90, 90, 90);
     }
 }
