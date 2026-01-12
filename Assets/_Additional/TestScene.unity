@@ -2123,6 +2123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ef82cfdebc8424e8b7f2cee05bad96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerState
+  currentHealth: 0
   hpSlider: {fileID: 1598937021}
 --- !u!43 &385168826
 Mesh:
@@ -4032,6 +4033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ea0d300e10f9bd40a840ae66a68b099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntityStates
+  currentHealth: 0
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
