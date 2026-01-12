@@ -1915,6 +1915,7 @@ GameObject:
   - component: {fileID: 361129548}
   - component: {fileID: 361129549}
   - component: {fileID: 361129550}
+  - component: {fileID: 361129551}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -2110,6 +2111,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UseScript
   playerController: {fileID: 361129538}
   currentWeapon: {fileID: 0}
+--- !u!114 &361129551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 361129537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09ef82cfdebc8424e8b7f2cee05bad96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerState
+  hpSlider: {fileID: 1598937021}
 --- !u!43 &385168826
 Mesh:
   m_ObjectHideFlags: 0

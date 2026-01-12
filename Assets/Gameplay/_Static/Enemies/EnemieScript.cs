@@ -6,7 +6,9 @@ public abstract class EnemieScript : MonoBehaviour
 {
     public Enemie_Data data;
 
-    public int currentHealth;
+    private EntityStates state;
+
+    public float cooldownTimer = 0f;
 
     public PlayerController player;
 
@@ -25,12 +27,13 @@ public abstract class EnemieScript : MonoBehaviour
 
     protected virtual void Awake()
     {
+        state = GetComponent<EntityStates>();
         nav = GetComponent<NavMeshAgent>();
         player = FindFirstObjectByType<PlayerController>();
-        currentHealth = data.health;
 
         nav.acceleration = data.acceleration;
         nav.speed = data.speed;
+        nav.stoppingDistance = data.attackRange;
     }
 
     public virtual void Update()
