@@ -5,24 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Main Menu/MainMenu.unity
-    guid: 43a826485946d6045a68cd29d80f4a43
   - enabled: 1
-    path: Assets/_Additional/TestScene.unity
-    guid: fe3610c9c2c7e9046bc461514e858b6b
+    path: Assets/0_LoadingScreen/LoadingScreen_Scene.unity
+    guid: ff38d7e6fec87104388c746b301447b9
   - enabled: 1
-    path: Assets/Gameplay/_Static/Hub.unity
-    guid: 5dfe6e2109d26854bbabd38e8f407863
+    path: Assets/1_MainMenu/MainMenu_Scene.unity
+    guid: 449b32b3954d4f54698e293fa28be280
   - enabled: 1
-    path: Assets/Gameplay/_Static/Locations/Primary processing shop/Scene.unity
-    guid: e12dba8abf4813f43bb21752f4c0e133
-  - enabled: 1
-    path: Assets/Gameplay/_Static/Locations/Burried district/Scene.unity
-    guid: 25bdcb94c87d49e4cbacda616db17204
-  - enabled: 1
-    path: Assets/Gameplay/_Static/Locations/Shelter of the 2s/Scene.unity
-    guid: 35d77c4f528100f4188f21134f0b447f
+    path: Assets/2_Hub/Hub_Scene.unity
+    guid: daaa9a4a5a8997d4f9160c328fdf3fc5
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
