@@ -13,16 +13,17 @@ public class DummyScript : EnemieScript
     {
         base.Attack();
 
-        if (Time.time < data.attackCooldown)
+        if (Time.time < cooldownTimer)
             return;
 
-        Collider[] hits = Physics.OverlapSphere(transform.position, data.attackRange, 8);
+        Collider[] hits = Physics.OverlapSphere(transform.position, data.attackRange, LayerMask.GetMask("Player"));
         foreach (var hit in hits)
         {
+            print(hit);
             PlayerState player = hit.GetComponent<PlayerState>();
             if (player != null)
             {
-                player.TakeDamage(data.attackDamage);
+                player.TakeDamage(data.attackDamage); 
             }
         }
 

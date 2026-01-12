@@ -6,9 +6,14 @@ using UnityEngine.UI;
 public class PlayerState : MonoBehaviour
 {
     private int maxHealth = 100;
-    private int currentHealth;
+    [SerializeField] private int currentHealth;
 
     [SerializeField] private Slider hpSlider;
+
+    private void Awake()
+    {
+        currentHealth = maxHealth;
+    }
 
     public void Heal(int amount)
     {
@@ -23,6 +28,7 @@ public class PlayerState : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        UpdateSlider();
         if (currentHealth <= 0)
         {
             Die();

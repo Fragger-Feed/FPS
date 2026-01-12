@@ -4,7 +4,7 @@ using static EnemieScript;
 public class EntityStates : MonoBehaviour
 {
     private int maxHealth;
-    private int currentHealth;
+    [SerializeField] private int currentHealth;
 
     private EnemieScript enemieScript;
     private Enemie_Data enemieData;
@@ -13,10 +13,13 @@ public class EntityStates : MonoBehaviour
     {
         enemieScript = GetComponent<EnemieScript>();
         enemieData = enemieScript.data;
+
+        maxHealth = enemieData.health;
+        currentHealth = maxHealth;
     }
 
     public void Heal(int heal)
-    { currentHealth += heal; }
+    { currentHealth = Mathf.Min(currentHealth + heal, maxHealth); }
 
     public void Damage(int damage)
     {

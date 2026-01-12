@@ -71,6 +71,10 @@ public abstract class EnemieScript : MonoBehaviour
 
     public virtual void Move()
     {
+        if (Vector3.Distance(transform.position, player.transform.position) <= data.attackRange)
+        {
+            currentState = EnemieState.Attack;
+        }
     }
 
     public virtual void Attack()
