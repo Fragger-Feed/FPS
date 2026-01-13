@@ -52,42 +52,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "UseArtifact_1",
-                    "type": "Button",
-                    "id": "07c4afd0-f88a-460f-930a-8edd47974da6",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "UseArtifact_2",
-                    "type": "Button",
-                    "id": "e72cd90a-9217-4ed4-be93-a9359043e2f9",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "UseArtifact_3",
-                    "type": "Button",
-                    "id": "d72e70e8-a5f0-49b4-96b4-e9ceec127388",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "UseArtifact_4",
-                    "type": "Button",
-                    "id": "4c3c65bd-2b69-4e9a-adff-00bdd15d1797",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Debug",
                     "type": "Button",
                     "id": "987f4045-2dee-43c8-92c0-5854ece6bc1d",
@@ -140,6 +104,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "UseArtifact",
+                    "type": "Value",
+                    "id": "29634d81-6f8a-40ed-9232-29b2b24ef197",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -387,50 +360,6 @@
                 },
                 {
                     "name": "",
-                    "id": "7d32a3a8-295b-4785-9c7d-dd704cc55111",
-                    "path": "<Keyboard>/z",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "UseArtifact_1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f4e6f751-e888-46e6-a396-9e8d3a29faa1",
-                    "path": "<Keyboard>/x",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "UseArtifact_2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2837436b-1100-41ce-ac51-562ff771123a",
-                    "path": "<Keyboard>/c",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "UseArtifact_3",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "20159db1-9ce0-4b2c-9c57-a2f923cd7617",
-                    "path": "<Keyboard>/v",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "UseArtifact_4",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "ad955c41-b92b-40ce-950e-b7657e6c95c7",
                     "path": "<Keyboard>/backslash",
                     "interactions": "",
@@ -547,6 +476,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "SecondaryFire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "81e3a594-783a-4368-9330-2be7ae6ada3a",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "Scale",
+                    "groups": "",
+                    "action": "UseArtifact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "41a9f491-6feb-4d8b-bf71-ae3133db4731",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "Scale(factor=2)",
+                    "groups": "",
+                    "action": "UseArtifact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2a6e012d-4c46-4bed-a231-bb44b7629fd1",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "Scale(factor=3)",
+                    "groups": "",
+                    "action": "UseArtifact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

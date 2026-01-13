@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bf89413f35e2864c984d01ddf8f13c9, type: 3}
   m_Name: Dummy_Data
   m_EditorClassIdentifier: Assembly-CSharp::Enemie_Data
-  health: 10
+  health: 50
   speed: 15
   acceleration: 50
   attackCooldown: 5

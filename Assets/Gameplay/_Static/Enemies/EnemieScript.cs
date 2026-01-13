@@ -1,3 +1,4 @@
+using System.Net;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
@@ -5,14 +6,15 @@ using UnityEngine.UIElements;
 public abstract class EnemieScript : MonoBehaviour
 {
     public Enemie_Data data;
+    public PlayerController player;
+    public NavMeshAgent nav;
+    public Animator animator;
 
     private EntityStates state;
 
     public float cooldownTimer = 0f;
 
-    public PlayerController player;
-
-    public NavMeshAgent nav;
+    [SerializeField] private bool canMove = true;
 
     public enum EnemieState
     {
@@ -27,6 +29,7 @@ public abstract class EnemieScript : MonoBehaviour
 
     protected virtual void Awake()
     {
+        canMove = true;
         state = GetComponent<EntityStates>();
         nav = GetComponent<NavMeshAgent>();
         player = FindFirstObjectByType<PlayerController>();
@@ -71,21 +74,29 @@ public abstract class EnemieScript : MonoBehaviour
 
     public virtual void Move()
     {
+        if (!canMove)
+            return;
         if (Vector3.Distance(transform.position, player.transform.position) <= data.attackRange)
         {
             currentState = EnemieState.Attack;
+            return;
         }
+        animator.SetTrigger("Move");
+        animator.ResetTrigger("Attack");
     }
 
     public virtual void Attack()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) >= data.attackRange)
-        {
-            currentState = EnemieState.Move;
-        }
+        animator.ResetTrigger("Move");
+        animator.SetTrigger("Attack");
     }
 
     public virtual void Stunned()
     {
+    }
+
+    private void SwitchCanMove()
+    {
+        canMove = !canMove;
     }
 }

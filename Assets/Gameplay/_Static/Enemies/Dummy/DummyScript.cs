@@ -13,9 +13,13 @@ public class DummyScript : EnemieScript
     {
         base.Attack();
 
-        if (Time.time < cooldownTimer)
-            return;
+        /*        if (Time.time < cooldownTimer)
+                    return;*/
+        cooldownTimer = Time.time + data.attackCooldown;
+    }
 
+    public void Damage()
+    {
         Collider[] hits = Physics.OverlapSphere(transform.position, data.attackRange, LayerMask.GetMask("Player"));
         foreach (var hit in hits)
         {
@@ -23,11 +27,10 @@ public class DummyScript : EnemieScript
             PlayerState player = hit.GetComponent<PlayerState>();
             if (player != null)
             {
-                player.TakeDamage(data.attackDamage); 
+                player.TakeDamage(data.attackDamage);
             }
         }
-
-        cooldownTimer = Time.time + data.attackCooldown;
+        currentState = EnemieState.Move;
     }
 
     private void OnDrawGizmos()

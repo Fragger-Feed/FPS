@@ -138,42 +138,6 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""UseArtifact_1"",
-                    ""type"": ""Button"",
-                    ""id"": ""07c4afd0-f88a-460f-930a-8edd47974da6"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""UseArtifact_2"",
-                    ""type"": ""Button"",
-                    ""id"": ""e72cd90a-9217-4ed4-be93-a9359043e2f9"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""UseArtifact_3"",
-                    ""type"": ""Button"",
-                    ""id"": ""d72e70e8-a5f0-49b4-96b4-e9ceec127388"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""UseArtifact_4"",
-                    ""type"": ""Button"",
-                    ""id"": ""4c3c65bd-2b69-4e9a-adff-00bdd15d1797"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Debug"",
                     ""type"": ""Button"",
                     ""id"": ""987f4045-2dee-43c8-92c0-5854ece6bc1d"",
@@ -226,6 +190,15 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseArtifact"",
+                    ""type"": ""Value"",
+                    ""id"": ""29634d81-6f8a-40ed-9232-29b2b24ef197"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -473,50 +446,6 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""7d32a3a8-295b-4785-9c7d-dd704cc55111"",
-                    ""path"": ""<Keyboard>/z"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""UseArtifact_1"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f4e6f751-e888-46e6-a396-9e8d3a29faa1"",
-                    ""path"": ""<Keyboard>/x"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""UseArtifact_2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2837436b-1100-41ce-ac51-562ff771123a"",
-                    ""path"": ""<Keyboard>/c"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""UseArtifact_3"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""20159db1-9ce0-4b2c-9c57-a2f923cd7617"",
-                    ""path"": ""<Keyboard>/v"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""UseArtifact_4"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""ad955c41-b92b-40ce-950e-b7657e6c95c7"",
                     ""path"": ""<Keyboard>/backslash"",
                     ""interactions"": """",
@@ -635,6 +564,39 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
                     ""action"": ""SecondaryFire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""81e3a594-783a-4368-9330-2be7ae6ada3a"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale"",
+                    ""groups"": """",
+                    ""action"": ""UseArtifact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""41a9f491-6feb-4d8b-bf71-ae3133db4731"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=2)"",
+                    ""groups"": """",
+                    ""action"": ""UseArtifact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2a6e012d-4c46-4bed-a231-bb44b7629fd1"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=3)"",
+                    ""groups"": """",
+                    ""action"": ""UseArtifact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -737,16 +699,13 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
-        m_Player_UseArtifact_1 = m_Player.FindAction("UseArtifact_1", throwIfNotFound: true);
-        m_Player_UseArtifact_2 = m_Player.FindAction("UseArtifact_2", throwIfNotFound: true);
-        m_Player_UseArtifact_3 = m_Player.FindAction("UseArtifact_3", throwIfNotFound: true);
-        m_Player_UseArtifact_4 = m_Player.FindAction("UseArtifact_4", throwIfNotFound: true);
         m_Player_Debug = m_Player.FindAction("Debug", throwIfNotFound: true);
         m_Player_Scroll = m_Player.FindAction("Scroll", throwIfNotFound: true);
         m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
         m_Player_SelectWeapon = m_Player.FindAction("SelectWeapon", throwIfNotFound: true);
         m_Player_PrimaryFire = m_Player.FindAction("PrimaryFire", throwIfNotFound: true);
         m_Player_SecondaryFire = m_Player.FindAction("SecondaryFire", throwIfNotFound: true);
+        m_Player_UseArtifact = m_Player.FindAction("UseArtifact", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Goback = m_Menu.FindAction("Go back", throwIfNotFound: true);
@@ -836,16 +795,13 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Dash;
-    private readonly InputAction m_Player_UseArtifact_1;
-    private readonly InputAction m_Player_UseArtifact_2;
-    private readonly InputAction m_Player_UseArtifact_3;
-    private readonly InputAction m_Player_UseArtifact_4;
     private readonly InputAction m_Player_Debug;
     private readonly InputAction m_Player_Scroll;
     private readonly InputAction m_Player_Escape;
     private readonly InputAction m_Player_SelectWeapon;
     private readonly InputAction m_Player_PrimaryFire;
     private readonly InputAction m_Player_SecondaryFire;
+    private readonly InputAction m_Player_UseArtifact;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -878,22 +834,6 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         /// <summary>
-        /// Provides access to the underlying input action "Player/UseArtifact_1".
-        /// </summary>
-        public InputAction @UseArtifact_1 => m_Wrapper.m_Player_UseArtifact_1;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/UseArtifact_2".
-        /// </summary>
-        public InputAction @UseArtifact_2 => m_Wrapper.m_Player_UseArtifact_2;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/UseArtifact_3".
-        /// </summary>
-        public InputAction @UseArtifact_3 => m_Wrapper.m_Player_UseArtifact_3;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/UseArtifact_4".
-        /// </summary>
-        public InputAction @UseArtifact_4 => m_Wrapper.m_Player_UseArtifact_4;
-        /// <summary>
         /// Provides access to the underlying input action "Player/Debug".
         /// </summary>
         public InputAction @Debug => m_Wrapper.m_Player_Debug;
@@ -917,6 +857,10 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/SecondaryFire".
         /// </summary>
         public InputAction @SecondaryFire => m_Wrapper.m_Player_SecondaryFire;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/UseArtifact".
+        /// </summary>
+        public InputAction @UseArtifact => m_Wrapper.m_Player_UseArtifact;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -958,18 +902,6 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
             @Dash.started += instance.OnDash;
             @Dash.performed += instance.OnDash;
             @Dash.canceled += instance.OnDash;
-            @UseArtifact_1.started += instance.OnUseArtifact_1;
-            @UseArtifact_1.performed += instance.OnUseArtifact_1;
-            @UseArtifact_1.canceled += instance.OnUseArtifact_1;
-            @UseArtifact_2.started += instance.OnUseArtifact_2;
-            @UseArtifact_2.performed += instance.OnUseArtifact_2;
-            @UseArtifact_2.canceled += instance.OnUseArtifact_2;
-            @UseArtifact_3.started += instance.OnUseArtifact_3;
-            @UseArtifact_3.performed += instance.OnUseArtifact_3;
-            @UseArtifact_3.canceled += instance.OnUseArtifact_3;
-            @UseArtifact_4.started += instance.OnUseArtifact_4;
-            @UseArtifact_4.performed += instance.OnUseArtifact_4;
-            @UseArtifact_4.canceled += instance.OnUseArtifact_4;
             @Debug.started += instance.OnDebug;
             @Debug.performed += instance.OnDebug;
             @Debug.canceled += instance.OnDebug;
@@ -988,6 +920,9 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
             @SecondaryFire.started += instance.OnSecondaryFire;
             @SecondaryFire.performed += instance.OnSecondaryFire;
             @SecondaryFire.canceled += instance.OnSecondaryFire;
+            @UseArtifact.started += instance.OnUseArtifact;
+            @UseArtifact.performed += instance.OnUseArtifact;
+            @UseArtifact.canceled += instance.OnUseArtifact;
         }
 
         /// <summary>
@@ -1014,18 +949,6 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
             @Dash.started -= instance.OnDash;
             @Dash.performed -= instance.OnDash;
             @Dash.canceled -= instance.OnDash;
-            @UseArtifact_1.started -= instance.OnUseArtifact_1;
-            @UseArtifact_1.performed -= instance.OnUseArtifact_1;
-            @UseArtifact_1.canceled -= instance.OnUseArtifact_1;
-            @UseArtifact_2.started -= instance.OnUseArtifact_2;
-            @UseArtifact_2.performed -= instance.OnUseArtifact_2;
-            @UseArtifact_2.canceled -= instance.OnUseArtifact_2;
-            @UseArtifact_3.started -= instance.OnUseArtifact_3;
-            @UseArtifact_3.performed -= instance.OnUseArtifact_3;
-            @UseArtifact_3.canceled -= instance.OnUseArtifact_3;
-            @UseArtifact_4.started -= instance.OnUseArtifact_4;
-            @UseArtifact_4.performed -= instance.OnUseArtifact_4;
-            @UseArtifact_4.canceled -= instance.OnUseArtifact_4;
             @Debug.started -= instance.OnDebug;
             @Debug.performed -= instance.OnDebug;
             @Debug.canceled -= instance.OnDebug;
@@ -1044,6 +967,9 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
             @SecondaryFire.started -= instance.OnSecondaryFire;
             @SecondaryFire.performed -= instance.OnSecondaryFire;
             @SecondaryFire.canceled -= instance.OnSecondaryFire;
+            @UseArtifact.started -= instance.OnUseArtifact;
+            @UseArtifact.performed -= instance.OnUseArtifact;
+            @UseArtifact.canceled -= instance.OnUseArtifact;
         }
 
         /// <summary>
@@ -1281,34 +1207,6 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDash(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "UseArtifact_1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnUseArtifact_1(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "UseArtifact_2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnUseArtifact_2(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "UseArtifact_3" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnUseArtifact_3(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "UseArtifact_4" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnUseArtifact_4(InputAction.CallbackContext context);
-        /// <summary>
         /// Method invoked when associated input action "Debug" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -1350,6 +1248,13 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSecondaryFire(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "UseArtifact" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnUseArtifact(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Menu" which allows adding and removing callbacks.
