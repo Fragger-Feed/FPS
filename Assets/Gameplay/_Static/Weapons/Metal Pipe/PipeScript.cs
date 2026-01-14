@@ -24,10 +24,12 @@ public class PipeScript : WeaponScript
         foreach (var item in hit)
         {
             Debug.Log("Hit " + item.transform.name);
-
+            bool crit;
             EntityStates enemie = item.GetComponent<EntityStates>();
             if (enemie != null)
-                enemie.Damage(data.damage);
+            {
+                enemie.Damage(CalculateCritDamage(out crit)); if (crit) print("CRITICAL!!");
+            }
         }
     }
 

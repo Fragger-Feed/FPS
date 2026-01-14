@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using static EnemieScript;
 
 public class EntityStates : MonoBehaviour
@@ -24,6 +25,10 @@ public class EntityStates : MonoBehaviour
     public void Damage(int damage)
     {
         print($"took {damage} damage");
+        if (damage == 0)
+        {
+            print("BUG");
+        }
         currentHealth -= damage;
         if (currentHealth <= 0)
         {

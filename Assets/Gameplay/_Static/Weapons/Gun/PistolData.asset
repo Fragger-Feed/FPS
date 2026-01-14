@@ -18,3 +18,5 @@ MonoBehaviour:
   damage: 15
   range: 100
   fireRate: 0.2
+  critMultiplier: 1.5
+  critChance: 20

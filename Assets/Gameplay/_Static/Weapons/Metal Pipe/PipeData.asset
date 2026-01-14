@@ -16,5 +16,7 @@ MonoBehaviour:
   ActiveInventoryIcon: {fileID: 21300000, guid: 0ef5898155c2dc7409e019f8570884da, type: 3}
   weaponPrefab: {fileID: 9167056706417798712, guid: 161c427d90150434ebf1076b8074d790, type: 3}
   damage: 30
-  range: 2
+  range: 2.5
   fireRate: 0.53
+  critMultiplier: 2
+  critChance: 10

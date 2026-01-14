@@ -16,10 +16,14 @@ public class PistolScript : WeaponScript
         {
             Debug.Log("Hit " + hit.transform.name);
             EntityStates enemie = hit.transform.GetComponent<EntityStates>();
+            bool crit;
             if (enemie != null)
             {
-                enemie.Damage(data.damage);
+                enemie.Damage(CalculateCritDamage(out crit));
+                if (crit)
+                    print("CRITICAL!!!");
             }
+
             Debug.DrawRay(cameraPos.position, cameraPos.forward * hit.distance, Color.red, 1f);
         }
 
