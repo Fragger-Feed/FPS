@@ -40,7 +40,9 @@ public class PlayerPhysics : MonoBehaviour
         float gravity = -(2 * PlayerC.playerMovement.jumpHeight) / (PlayerC.playerMovement.timeToApex * PlayerC.playerMovement.timeToApex);
         if (PlayerC.RigidBodyC.linearVelocity.y > 0 && !PlayerC.ControllingData.Player.Jump.IsPressed() && !grounded)
             Gravity(gravity * 2);
-        else if (!grounded)
+        else if (grounded && PlayerC.ControllingData.Player.Move.ReadValue<Vector2>() == Vector2.zero)
+            Gravity(0);
+        else
             Gravity(gravity);
     }
 
@@ -89,7 +91,8 @@ public class PlayerPhysics : MonoBehaviour
                 Vector3 targetPos = new Vector3(transform.position.x, transform.position.y - raycastHit.distance + playerFeet, transform.position.z);
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, raycastHit.distance * Time.deltaTime * 10);
 
-                //if (PlayerC.RigidBodyC.linearVelocity.y > 0) PlayerC.RigidBodyC.linearVelocity = new Vector3(PlayerC.RigidBodyC.linearVelocity.x, 0f, PlayerC.RigidBodyC.linearVelocity.z);
+                /* if (PlayerC.RigidBodyC.linearVelocity.y > 0) PlayerC.RigidBodyC.linearVelocity = new Vector3(PlayerC.RigidBodyC.linearVelocity.x, 0f, PlayerC.RigidBodyC.linearVelocity.z);*/
+                print(PlayerC.RigidBodyC.linearVelocity.magnitude);
             }
         }
         if (grounded && PlayerC.ControllingData.Player.Move.ReadValue<Vector2>() == Vector2.zero)
