@@ -24,9 +24,11 @@ public class PlayerPhysics : MonoBehaviour
     public bool grounded;
 
     private float playerFeet;
+    public float coyoteTime = 0.1f;
 
     public void UPDATE_Physics()
     {
+        coyoteTime -= Time.deltaTime;
         stickTimer -= Time.deltaTime;
         groundCheck();
         if (stickTimer <= 0)
@@ -50,10 +52,15 @@ public class PlayerPhysics : MonoBehaviour
     {
         if (Physics.CheckBox(transform.position + gcoffset, gcSize, new Quaternion(0, 0, 0, 0), enemieAndGround))
         {
-            grounded = true;
-            PlayerC.playerMovement.isJumping = false;
+            coyoteTime = 0.2f;
         }
-        else grounded = false;
+        if (coyoteTime > 0)
+        {
+            PlayerC.playerMovement.isJumping = false;
+            grounded = true;
+        }
+        else
+            grounded = false;
     }
 
     private void OnDrawGizmos()
@@ -92,18 +99,11 @@ public class PlayerPhysics : MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, raycastHit.distance * Time.deltaTime * 10);
 
                 /* if (PlayerC.RigidBodyC.linearVelocity.y > 0) PlayerC.RigidBodyC.linearVelocity = new Vector3(PlayerC.RigidBodyC.linearVelocity.x, 0f, PlayerC.RigidBodyC.linearVelocity.z);*/
-                print(PlayerC.RigidBodyC.linearVelocity.magnitude);
             }
         }
-        if (grounded && PlayerC.ControllingData.Player.Move.ReadValue<Vector2>() == Vector2.zero)
+        if (grounded && PlayerC.ControllingData.Player.Move.ReadValue<Vector2>() == Vector2.zero && !PlayerC.playerMovement.isJumping)
         {
             PlayerC.RigidBodyC.linearVelocity = new Vector3(PlayerC.RigidBodyC.linearVelocity.x, 0f, PlayerC.RigidBodyC.linearVelocity.z);
-        }
-        if (PlayerC.RigidBodyC.linearVelocity.x == 0 && PlayerC.RigidBodyC.linearVelocity.z == 0)
-        {
-            RaycastHit raycastHit;
-            if (Physics.Raycast(transform.position, -transform.up, out raycastHit, playerFeet + 1f, ground))
-                PlayerC.RigidBodyC.linearVelocity = Vector3.zero;
         }
     }
 
