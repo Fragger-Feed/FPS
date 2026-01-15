@@ -13,11 +13,5 @@ MonoBehaviour:
   m_Name: LocationsData
   m_EditorClassIdentifier: Assembly-CSharp::Locations_Data
   LocationsData:
-    m_keys:
-    - Primary processing shop
-    - Burried district
-    - Shelter of the 2s
-    m_values:
-    - SceneID: 2
-    - SceneID: 3
-    - SceneID: 4
+    m_keys: []
+    m_values: []
