@@ -7,32 +7,36 @@ public class PlayerMovement : MonoBehaviour
     [Header("Data")]
     [SerializeField] private PlayerController PlayerC;
 
-
     // == Configs ==
     [Header("Configs")]
-      // Move
+    // Move
     [SerializeField] public float speed;
-    [SerializeField] public float acceleration;
-      // Jump
-    [SerializeField] public float timeToApex;
-    [SerializeField] public float jumpHeight;
-      // Dash
-    [SerializeField] public float dashTime;
-    [SerializeField] public float dashSpeed;
 
+    [SerializeField] public float acceleration;
+
+    // Jump
+    [SerializeField] public float timeToApex;
+
+    [SerializeField] public float jumpHeight;
+
+    // Dash
+    [SerializeField] public float dashTime;
+
+    [SerializeField] public float dashSpeed;
 
     // Hash
     [Header("Hash")]
     public Vector3 currentDirection;
+
     public bool isDashing;
     public bool isJumping;
     public float dashTimer;
     public float jumpTimer;
-
-
+    public float jumpBufferTimer;
 
     // == FIXED UPDATE ==
-    public void FIXED_UPDATE_Movement() {
+    public void FIXED_UPDATE_Movement()
+    {
         Vector2 InputData = PlayerC.ControllingData.Player.Move.ReadValue<Vector2>();
 
         // Timers
@@ -48,30 +52,39 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // == UPDATE ==
-    public void UPDATE_Movement() {
+    public void UPDATE_Movement()
+    {
+        jumpBufferTimer -= Time.deltaTime;
 
         // Jump
-        if (PlayerC.ControllingData.Player.Jump.WasPressedThisFrame() && jumpTimer <= 0 && PlayerC.playerPhysics.grounded) {
-            Jump();
+        if (PlayerC.ControllingData.Player.Jump.WasPressedThisFrame() && jumpTimer <= 0 && PlayerC.playerPhysics.grounded)
+        {
+            jumpBufferTimer = 0.5f;
 
             jumpTimer = 0.1f;
             PlayerC.playerPhysics.stickTimer = 0.1f;
         }
 
         // Dash
-        if (PlayerC.ControllingData.Player.Dash.WasPressedThisFrame() && dashTimer <= 0) {
+        if (PlayerC.ControllingData.Player.Dash.WasPressedThisFrame() && dashTimer <= 0)
+        {
             StartCoroutine(Dash());
 
             PlayerC.playerPhysics.stickTimer = 0.1f;
             dashTimer = 0.5f;
         }
+
+        if (jumpBufferTimer > 0 && PlayerC.playerPhysics.grounded && !isJumping)
+        {
+            Jump();
+            jumpBufferTimer = 0;
+        }
     }
-
-
 
     // == MOVEMENT ==
     // Move
-    public void Move() {
+    public void Move()
+    {
         Vector3 currentVelocity = PlayerC.RigidBodyC.linearVelocity;
         Vector3 targetVelocity = currentDirection * speed;
 
@@ -82,13 +95,15 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Jump
-    public void Jump() {
+    public void Jump()
+    {
         isJumping = true;
         PlayerC.RigidBodyC.linearVelocity = new Vector3(PlayerC.RigidBodyC.linearVelocity.x, 2 * jumpHeight / timeToApex, PlayerC.RigidBodyC.linearVelocity.z);
     }
 
     // Dash
-    public IEnumerator Dash() {
+    public IEnumerator Dash()
+    {
         if (currentDirection == Vector3.zero) currentDirection = PlayerC.ForwardObj.transform.localRotation * new Vector3(0, 0, 1);
         float dashDuration = dashTime;
         isDashing = true;
