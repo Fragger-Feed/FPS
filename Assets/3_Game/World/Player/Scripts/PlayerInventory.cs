@@ -5,9 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerInventory : MonoBehaviour
 {
-
     public Weapons_Data Weapons;
-
 
     public Inventory_Data InventoryData;
     public PlayerController PlayerController;
@@ -19,6 +17,8 @@ public class PlayerInventory : MonoBehaviour
     public GameObject WeaponParent;
     public GameObject currentWeapon;
 
+    public GameObject[] activeItemSlots;
+
     private void Start()
     {
         UpdateSlots();
@@ -28,7 +28,7 @@ public class PlayerInventory : MonoBehaviour
     private void Update()
     {
         int scroll = (int)PlayerController.ControllingData.Player.Scroll.ReadValue<float>();
-        if (scroll != 0)  SelectWeaponSlot(scroll, false);
+        if (scroll != 0) SelectWeaponSlot(scroll, false);
         int select = (int)PlayerController.ControllingData.Player.SelectWeapon.ReadValue<float>();
         if (select != 0) SelectWeaponSlot(select, true);
     }
@@ -42,7 +42,7 @@ public class PlayerInventory : MonoBehaviour
         }
         else
         {
-            InventoryData.CurrentWeaponSlot = value - 1; 
+            InventoryData.CurrentWeaponSlot = value - 1;
         }
         if (previousSlot != InventoryData.CurrentWeaponSlot)
         {
@@ -51,7 +51,7 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    void UpdateSlots()
+    private void UpdateSlots()
     {
         for (int i = 0; i < WeaponSlots.Count; i++)
         {
@@ -62,7 +62,7 @@ public class PlayerInventory : MonoBehaviour
                 if (InventoryData.WeaponsList[i] != null)
                 {
                     image.sprite = InventoryData.WeaponsList[i].ActiveInventoryIcon;
-                    image.color = new Color(255,255,255, 1);
+                    image.color = new Color(255, 255, 255, 1);
                 }
                 else
                 {
@@ -87,7 +87,7 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    void UpdateWeapon()
+    private void UpdateWeapon()
     {
         Weapons_Data data = InventoryData.WeaponsList[InventoryData.CurrentWeaponSlot];
         if (currentWeapon != null)
@@ -96,7 +96,7 @@ public class PlayerInventory : MonoBehaviour
             currentWeapon = null;
             use.currentWeapon = null;
         }
-        if(data == null)
+        if (data == null)
             return;
         currentWeapon = Instantiate(data.weaponPrefab, WeaponParent.transform);
         use.currentWeapon = currentWeapon.GetComponent<WeaponScript>();
