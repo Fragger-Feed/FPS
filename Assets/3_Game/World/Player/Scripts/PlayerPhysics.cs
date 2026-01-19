@@ -14,6 +14,8 @@ public class PlayerPhysics : MonoBehaviour
 
     [SerializeField] private Vector3 gcSize;
     [SerializeField] private Vector3 gcoffset;
+    [SerializeField] private Vector3 gscSize;
+    [SerializeField] private Vector3 gscffset;
     [SerializeField] private LayerMask ground;
     [SerializeField] private LayerMask enemieAndGround;
 
@@ -22,6 +24,7 @@ public class PlayerPhysics : MonoBehaviour
     public float stickTimer;
 
     public bool grounded;
+    public bool groundedSlop;
 
     private float playerFeet;
     public float coyoteTime = 0.1f;
@@ -63,10 +66,25 @@ public class PlayerPhysics : MonoBehaviour
             grounded = false;
     }
 
+    public void slopeCheck()
+    {
+        RaycastHit hit;
+        Physics.BoxCast(transform.position + gscffset, gscSize, -transform.up, out hit, new Quaternion(0, 0, 0, 0), 0.1f, ground);
+
+        if (Vector3.Angle(hit.normal, Vector3.up) < 70)
+        {
+            groundedSlop = true;
+        }
+        else
+            groundedSlop = false;
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(transform.position + gcoffset, gcSize * 2);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(transform.position + gscffset, gscSize * 2);
 
         if (PlayerC.playerCollider == null) return;
 
@@ -90,7 +108,7 @@ public class PlayerPhysics : MonoBehaviour
     public void StickToTheGround(LayerMask ground)
     {
         playerFeet = (PlayerC.playerCollider.height / 2 - PlayerC.playerCollider.center.y) * transform.lossyScale.y;
-        if (PlayerC.RigidBodyC.linearVelocity != Vector3.zero)
+        if (PlayerC.RigidBodyC.linearVelocity != Vector3.zero && !groundedSlop)
         {
             RaycastHit raycastHit;
             if (Physics.Raycast(transform.position, -transform.up, out raycastHit, playerFeet + 1f, ground))

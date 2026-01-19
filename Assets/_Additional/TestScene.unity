@@ -2067,9 +2067,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPhysics
   PlayerC: {fileID: 361129538}
-  GravityValue: -36.44181
+  GravityValue: 69
   gcSize: {x: 0.2, y: 0.5, z: 0.2}
   gcoffset: {x: 0, y: -1.28, z: 0}
+  gscSize: {x: 0.3, y: 0.01, z: 0.3}
+  gscffset: {x: 0, y: -1.11, z: 0}
   ground:
     serializedVersion: 2
     m_Bits: 8
@@ -2078,6 +2080,7 @@ MonoBehaviour:
     m_Bits: 520
   stickTimer: 0
   grounded: 0
+  groundedSlop: 0
   coyoteTime: 0.1
 --- !u!114 &361129549
 MonoBehaviour:
