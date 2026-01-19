@@ -57,12 +57,11 @@ public class PlayerMovement : MonoBehaviour
         jumpBufferTimer -= Time.deltaTime;
 
         // Jump
-        if (PlayerC.ControllingData.Player.Jump.WasPressedThisFrame() && jumpTimer <= 0 && PlayerC.playerPhysics.grounded)
+        if (PlayerC.ControllingData.Player.Jump.WasPressedThisFrame() && jumpTimer <= 0)
         {
             jumpBufferTimer = 0.5f;
 
             jumpTimer = 0.1f;
-            PlayerC.playerPhysics.stickTimer = 0.1f;
         }
 
         // Dash
@@ -74,10 +73,9 @@ public class PlayerMovement : MonoBehaviour
             dashTimer = 0.5f;
         }
 
-        if (jumpBufferTimer > 0 && PlayerC.playerPhysics.grounded && !isJumping)
+        if (jumpBufferTimer > 0 && PlayerC.playerPhysics.coyoteTime > 0 && !isJumping)
         {
             Jump();
-            jumpBufferTimer = 0;
         }
     }
 
@@ -99,6 +97,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isJumping = true;
         PlayerC.RigidBodyC.linearVelocity = new Vector3(PlayerC.RigidBodyC.linearVelocity.x, 2 * jumpHeight / timeToApex, PlayerC.RigidBodyC.linearVelocity.z);
+        PlayerC.playerPhysics.stickTimer = 0.1f;
     }
 
     // Dash

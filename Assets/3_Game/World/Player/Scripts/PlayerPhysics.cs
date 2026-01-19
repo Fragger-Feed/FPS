@@ -43,11 +43,11 @@ public class PlayerPhysics : MonoBehaviour
     public void FIXED_UPDATE_Physics()
     {
         float gravity = -(2 * PlayerC.playerMovement.jumpHeight) / (PlayerC.playerMovement.timeToApex * PlayerC.playerMovement.timeToApex);
-        if (PlayerC.RigidBodyC.linearVelocity.y > 0 && !PlayerC.ControllingData.Player.Jump.IsPressed() && !grounded)
+        if (PlayerC.RigidBodyC.linearVelocity.y > 0 && !PlayerC.ControllingData.Player.Jump.IsPressed() && coyoteTime < 0)
             Gravity(gravity * 2);
         else if (grounded && PlayerC.ControllingData.Player.Move.ReadValue<Vector2>() == Vector2.zero)
             Gravity(0);
-        else
+        else if(!grounded)
             Gravity(gravity);
     }
 
@@ -56,9 +56,6 @@ public class PlayerPhysics : MonoBehaviour
         if (Physics.CheckBox(transform.position + gcoffset, gcSize, new Quaternion(0, 0, 0, 0), enemieAndGround))
         {
             coyoteTime = 0.2f;
-        }
-        if (coyoteTime > 0)
-        {
             PlayerC.playerMovement.isJumping = false;
             grounded = true;
         }
@@ -111,12 +108,12 @@ public class PlayerPhysics : MonoBehaviour
         if (PlayerC.RigidBodyC.linearVelocity != Vector3.zero && !groundedSlop)
         {
             RaycastHit raycastHit;
-            if (Physics.Raycast(transform.position, -transform.up, out raycastHit, playerFeet + 1f, ground))
+            if (Physics.Raycast(transform.position, -transform.up, out raycastHit, playerFeet + 1, ground))
             {
                 Vector3 targetPos = new Vector3(transform.position.x, transform.position.y - raycastHit.distance + playerFeet, transform.position.z);
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, raycastHit.distance * Time.deltaTime * 10);
-
-                /* if (PlayerC.RigidBodyC.linearVelocity.y > 0) PlayerC.RigidBodyC.linearVelocity = new Vector3(PlayerC.RigidBodyC.linearVelocity.x, 0f, PlayerC.RigidBodyC.linearVelocity.z);*/
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, 10000000000000);
+                print(PlayerC.RigidBodyC.linearVelocity);
+                if (PlayerC.RigidBodyC.linearVelocity.y > 0 && !PlayerC.playerMovement.isJumping && !PlayerC.playerMovement.isDashing && coyoteTime > 0.2) PlayerC.RigidBodyC.linearVelocity = new Vector3(PlayerC.RigidBodyC.linearVelocity.x, 0f, PlayerC.RigidBodyC.linearVelocity.z);
             }
         }
         if (grounded && PlayerC.ControllingData.Player.Move.ReadValue<Vector2>() == Vector2.zero && !PlayerC.playerMovement.isJumping)
