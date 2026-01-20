@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
         // Jump
         if (PlayerC.ControllingData.Player.Jump.WasPressedThisFrame() && jumpTimer <= 0)
         {
-            jumpBufferTimer = 0.5f;
+            jumpBufferTimer = 0.2f;
 
             jumpTimer = 0.1f;
         }
