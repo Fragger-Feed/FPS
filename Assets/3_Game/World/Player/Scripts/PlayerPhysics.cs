@@ -14,6 +14,8 @@ public class PlayerPhysics : MonoBehaviour
 
     [SerializeField] private Vector3 gcSize;
     [SerializeField] private Vector3 gcoffset;
+    [SerializeField] private Vector3 gscSize;
+    [SerializeField] private Vector3 gscffset;
     [SerializeField] private LayerMask ground;
     [SerializeField] private LayerMask enemieAndGround;
 
@@ -22,6 +24,7 @@ public class PlayerPhysics : MonoBehaviour
     public float stickTimer;
 
     public bool grounded;
+    public bool groundedSlop;
 
     private float playerFeet;
     public float coyoteTime = 0.1f;
@@ -40,11 +43,11 @@ public class PlayerPhysics : MonoBehaviour
     public void FIXED_UPDATE_Physics()
     {
         float gravity = -(2 * PlayerC.playerMovement.jumpHeight) / (PlayerC.playerMovement.timeToApex * PlayerC.playerMovement.timeToApex);
-        if (PlayerC.RigidBodyC.linearVelocity.y > 0 && !PlayerC.ControllingData.Player.Jump.IsPressed() && !grounded)
+        if (PlayerC.RigidBodyC.linearVelocity.y > 0 && !PlayerC.ControllingData.Player.Jump.IsPressed() && coyoteTime < 0)
             Gravity(gravity * 2);
         else if (grounded && PlayerC.ControllingData.Player.Move.ReadValue<Vector2>() == Vector2.zero)
             Gravity(0);
-        else
+        else if(!grounded)
             Gravity(gravity);
     }
 
@@ -53,9 +56,6 @@ public class PlayerPhysics : MonoBehaviour
         if (Physics.CheckBox(transform.position + gcoffset, gcSize, new Quaternion(0, 0, 0, 0), enemieAndGround))
         {
             coyoteTime = 0.2f;
-        }
-        if (coyoteTime > 0)
-        {
             PlayerC.playerMovement.isJumping = false;
             grounded = true;
         }
@@ -63,10 +63,25 @@ public class PlayerPhysics : MonoBehaviour
             grounded = false;
     }
 
+    public void slopeCheck()
+    {
+        RaycastHit hit;
+        Physics.BoxCast(transform.position + gscffset, gscSize, -transform.up, out hit, new Quaternion(0, 0, 0, 0), 0.1f, ground);
+
+        if (Vector3.Angle(hit.normal, Vector3.up) < 70)
+        {
+            groundedSlop = true;
+        }
+        else
+            groundedSlop = false;
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(transform.position + gcoffset, gcSize * 2);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(transform.position + gscffset, gscSize * 2);
 
         if (PlayerC.playerCollider == null) return;
 
@@ -90,15 +105,15 @@ public class PlayerPhysics : MonoBehaviour
     public void StickToTheGround(LayerMask ground)
     {
         playerFeet = (PlayerC.playerCollider.height / 2 - PlayerC.playerCollider.center.y) * transform.lossyScale.y;
-        if (PlayerC.RigidBodyC.linearVelocity != Vector3.zero)
+        if (PlayerC.RigidBodyC.linearVelocity != Vector3.zero && !groundedSlop)
         {
             RaycastHit raycastHit;
-            if (Physics.Raycast(transform.position, -transform.up, out raycastHit, playerFeet + 1f, ground))
+            if (Physics.Raycast(transform.position, -transform.up, out raycastHit, playerFeet + 1, ground))
             {
                 Vector3 targetPos = new Vector3(transform.position.x, transform.position.y - raycastHit.distance + playerFeet, transform.position.z);
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, raycastHit.distance * Time.deltaTime * 10);
-
-                /* if (PlayerC.RigidBodyC.linearVelocity.y > 0) PlayerC.RigidBodyC.linearVelocity = new Vector3(PlayerC.RigidBodyC.linearVelocity.x, 0f, PlayerC.RigidBodyC.linearVelocity.z);*/
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, 10000000000000);
+                print(PlayerC.RigidBodyC.linearVelocity);
+                if (PlayerC.RigidBodyC.linearVelocity.y > 0 && !PlayerC.playerMovement.isJumping && !PlayerC.playerMovement.isDashing && coyoteTime > 0.2) PlayerC.RigidBodyC.linearVelocity = new Vector3(PlayerC.RigidBodyC.linearVelocity.x, 0f, PlayerC.RigidBodyC.linearVelocity.z);
             }
         }
         if (grounded && PlayerC.ControllingData.Player.Move.ReadValue<Vector2>() == Vector2.zero && !PlayerC.playerMovement.isJumping)
