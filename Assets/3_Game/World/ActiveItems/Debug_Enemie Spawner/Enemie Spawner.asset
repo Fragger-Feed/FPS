@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea2da6887431e4744bf4df59f06f92c9, type: 3}
+  m_Name: Enemie Spawner
+  m_EditorClassIdentifier: Assembly-CSharp::ActiveItem_Data
+  itemName: Enemie spawner
+  description: Spawns enemies for debuging purposes
+  sprite: {fileID: 21300000, guid: ee1ab1e7dd367de43a3004164a9c751c, type: 3}
+  script: {fileID: 3626780225105925590, guid: 6692dc7a1ec2f5e4e93b6cd8d7684479, type: 3}

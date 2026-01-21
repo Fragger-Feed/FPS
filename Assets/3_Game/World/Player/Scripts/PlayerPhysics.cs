@@ -36,7 +36,6 @@ public class PlayerPhysics : MonoBehaviour
         stickTimer -= Time.deltaTime;
         groundCheck();
         slopeCheck();
-        print(PlayerC.RigidBodyC.linearVelocity);
         if (stickTimer <= 0)
         {
             StickToTheGround(ground);

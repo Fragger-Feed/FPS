@@ -7,5 +7,5 @@ public class Inventory_Data : ScriptableObject
     public int CurrentWeaponSlot;
     public List<Weapons_Data> WeaponsList = new List<Weapons_Data>();
 
-    public List<GameObject> ActiveItemsList = new List<GameObject>();
+    public List<ActiveItem_Data> ActiveItemsList = new List<ActiveItem_Data>();
 }

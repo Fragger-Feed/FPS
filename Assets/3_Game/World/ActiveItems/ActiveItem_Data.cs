@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ActiveItem_Data", menuName = "Static/ActiveItem_Data")]
@@ -8,5 +9,5 @@ public class ActiveItem_Data : ScriptableObject
 
     public Sprite sprite;
 
-    public ActiveItemScript script;
+    public GameObject script;
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,15 +19,19 @@ public class PlayerInventory : MonoBehaviour
     public GameObject currentWeapon;
 
     public GameObject[] activeItemSlots;
+    public GameObject[] activeItemSlotsUI;
+    public GameObject[] pastItem;
 
     private void Start()
     {
         UpdateSlots();
         UpdateWeapon();
+        UpdateActiveItemSlots();
     }
 
     private void Update()
     {
+        UpdateActiveItemSlots();
         int scroll = (int)PlayerController.ControllingData.Player.Scroll.ReadValue<float>();
         if (scroll != 0) SelectWeaponSlot(scroll, false);
         int select = (int)PlayerController.ControllingData.Player.SelectWeapon.ReadValue<float>();
@@ -100,5 +105,44 @@ public class PlayerInventory : MonoBehaviour
             return;
         currentWeapon = Instantiate(data.weaponPrefab, WeaponParent.transform);
         use.currentWeapon = currentWeapon.GetComponent<WeaponScript>();
+    }
+
+    private void UpdateActiveItemSlots()
+    {
+        for (int i = 0; i < activeItemSlots.Length; i++)
+        {
+            Transform currentItem = activeItemSlots[i].transform.childCount > 0
+                ? activeItemSlots[i].transform.GetChild(0)
+                : null;
+
+            var newItem = InventoryData.ActiveItemsList[i];
+
+            if (currentItem != null && newItem != null && pastItem[i] == newItem.script)
+                continue;
+
+            Image image = activeItemSlotsUI[i].transform.GetChild(0).GetComponent<Image>();
+
+            if (newItem != null)
+            {
+                image.sprite = newItem.sprite;
+                image.color = new Color(1, 1, 1, 1);
+
+                if (currentItem != null)
+                    Destroy(currentItem.gameObject);
+
+                GameObject gc = Instantiate(newItem.script, activeItemSlots[i].transform);
+                pastItem[i] = newItem.script;
+            }
+            else
+            {
+                image.sprite = null;
+                image.color = new Color(1, 1, 1, 0);
+
+                if (currentItem != null)
+                    Destroy(currentItem.gameObject);
+
+                pastItem[i] = null;
+            }
+        }
     }
 }

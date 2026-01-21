@@ -193,7 +193,7 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""UseArtifact"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""29634d81-6f8a-40ed-9232-29b2b24ef197"",
                     ""expectedControlType"": """",
                     ""processors"": """",

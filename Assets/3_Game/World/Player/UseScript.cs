@@ -6,8 +6,13 @@ public class UseScript : MonoBehaviour
 
     public WeaponScript currentWeapon;
 
+    public GameObject[] activeItemSlots;
+
     private void Update()
     {
+        int activeSlot = 0;
+        if (playerController.ControllingData.Player.UseArtifact.WasPressedThisFrame())
+            activeSlot = (int)playerController.ControllingData.Player.UseArtifact.ReadValue<float>();
         if (currentWeapon != null && playerController.ControllingData.Player.PrimaryFire.WasPressedThisFrame())
         {
             currentWeapon.PrimaryFire(playerController.CameraObj.transform);
@@ -16,9 +21,15 @@ public class UseScript : MonoBehaviour
         {
             currentWeapon.SecondaryFire(playerController.CameraObj.transform);
         }
+        if (activeSlot != 0)
+        {
+            UseActive(activeSlot - 1);
+        }
     }
 
     private void UseActive(int slot)
     {
+        if (activeItemSlots[slot].transform.childCount > 0)
+            activeItemSlots[slot].transform.GetChild(0).GetComponent<ActiveItemScript>().UseItem(playerController);
     }
 }

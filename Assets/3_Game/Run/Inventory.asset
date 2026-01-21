@@ -18,3 +18,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 11400000, guid: 068e3059f183b9840bb09ce40888af95, type: 2}
+  ActiveItemsList:
+  - {fileID: 11400000, guid: 6ed75abba240e1543bb32ac5baeeb5fe, type: 2}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 6ed75abba240e1543bb32ac5baeeb5fe, type: 2}
