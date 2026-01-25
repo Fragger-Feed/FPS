@@ -196,52 +196,6 @@ public class Ectorris_MapController : MonoBehaviour
         }
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public static void Print(List<Vector2Int> points)
-    {
-        if (points.Count == 0) return;
-
-        int minX = int.MaxValue, minY = int.MaxValue;
-        int maxX = int.MinValue, maxY = int.MinValue;
-
-        foreach (var p in points)
-        {
-            minX = Mathf.Min(minX, p.x);
-            minY = Mathf.Min(minY, p.y);
-            maxX = Mathf.Max(maxX, p.x);
-            maxY = Mathf.Max(maxY, p.y);
-        }
-
-        StringBuilder sb = new StringBuilder();
-
-        for (int y = maxY+1; y >= minY-1; y--)
-        {
-            for (int x = minX-1; x <= maxX+1; x++)
-            { 
-                sb.Append(points.Contains(new Vector2Int(x, y)) ? "__" : "@");
-            }
-            sb.AppendLine();
-        }
-
-        Debug.Log(sb.ToString());
-    }
 }
 
 
