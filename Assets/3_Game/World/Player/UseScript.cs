@@ -25,6 +25,20 @@ public class UseScript : MonoBehaviour
         {
             UseActive(activeSlot - 1);
         }
+
+        if (playerController.ControllingData.Player.Interact.WasPressedThisFrame())
+        {
+            RaycastHit hit;
+            Physics.Raycast(playerController.CameraObj.transform.position, playerController.CameraObj.transform.forward, out hit, 3f);
+            if (hit.collider != null)
+            {
+                InteractableOject interactable = hit.transform.parent.gameObject.GetComponent<InteractableOject>();
+                if (interactable != null)
+                {
+                    interactable.Interact(playerController);
+                }
+            }
+        }
     }
 
     private void UseActive(int slot)

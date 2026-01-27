@@ -12,33 +12,40 @@ public class PlayerController : MonoBehaviour
     // == Player Scripts ==
     [Header("Player Scripts")]
     [SerializeField] public PlayerMovement playerMovement;
+
     [SerializeField] public PlayerView playerView;
     [SerializeField] public PlayerPhysics playerPhysics;
 
     // == Components ==
     [Header("Components")]
     public Rigidbody RigidBodyC;
-    public CapsuleCollider playerCollider;
 
+    public CapsuleCollider playerCollider;
 
     // == Objects ==
     [Header("Objects")]
     public GameObject ForwardObj;
+
     public Camera CameraObj;
 
-
+    public bool disableMovement = false;
 
     // == Start ==
-    private void Awake() { ControllingData = new Controlling_Data(); }
-    private void OnEnable() { ControllingData.Enable(); }
+    private void Awake()
+    { ControllingData = new Controlling_Data(); }
 
-
+    private void OnEnable()
+    { ControllingData.Enable(); }
 
     // == Update ==
-    private void Update() {
+    private void Update()
+    {
         playerView.UPDATE_View();
-        playerPhysics.UPDATE_Physics();
-        playerMovement.UPDATE_Movement();
+        if (!disableMovement)
+        {
+            playerPhysics.UPDATE_Physics();
+            playerMovement.UPDATE_Movement();
+        }
     }
 
     private void LateUpdate()
@@ -46,10 +53,12 @@ public class PlayerController : MonoBehaviour
         playerView.late_Update_View();
     }
 
-    private void FixedUpdate() {
-        playerMovement.FIXED_UPDATE_Movement();
-        playerPhysics.FIXED_UPDATE_Physics();
+    private void FixedUpdate()
+    {
+        if (!disableMovement)
+        {
+            playerMovement.FIXED_UPDATE_Movement();
+            playerPhysics.FIXED_UPDATE_Physics();
+        }
     }
-
-    
 }
