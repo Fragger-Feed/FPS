@@ -41,7 +41,6 @@ public class Ectorris_MapController : MonoBehaviour
 
         // == Rooms ==
         SeparateRooms();
-        Print(MapChecks);
     }
 
 
