@@ -8,6 +8,9 @@ public class UseScript : MonoBehaviour
 
     public GameObject[] activeItemSlots;
 
+    [SerializeField] private float offset;
+    [SerializeField] private Vector3 size;
+
     private void Update()
     {
         int activeSlot = 0;
@@ -28,14 +31,16 @@ public class UseScript : MonoBehaviour
 
         if (playerController.ControllingData.Player.Interact.WasPressedThisFrame())
         {
-            RaycastHit hit;
-            Physics.Raycast(playerController.CameraObj.transform.position, playerController.CameraObj.transform.forward, out hit, 3f);
-            if (hit.collider != null)
+            Collider[] hit = Physics.OverlapBox(playerController.CameraObj.transform.position + playerController.CameraObj.transform.forward * offset, size, playerController.CameraObj.transform.rotation);
             {
-                InteractableOject interactable = hit.transform.parent.gameObject.GetComponent<InteractableOject>();
-                if (interactable != null)
+                for (int i = 0; i < hit.Length; i++)
                 {
-                    interactable.Interact(playerController);
+                    InteractableOject interactable = hit[i].transform.parent.gameObject.GetComponent<InteractableOject>();
+                    if (interactable != null)
+                    {
+                        interactable.Interact(playerController);
+                        break;
+                    }
                 }
             }
         }
@@ -45,5 +50,12 @@ public class UseScript : MonoBehaviour
     {
         if (activeItemSlots[slot].transform.childCount > 0)
             activeItemSlots[slot].transform.GetChild(0).GetComponent<ActiveItemScript>().UseItem(playerController);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.matrix = Matrix4x4.TRS(playerController.CameraObj.transform.position + playerController.CameraObj.transform.forward * offset, playerController.CameraObj.transform.rotation, Vector3.one);
+        Gizmos.DrawWireCube(Vector3.zero, size * 2);
     }
 }
