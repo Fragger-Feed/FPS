@@ -13,6 +13,7 @@ public class Zipline : InteractableOject
     [SerializeField] private Vector2 grabArea;
     [SerializeField] private Vector3 offset;
     private Vector3 direction;
+    private Vector3 directionNormalized;
     private float length;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float snapSpeed = 100;
@@ -26,6 +27,7 @@ public class Zipline : InteractableOject
         _collider = transform.GetChild(2).gameObject;
 
         direction = (pointB.transform.position - pointA.transform.position);
+        directionNormalized = direction.normalized;
         length = direction.magnitude;
 
         _collider.transform.position = (pointA.transform.position + pointB.transform.position) * 0.5f;
@@ -53,22 +55,15 @@ public class Zipline : InteractableOject
     {
         if (!isRiding || player == null) return;
 
-        Vector3 dir = direction.normalized;
+        /*
+                Vector3 right = Vector3.Cross(Vector3.up, directionNormalized).normalized;
+                Vector3 downFromCable = Vector3.Cross(directionNormalized, right).normalized;
 
-        Vector3 toPlayer = player.transform.position - pointA.transform.position;
-        float projection = Vector3.Dot(toPlayer, dir);
-        projection = Mathf.Clamp(projection, 0f, length);
-
-        Vector3 closestPoint = pointA.transform.position + dir * projection;
-
-        Vector3 right = Vector3.Cross(Vector3.up, dir).normalized;
-        Vector3 downFromCable = Vector3.Cross(dir, right).normalized;
-
-        Vector3 targetPosition =
-            closestPoint +
-            right * offset.x +
-            downFromCable * offset.y +
-            dir * offset.z;
+                Vector3 targetPosition =
+                    closestPoint +
+                    right * offset.x +
+                    downFromCable * offset.y +
+                    directionNormalized * offset.z;*/
 
         pos += Time.deltaTime * speed;
         if (pos > 1) DeatachZipline(player);
@@ -87,6 +82,14 @@ public class Zipline : InteractableOject
                 );*/
     }
 
+    private float GetProjectionOnLine()
+    {
+        Vector3 ap = player.transform.position - targetStart.position;
+        float ab2 = (targetEnd.position - targetStart.position).sqrMagnitude;
+        float ap_ab = Vector3.Dot(ap, targetEnd.position - targetStart.position);
+        return ap_ab / ab2;
+    }
+
     private void AtachZipline(PlayerController _player)
     {
         player = _player;
@@ -95,12 +98,12 @@ public class Zipline : InteractableOject
         player.RigidBodyC.linearVelocity = Vector3.zero;
         isRiding = true;
         pos = 0;
-
         float dotA = Vector3.Dot(player.ForwardObj.transform.forward, pointA.transform.forward);
         float dotB = Vector3.Dot(player.ForwardObj.transform.forward, pointB.transform.forward);
 
         targetEnd = dotB > dotA ? pointB.transform : pointA.transform;
         targetStart = dotB > dotA ? pointA.transform : pointB.transform;
+        pos = GetProjectionOnLine();
     }
 
     private void DeatachZipline(PlayerController _player)

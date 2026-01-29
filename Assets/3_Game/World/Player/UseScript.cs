@@ -35,6 +35,8 @@ public class UseScript : MonoBehaviour
             {
                 for (int i = 0; i < hit.Length; i++)
                 {
+                    if (hit[i].transform.parent == null)
+                        continue;
                     InteractableOject interactable = hit[i].transform.parent.gameObject.GetComponent<InteractableOject>();
                     if (interactable != null)
                     {
