@@ -8,7 +8,6 @@ public class Zipline : InteractableOject
     private GameObject pointB;
     private GameObject _collider;
 
-    private LineRenderer lineRenderer;
     private Transform targetEnd;
     private Transform targetStart;
     [SerializeField] private Vector2 grabArea;
@@ -26,10 +25,6 @@ public class Zipline : InteractableOject
         pointB = transform.GetChild(1).gameObject;
         _collider = transform.GetChild(2).gameObject;
 
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.SetPosition(0, pointA.transform.localPosition);
-        lineRenderer.SetPosition(1, pointB.transform.localPosition);
-
         direction = (pointB.transform.position - pointA.transform.position);
         length = direction.magnitude;
 
@@ -45,25 +40,11 @@ public class Zipline : InteractableOject
 
         if (!isRiding)
         {
-            player = _player;
-            player.disableMovement = true;
-            player.GetComponent<Collider>().enabled = false;
-            player.RigidBodyC.linearVelocity = Vector3.zero;
-            isRiding = true;
-            pos = 0;
-
-            float dotA = Vector3.Dot(player.ForwardObj.transform.forward, pointA.transform.forward);
-            float dotB = Vector3.Dot(player.ForwardObj.transform.forward, pointB.transform.forward);
-
-            targetEnd = dotB > dotA ? pointB.transform : pointA.transform;
-            targetStart = dotB > dotA ? pointA.transform : pointB.transform;
+            AtachZipline(_player);
         }
         else
         {
-            player.GetComponent<Collider>().enabled = true;
-            player.disableMovement = false;
-            isRiding = false;
-            player = null;
+            DeatachZipline(_player);
         }
     }
 
@@ -90,6 +71,7 @@ public class Zipline : InteractableOject
             dir * offset.z;
 
         pos += Time.deltaTime * speed;
+        if (pos > 1) DeatachZipline(player);
         player.transform.position = Vector3.Lerp(targetStart.position + offset, targetEnd.position + offset, pos);
 
         /*        player.transform.position = Vector3.Lerp(
@@ -103,5 +85,29 @@ public class Zipline : InteractableOject
                     targetEnd.position + offset,
                     Time.deltaTime * speed
                 );*/
+    }
+
+    private void AtachZipline(PlayerController _player)
+    {
+        player = _player;
+        player.disableMovement = true;
+        player.GetComponent<Collider>().enabled = false;
+        player.RigidBodyC.linearVelocity = Vector3.zero;
+        isRiding = true;
+        pos = 0;
+
+        float dotA = Vector3.Dot(player.ForwardObj.transform.forward, pointA.transform.forward);
+        float dotB = Vector3.Dot(player.ForwardObj.transform.forward, pointB.transform.forward);
+
+        targetEnd = dotB > dotA ? pointB.transform : pointA.transform;
+        targetStart = dotB > dotA ? pointA.transform : pointB.transform;
+    }
+
+    private void DeatachZipline(PlayerController _player)
+    {
+        player.GetComponent<Collider>().enabled = true;
+        player.disableMovement = false;
+        isRiding = false;
+        player = null;
     }
 }

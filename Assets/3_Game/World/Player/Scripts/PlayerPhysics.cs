@@ -78,7 +78,7 @@ public class PlayerPhysics : MonoBehaviour
             -transform.up,
             out hit,
             transform.rotation,
-            1.2f,
+            slopCheckDistance,
             ground,
             QueryTriggerInteraction.Ignore))
         {
@@ -101,6 +101,7 @@ public class PlayerPhysics : MonoBehaviour
         Gizmos.DrawWireCube(transform.position + gcOffset, gcSize * 2);
         Gizmos.color = Color.rebeccaPurple;
         Gizmos.DrawWireCube(transform.position + gscOffset, gscSize * 2);
+        Gizmos.DrawWireCube(transform.position - transform.up * slopCheckDistance + gscOffset, gscSize * 2);
 
         if (PlayerC.playerCollider == null) return;
 
@@ -108,15 +109,12 @@ public class PlayerPhysics : MonoBehaviour
         Vector3 bottom = transform.position - transform.up * num;
         Vector3 top = transform.position + transform.up * (PlayerC.playerCollider.height / 2f + PlayerC.playerCollider.center.y);
 
-        // draw collider axis
         Gizmos.color = Color.cyan;
         Gizmos.DrawLine(bottom, top);
 
-        // draw bottom sphere
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(bottom, PlayerC.playerCollider.radius);
 
-        // draw center
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, 0.05f);
     }
