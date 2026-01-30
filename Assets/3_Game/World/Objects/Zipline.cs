@@ -55,19 +55,15 @@ public class Zipline : InteractableOject
     {
         if (!isRiding || player == null) return;
 
-        /*
-                Vector3 right = Vector3.Cross(Vector3.up, directionNormalized).normalized;
-                Vector3 downFromCable = Vector3.Cross(directionNormalized, right).normalized;
-
-                Vector3 targetPosition =
-                    closestPoint +
-                    right * offset.x +
-                    downFromCable * offset.y +
-                    directionNormalized * offset.z;*/
+        if (player.playerMovement.isJumping || player.playerMovement.isDashing)
+        {
+            DeatachZipline(player);
+            return;
+        }
 
         pos += Time.deltaTime * speed;
-        if (pos > 1) DeatachZipline(player);
         player.transform.position = Vector3.Lerp(targetStart.position + offset, targetEnd.position + offset, pos);
+        if (pos > 1) { DeatachZipline(player); return; }
 
         /*        player.transform.position = Vector3.Lerp(
                     player.transform.position,
@@ -96,6 +92,8 @@ public class Zipline : InteractableOject
         player.disableMovement = true;
         player.GetComponent<Collider>().enabled = false;
         player.RigidBodyC.linearVelocity = Vector3.zero;
+        player.playerMovement.isDashing = false;
+        player.playerMovement.isJumping = false;
         isRiding = true;
         pos = 0;
         float dotA = Vector3.Dot(player.ForwardObj.transform.forward, pointA.transform.forward);

@@ -44,8 +44,8 @@ public class PlayerController : MonoBehaviour
         if (!disableMovement)
         {
             playerPhysics.UPDATE_Physics();
-            playerMovement.UPDATE_Movement();
         }
+        playerMovement.UPDATE_Movement();
     }
 
     private void LateUpdate()

@@ -5570,7 +5570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zipline
   grabArea: {x: 2, y: 2}
-  offset: {x: 0, y: -1.15, z: 0}
+  offset: {x: 0, y: -1.25, z: 0}
   speed: 2.5
   snapSpeed: 100
   isRiding: 0
