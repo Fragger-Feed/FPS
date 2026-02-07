@@ -12,34 +12,30 @@ public class PlayerController : MonoBehaviour
     // == Player Scripts ==
     [Header("Player Scripts")]
     [SerializeField] public PlayerMovement playerMovement;
-
     [SerializeField] public PlayerView playerView;
     [SerializeField] public PlayerPhysics playerPhysics;
 
     // == Components ==
     [Header("Components")]
     public Rigidbody RigidBodyC;
-
     public CapsuleCollider playerCollider;
+
 
     // == Objects ==
     [Header("Objects")]
     public GameObject ForwardObj;
-
     public Camera CameraObj;
 
-    public bool disableMovement = false;
+
 
     // == Start ==
-    private void Awake()
-    { ControllingData = new Controlling_Data(); }
+    private void Awake() { ControllingData = new Controlling_Data(); }
+    private void OnEnable() { ControllingData.Enable(); }
 
-    private void OnEnable()
-    { ControllingData.Enable(); }
+
 
     // == Update ==
-    private void Update()
-    {
+    private void Update() {
         playerView.UPDATE_View();
         if (!disableMovement)
         {
@@ -53,12 +49,10 @@ public class PlayerController : MonoBehaviour
         playerView.late_Update_View();
     }
 
-    private void FixedUpdate()
-    {
-        if (!disableMovement)
-        {
-            playerMovement.FIXED_UPDATE_Movement();
-            playerPhysics.FIXED_UPDATE_Physics();
-        }
+    private void FixedUpdate() {
+        playerMovement.FIXED_UPDATE_Movement();
+        playerPhysics.FIXED_UPDATE_Physics();
     }
+
+    
 }
