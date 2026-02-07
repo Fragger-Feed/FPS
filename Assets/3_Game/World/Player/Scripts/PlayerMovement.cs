@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
         dashTimer = Mathf.Clamp(dashTimer - Time.deltaTime, 0, 100);
 
         // Direction
-        if (isDashing && PlayerC.disableMovement) return;
+        if (isDashing || PlayerC.disableMovement) return;
         currentDirection = PlayerC.ForwardObj.transform.localRotation * new Vector3(InputData.x, 0, InputData.y);
 
         // Move

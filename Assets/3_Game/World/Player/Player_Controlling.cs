@@ -42,8 +42,6 @@ public class PlayerController : MonoBehaviour
             playerPhysics.UPDATE_Physics();
         }
         playerMovement.UPDATE_Movement();
-        playerMovement.FIXED_UPDATE_Movement();
-        playerPhysics.FIXED_UPDATE_Physics();
     }
 
     private void LateUpdate()
@@ -52,7 +50,8 @@ public class PlayerController : MonoBehaviour
     }
 
     private void FixedUpdate() {
-
+        playerMovement.FIXED_UPDATE_Movement();
+        playerPhysics.FIXED_UPDATE_Physics();
     }
 
     
