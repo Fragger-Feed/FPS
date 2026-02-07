@@ -44,11 +44,11 @@ public class PlayerMovement : MonoBehaviour
         dashTimer = Mathf.Clamp(dashTimer - Time.deltaTime, 0, 100);
 
         // Direction
-        if (isDashing) return;
+        if (isDashing && PlayerC.disableMovement) return;
         currentDirection = PlayerC.ForwardObj.transform.localRotation * new Vector3(InputData.x, 0, InputData.y);
 
         // Move
-        Move();
+        GodsWill();
     }
 
     // == UPDATE ==
@@ -81,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
 
     // == MOVEMENT ==
     // Move
-    public void Move()
+    public void GodsWill()
     {
         Vector3 currentVelocity = PlayerC.RigidBodyC.linearVelocity;
         Vector3 targetVelocity = currentDirection * speed;

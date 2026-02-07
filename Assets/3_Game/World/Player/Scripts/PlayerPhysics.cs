@@ -48,7 +48,7 @@ public class PlayerPhysics : MonoBehaviour
         if (PlayerC.RigidBodyC.linearVelocity.y > 0 && !PlayerC.ControllingData.Player.Jump.IsPressed() && coyoteTime < 0)
             Gravity(gravity * 2);
         else if (grounded && PlayerC.ControllingData.Player.Move.ReadValue<Vector2>() == Vector2.zero)
-            Gravity(0);
+            return;
         else if (!grounded)
             Gravity(gravity);
     }
