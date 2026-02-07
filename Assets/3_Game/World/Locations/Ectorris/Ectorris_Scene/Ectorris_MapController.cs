@@ -18,6 +18,7 @@ public class Ectorris_MapController : MonoBehaviour
     public List<GameObject> TwoExitsOnOppositeSides = new List<GameObject>();
     public List<GameObject> OneExit = new List<GameObject>();
 
+    MeshFilter mf;
 
     public GameObject Prefab;
     public float cellSize = 10f;
@@ -27,16 +28,18 @@ public class Ectorris_MapController : MonoBehaviour
     // ==== START ====
     void Start() {
 
+        mf = GetComponent<MeshFilter>();
+
         // == Checks ==
         // Start-way
         AddMapChecks(10, Vector2Int.zero);
         Vector2Int last = MapChecks[^1];
 
         // Ways to Locations|Bosses
-        AddMapChecks(7, last);
-        AddMapChecks(7, last);
-        AddMapChecks(7, last);
-        AddMapChecks(7, last);
+        AddMapChecks(9, last);
+        AddMapChecks(9, last);
+        AddMapChecks(9, last);
+        AddMapChecks(9, last);
 
 
         // == Rooms ==
