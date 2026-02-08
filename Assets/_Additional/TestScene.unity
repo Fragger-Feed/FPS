@@ -2323,7 +2323,7 @@ MonoBehaviour:
   - {fileID: 1136417689}
   - {fileID: 650887404}
   offset: 1.69
-  size: {x: 0.3, y: 0.3, z: 1.85}
+  size: {x: 0.3, y: 0.3, z: 2.5}
 --- !u!114 &361129551
 MonoBehaviour:
   m_ObjectHideFlags: 0
