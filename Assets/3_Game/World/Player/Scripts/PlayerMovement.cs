@@ -34,18 +34,20 @@ public class PlayerMovement : MonoBehaviour
     public float jumpTimer;
     public float jumpBufferTimer;
 
+    private Vector2 savedInput;
+    private bool savedJump;
+    private bool savedDash;
+
     // == FIXED UPDATE ==
     public void FIXED_UPDATE_Movement()
     {
-        Vector2 InputData = PlayerC.ControllingData.Player.Move.ReadValue<Vector2>();
-
         // Timers
         jumpTimer = Mathf.Clamp(jumpTimer - Time.deltaTime, 0, 100);
         dashTimer = Mathf.Clamp(dashTimer - Time.deltaTime, 0, 100);
 
         // Direction
         if (isDashing || PlayerC.disableMovement) return;
-        currentDirection = PlayerC.ForwardObj.transform.localRotation * new Vector3(InputData.x, 0, InputData.y);
+        currentDirection = PlayerC.ForwardObj.transform.localRotation * new Vector3(savedInput.x, 0, savedInput.y);
 
         // Move
         GodsWill();
@@ -55,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
     public void UPDATE_Movement()
     {
         jumpBufferTimer -= Time.deltaTime;
+        savedInput = PlayerC.ControllingData.Player.Move.ReadValue<Vector2>();
 
         // Jump
         if (PlayerC.ControllingData.Player.Jump.WasPressedThisFrame() && jumpTimer <= 0)
@@ -86,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 currentVelocity = PlayerC.RigidBodyC.linearVelocity;
         Vector3 targetVelocity = currentDirection * speed;
 
-        Vector3 newVelocity = Vector3.MoveTowards(currentVelocity, targetVelocity, acceleration);
+        Vector3 newVelocity = Vector3.MoveTowards(currentVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
         Vector3 finalVelocity = new Vector3(newVelocity.x, currentVelocity.y, newVelocity.z);
 
         PlayerC.RigidBodyC.linearVelocity = finalVelocity;
