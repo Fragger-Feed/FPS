@@ -116,6 +116,7 @@ public class Zipline : InteractableOject
         player = _player;
         player.disableMovement = true;
         player.GetComponent<Collider>().enabled = false;
+        player.RigidBodyC.interpolation = RigidbodyInterpolation.None;
         player.RigidBodyC.linearVelocity = Vector3.zero;
         player.playerMovement.isDashing = false;
         player.playerMovement.isJumping = false;
@@ -142,6 +143,7 @@ public class Zipline : InteractableOject
             player.RigidBodyC.linearVelocity = ziplineVelocity;
         else
             player.RigidBodyC.linearVelocity = Vector2.zero;
+        player.RigidBodyC.interpolation = RigidbodyInterpolation.Interpolate;
         print(player.RigidBodyC.linearVelocity);
         player = null;
     }
