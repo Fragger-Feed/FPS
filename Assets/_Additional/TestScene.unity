@@ -8464,10 +8464,6 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5565219953403857304, guid: 984ee18e2c52dd04e8d91d0b2e9a118d, type: 3}
-      propertyPath: m_UseGravity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5565219953403857304, guid: 984ee18e2c52dd04e8d91d0b2e9a118d, type: 3}
       propertyPath: m_Interpolate
       value: 1
       objectReference: {fileID: 0}
