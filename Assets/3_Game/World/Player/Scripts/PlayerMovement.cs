@@ -86,13 +86,20 @@ public class PlayerMovement : MonoBehaviour
     // Move
     public void GodsWill()
     {
-        Vector3 currentVelocity = PlayerC.RigidBodyC.linearVelocity;
-        Vector3 targetVelocity = currentDirection * speed;
+        Vector3 velocity = PlayerC.RigidBodyC.linearVelocity;
 
-        Vector3 newVelocity = Vector3.MoveTowards(currentVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
-        Vector3 finalVelocity = new Vector3(newVelocity.x, currentVelocity.y, newVelocity.z);
+        Vector3 move = currentDirection;
 
-        PlayerC.RigidBodyC.linearVelocity = finalVelocity;
+        if (PlayerC.playerPhysics.groundedSlop)
+        {
+            move = Vector3.ProjectOnPlane(move, PlayerC.playerPhysics.groundNormal);
+        }
+
+        Vector3 targetVelocity = move * speed;
+
+        Vector3 newVelocity = Vector3.MoveTowards(velocity, targetVelocity, acceleration * Time.fixedDeltaTime);
+
+        PlayerC.RigidBodyC.linearVelocity = newVelocity;
     }
 
     // Jump

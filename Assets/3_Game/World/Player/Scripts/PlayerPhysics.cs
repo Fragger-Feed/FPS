@@ -29,6 +29,7 @@ public class PlayerPhysics : MonoBehaviour
 
     private float playerFeet;
     public float coyoteTime = 0.1f;
+    public Vector3 groundNormal;
 
     public void UPDATE_Physics()
     {
@@ -72,21 +73,15 @@ public class PlayerPhysics : MonoBehaviour
         RaycastHit hit;
         Vector3 origin = transform.position + gscOffset;
 
-        if (Physics.BoxCast(
-            origin,
-            gscSize,
-            -transform.up,
-            out hit,
-            transform.rotation,
-            slopCheckDistance,
-            ground,
-            QueryTriggerInteraction.Ignore))
+        if (Physics.BoxCast(origin, gscSize, -transform.up, out hit, transform.rotation, slopCheckDistance, ground, QueryTriggerInteraction.Ignore))
         {
             float angle = Vector3.Angle(hit.normal, Vector3.up);
             /*            print(angle);*/
             if (angle <= 70f && angle > 0)
             {
                 groundedSlop = true;
+                groundNormal = hit.normal;
+                print(groundNormal + "A");
             }
 
             Debug.DrawRay(hit.point, hit.normal, Color.green);
