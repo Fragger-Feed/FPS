@@ -88,18 +88,14 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 velocity = PlayerC.RigidBodyC.linearVelocity;
 
-        Vector3 move = currentDirection;
+        Vector3 targetVelocity = currentDirection * speed;
 
-        if (PlayerC.playerPhysics.groundedSlop)
-        {
-            move = Vector3.ProjectOnPlane(move, PlayerC.playerPhysics.groundNormal);
-        }
+        Vector3 newVelocity = Vector3.MoveTowards(new Vector3(velocity.x, 0f, velocity.z), new Vector3(targetVelocity.x, 0f, targetVelocity.z), acceleration * Time.deltaTime);
 
-        Vector3 targetVelocity = move * speed;
+        velocity.x = newVelocity.x;
+        velocity.z = newVelocity.z;
 
-        Vector3 newVelocity = Vector3.MoveTowards(velocity, targetVelocity, acceleration * Time.fixedDeltaTime);
-
-        PlayerC.RigidBodyC.linearVelocity = newVelocity;
+        PlayerC.RigidBodyC.linearVelocity = velocity;
     }
 
     // Jump
