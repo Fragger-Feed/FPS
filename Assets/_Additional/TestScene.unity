@@ -8453,7 +8453,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2641532473805506446, guid: 984ee18e2c52dd04e8d91d0b2e9a118d, type: 3}
       propertyPath: speed
-      value: 3
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4426633201765520677, guid: 984ee18e2c52dd04e8d91d0b2e9a118d, type: 3}
       propertyPath: slopCheckDistance
