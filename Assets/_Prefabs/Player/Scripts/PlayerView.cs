@@ -8,16 +8,18 @@ public class PlayerView : MonoBehaviour
 {
     // == Data ==
     [Header("Data")]
-    [SerializeField] private PlayerController PlayerC;
-    public GameObject CameraHolder;
+    [SerializeField] public PlayerController PlayerC;
 
     // == Configs ==
     [Header("Configs")]
-    [SerializeField] private float sensitivity;
-    [SerializeField] private Vector3 offset;
-    [SerializeField] private float viewDistance;
+    public float sensitivity;
+    public Vector3 offset;
+    public float viewDistance;
     public bool toHolder;
 
+    // == Objects ==
+    [Header("Objects")]
+    public GameObject CameraHolder;
 
     // Hash
     [Header("Hash")]
@@ -26,34 +28,26 @@ public class PlayerView : MonoBehaviour
 
 
 
-    // == START ==
+    // === START ===
     private void Start() {
         Cursor.lockState = CursorLockMode.Locked;
     }
 
 
-    // == UPDATE ==
+
+    // === UPDATE ===
+    // = Update =
     public void UPDATE_View() {
-        if (!toHolder) {
-            UpdateInteractions();
-        }
-        else {
-            ConnectToHolder();
-        }
+        if (!toHolder) { UpdateInteractions(); }
     }
-
-    public void late_Update_View() {
-        if (!toHolder) {
-            CameraRotate();
-        }
-        else {
-
-        }
+    // = Late Update =
+    public void LATE_UPDATE_View() {
+        if (!toHolder) { CameraRotate(); }
     }
 
 
 
-    // Camera Rotate
+    // == Camera Rotation ==
     public void CameraRotate() {
         Vector3 InputData = PlayerC.ControllingData.Player.Look.ReadValue<Vector2>();
 
@@ -67,9 +61,9 @@ public class PlayerView : MonoBehaviour
     }
 
 
-    // Interactions
-    public void UpdateInteractions() {
 
+    // == Interactions ==
+    public void UpdateInteractions() {
         // ON
         List<InteractionObject> CurrentInteractionObjects = new List<InteractionObject>();
         foreach (RaycastHit raycastHit in Physics.RaycastAll(PlayerC.CameraObj.transform.position, PlayerC.CameraObj.transform.forward, viewDistance).Reverse()) {
@@ -79,16 +73,13 @@ public class PlayerView : MonoBehaviour
                     InteractionObjects.Add(Interaction);
                     Interaction.Interaction_ON();
                 }
-            }
-            break;
+            } break;
         }
-
         // OFF | START
         foreach(InteractionObject Interaction in InteractionObjects.Except(CurrentInteractionObjects).ToArray()) {
             InteractionObjects.Remove(Interaction);
             Interaction.Interaction_OFF();
         }
-
         // START
         if (PlayerC.ControllingData.Player.Interact.WasPressedThisFrame()) {
             foreach (InteractionObject Interaction in InteractionObjects.ToArray()) {
@@ -100,7 +91,7 @@ public class PlayerView : MonoBehaviour
 
 
 
-    // Connect To Holder
+    // == Connect To Holder ==
     public void ConnectToHolder() {
         PlayerC.CameraObj.transform.position = CameraHolder.transform.position;
     }
