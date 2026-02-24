@@ -16501,6 +16501,14 @@ PrefabInstance:
       propertyPath: CameraObj
       value: 
       objectReference: {fileID: 936810234}
+    - target: {fileID: 6459858589058296989, guid: 984ee18e2c52dd04e8d91d0b2e9a118d, type: 3}
+      propertyPath: playerState
+      value: 
+      objectReference: {fileID: 933070450}
+    - target: {fileID: 6459858589058296989, guid: 984ee18e2c52dd04e8d91d0b2e9a118d, type: 3}
+      propertyPath: playerInventory
+      value: 
+      objectReference: {fileID: 933070452}
     - target: {fileID: 6860846949729950266, guid: 984ee18e2c52dd04e8d91d0b2e9a118d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.0098523
@@ -18179,6 +18187,28 @@ Transform:
   - {fileID: 809214120}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &933070450 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5024617364419655743, guid: 984ee18e2c52dd04e8d91d0b2e9a118d, type: 3}
+  m_PrefabInstance: {fileID: 752084672}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09ef82cfdebc8424e8b7f2cee05bad96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerState
+--- !u!114 &933070452 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7124632174534671603, guid: 984ee18e2c52dd04e8d91d0b2e9a118d, type: 3}
+  m_PrefabInstance: {fileID: 752084672}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac794c258939e7543b9ebdc6c35046df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
 --- !u!1 &936810231
 GameObject:
   m_ObjectHideFlags: 0
