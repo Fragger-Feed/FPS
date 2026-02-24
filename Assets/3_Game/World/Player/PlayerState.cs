@@ -37,6 +37,6 @@ public class PlayerState : MonoBehaviour
 
     private void Die()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene("Hub_Scene");
     }
 }

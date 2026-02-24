@@ -120,7 +120,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 2
 --- !u!114 &6459858589058296989
@@ -138,6 +138,7 @@ MonoBehaviour:
   playerMovement: {fileID: 2641532473805506446}
   playerView: {fileID: 8223806646832867791}
   playerPhysics: {fileID: 4426633201765520677}
+  playerInventory: {fileID: 0}
   RigidBodyC: {fileID: 5565219953403857304}
   playerCollider: {fileID: 9101385575341586488}
   ForwardObj: {fileID: 7792336018376648012}
@@ -206,7 +207,7 @@ MonoBehaviour:
   gcOffset: {x: 0, y: -1.24, z: 0}
   gscSize: {x: 0.3, y: 0.01, z: 0.3}
   gscOffset: {x: 0, y: -1, z: 0}
-  slopCheckDistance: 0.2
+  slopCheckDistance: 0.26
   ground:
     serializedVersion: 2
     m_Bits: 8
@@ -217,6 +218,7 @@ MonoBehaviour:
   grounded: 0
   groundedSlop: 0
   coyoteTime: 0.1
+  groundNormal: {x: 0, y: 0, z: 0}
 --- !u!114 &7124632174534671603
 MonoBehaviour:
   m_ObjectHideFlags: 0

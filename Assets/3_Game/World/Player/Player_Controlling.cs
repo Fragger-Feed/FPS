@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public PlayerMovement playerMovement;
     [SerializeField] public PlayerView playerView;
     [SerializeField] public PlayerPhysics playerPhysics;
+    [SerializeField] public PlayerInventory playerInventory;
+    [SerializeField] public PlayerState playerState;
 
     // == Components ==
     [Header("Components")]

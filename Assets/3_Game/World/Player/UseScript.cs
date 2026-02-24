@@ -32,7 +32,7 @@ public class UseScript : MonoBehaviour
         if (playerController.ControllingData.Player.Interact.WasPressedThisFrame())
         {
             Collider[] hit = Physics.OverlapBox(playerController.CameraObj.transform.position + playerController.CameraObj.transform.forward * offset, size, playerController.CameraObj.transform.rotation);
-            {
+            {   
                 for (int i = 0; i < hit.Length; i++)
                 {
                     if (hit[i].transform.parent == null)
@@ -41,6 +41,7 @@ public class UseScript : MonoBehaviour
                     if (interactable != null)
                     {
                         interactable.Interact(playerController);
+                        print(interactable.gameObject);
                         break;
                     }
                 }
