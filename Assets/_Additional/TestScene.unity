@@ -1868,7 +1868,7 @@ Transform:
   m_GameObject: {fileID: 460017344}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.35, y: 9, z: -4.98}
+  m_LocalPosition: {x: -0.35, y: 10, z: -4.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2683,7 +2683,7 @@ Transform:
   m_GameObject: {fileID: 945797283}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 53.2, y: 20.6, z: 11.6}
+  m_LocalPosition: {x: 53.2, y: 22, z: 11.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3762,7 +3762,7 @@ MonoBehaviour:
   snapSpeed: 100
   jumpHeightLimit: 10
   grabArea: {x: 2, y: 2}
-  offset: {x: 0, y: -1.25, z: 0}
+  offset: {x: -1, y: -1.75, z: 0}
 --- !u!1 &1356297004
 GameObject:
   m_ObjectHideFlags: 0
@@ -4649,7 +4649,7 @@ Transform:
   m_GameObject: {fileID: 1659401711}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -7.98, y: 9.21, z: 0}
+  m_LocalPosition: {x: -7.98, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4822,7 +4822,7 @@ Transform:
   m_GameObject: {fileID: 1849033921}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.35, y: 11.01, z: 10.54}
+  m_LocalPosition: {x: -0.35, y: 12, z: 10.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5964,13 +5964,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa5d8f290166ed419148fd9f3d3bef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionObject
-  Interaction_ON_Function:
+  Interaction_LOOK_ON_Function:
     m_PersistentCalls:
       m_Calls: []
-  Interaction_OFF_Function:
+  Interaction_LOOK_OFF_Function:
     m_PersistentCalls:
       m_Calls: []
   Interaction_START_Function:
+    m_PersistentCalls:
+      m_Calls: []
+  Interaction_HOLDING_Function:
+    m_PersistentCalls:
+      m_Calls: []
+  Interaction_END_Function:
+    m_PersistentCalls:
+      m_Calls: []
+  Interaction_HOLDING_TIME_Function:
     m_PersistentCalls:
       m_Calls: []
 --- !u!136 &2048451868

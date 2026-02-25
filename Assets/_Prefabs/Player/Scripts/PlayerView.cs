@@ -23,7 +23,9 @@ public class PlayerView : MonoBehaviour
 
     // Hash
     [Header("Hash")]
-    public List<InteractionObject> InteractionObjects = new List<InteractionObject>();
+    public InteractionObject interactionObject = null;
+    public float InteractionHolding_StartTime;
+    public bool InteractionHolding;
     public Vector2 Hash = Vector2.zero;
 
 
@@ -64,28 +66,35 @@ public class PlayerView : MonoBehaviour
 
     // == Interactions ==
     public void UpdateInteractions() {
-        // ON
-        List<InteractionObject> CurrentInteractionObjects = new List<InteractionObject>();
-        foreach (RaycastHit raycastHit in Physics.RaycastAll(PlayerC.CameraObj.transform.position, PlayerC.CameraObj.transform.forward, viewDistance).Reverse()) {
-            if (raycastHit.transform.TryGetComponent(out InteractionObject Interaction)) {
-                CurrentInteractionObjects.Add(Interaction);
-                if (!InteractionObjects.Contains(Interaction)) {
-                    InteractionObjects.Add(Interaction);
-                    Interaction.Interaction_ON();
+        // == View ==
+        // on | off
+        RaycastHit[] Objs = Physics.RaycastAll(PlayerC.CameraObj.transform.position, PlayerC.CameraObj.transform.forward, viewDistance);
+        if (Objs.Length != 0) {
+            RaycastHit HitObject = Physics.RaycastAll(PlayerC.CameraObj.transform.position, PlayerC.CameraObj.transform.forward, viewDistance)[0];
+            if (HitObject.transform.TryGetComponent(out InteractionObject Interaction)) {
+                if (Interaction != interactionObject) {
+                    if (interactionObject != null) { interactionObject.Interaction_LOOK_OFF(); }
+                    interactionObject = Interaction;
+                    interactionObject.Interaction_LOOK_ON();
                 }
-            } break;
-        }
-        // OFF | START
-        foreach(InteractionObject Interaction in InteractionObjects.Except(CurrentInteractionObjects).ToArray()) {
-            InteractionObjects.Remove(Interaction);
-            Interaction.Interaction_OFF();
-        }
-        // START
-        if (PlayerC.ControllingData.Player.Interact.WasPressedThisFrame()) {
-            foreach (InteractionObject Interaction in InteractionObjects.ToArray()) {
-                InteractionObjects.Remove(Interaction);
-                Interaction.Interaction_START();
             }
+        }
+        else if (interactionObject != null) { interactionObject.Interaction_LOOK_OFF(); interactionObject = null; }
+
+
+        // == Interaction ==
+        // start
+        if (PlayerC.ControllingData.Player.Interact.WasPressedThisFrame()) {
+            interactionObject.Interaction_START();
+        }
+        // end
+        if (PlayerC.ControllingData.Player.Interact.WasReleasedThisFrame()) {
+            interactionObject.Interaction_END();
+        }
+        // Holding
+        if (PlayerC.ControllingData.Player.Interact.IsPressed()) {
+            if (InteractionHolding) { interactionObject.Interaction_HOLDING_TIME(Time.time - InteractionHolding_StartTime); interactionObject.Interaction_HOLDING(); }
+            else { InteractionHolding = true; InteractionHolding_StartTime = Time.time; }
         }
     }
 

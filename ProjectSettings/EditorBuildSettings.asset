@@ -15,52 +15,52 @@ EditorBuildSettings:
     path: Assets/1_MainMenu/MainMenu_Scene.unity
     guid: 449b32b3954d4f54698e293fa28be280
   - enabled: 1
-    path: Assets/2_Hub/Hub_Scene.unity
+    path: Assets/2_Game/_Hub/Hub_Scene.unity
     guid: daaa9a4a5a8997d4f9160c328fdf3fc5
   - enabled: 1
-    path: Assets/3_Game/World/Locations/Ectorris/Ectorris_Scene.unity
+    path: Assets/_Prefabs/Locations/Ectorris/Ectorris_Scene.unity
     guid: 128264e553cc2bd44a855fdd00a32bcf
   - enabled: 1
-    path: Assets/3_Game/World/Locations/HUYUMAN/Human_Scene.unity
+    path: Assets/_Prefabs/Locations/HUYUMAN/Human_Scene.unity
     guid: 00c78dd1443474a43b623ace5f73f503
   - enabled: 1
-    path: Assets/3_Game/World/Locations/Primary Processing Shops/Processing_Scene.unity
+    path: Assets/_Prefabs/Locations/Primary Processing Shops/Processing_Scene.unity
     guid: 11a8ca22d636fc1478cae15b893a9f44
   - enabled: 1
-    path: Assets/3_Game/World/Locations/Mines/Mines_Scene.unity
+    path: Assets/_Prefabs/Locations/Mines/Mines_Scene.unity
     guid: 28a940c27133c904e8a4ef30ce75b3ab
   - enabled: 1
-    path: Assets/3_Game/World/Locations/Scrapyard/Scrap_Scene.unity
+    path: Assets/_Prefabs/Locations/Scrapyard/Scrap_Scene.unity
     guid: 430a40aeafa41184d9c58d851c898aa7
   - enabled: 1
-    path: Assets/3_Game/World/Locations/Floating District/Floating_Scene.unity
+    path: Assets/_Prefabs/Locations/Floating District/Floating_Scene.unity
     guid: 5c8b9bf6a690f624ba8102078eedc5b1
   - enabled: 1
-    path: Assets/3_Game/World/Locations/Buried District/Buried_Scene.unity
+    path: Assets/_Prefabs/Locations/Buried District/Buried_Scene.unity
     guid: 634d57dfab8ac574a96be638b0f9a641
   - enabled: 1
-    path: Assets/3_Game/World/Locations/Snowy Ridge/Snow_Scene.unity
+    path: Assets/_Prefabs/Locations/Snowy Ridge/Snow_Scene.unity
     guid: 7fbc9ff5fa109da478084fb9cca2cef3
   - enabled: 1
-    path: Assets/3_Game/World/Locations/Drains/Drains_Scene.unity
+    path: Assets/_Prefabs/Locations/Drains/Drains_Scene.unity
     guid: 888eb5f02e0461d4b9990e3212e7895d
   - enabled: 1
-    path: Assets/3_Game/World/Locations/THE Edge of the Emprire/Edge_Scene.unity
+    path: Assets/_Prefabs/Locations/THE Edge of the Emprire/Edge_Scene.unity
     guid: 859deebfaf61f42419ffc10c4d7c903f
   - enabled: 1
-    path: Assets/3_Game/World/Locations/Ocean/Ocean_Scene.unity
+    path: Assets/_Prefabs/Locations/Ocean/Ocean_Scene.unity
     guid: ad52884325d872246bea6ef860000932
   - enabled: 1
-    path: Assets/3_Game/World/Locations/Lab/Lab_Scene.unity
+    path: Assets/_Prefabs/Locations/Lab/Lab_Scene.unity
     guid: c3c53d121caacbf41af13ac016d1b6bb
   - enabled: 1
-    path: Assets/3_Game/World/Locations/Capital/Capital_Scene.unity
+    path: Assets/_Prefabs/Locations/Capital/Capital_Scene.unity
     guid: c89568614b0a5364fb13770601d7ebda
   - enabled: 1
-    path: Assets/3_Game/World/Locations/Warehouse/Warehouse_Scene.unity
+    path: Assets/_Prefabs/Locations/Warehouse/Warehouse_Scene.unity
     guid: c974cd2c7a9a30844b013bd8d5de3823
   - enabled: 1
-    path: Assets/3_Game/World/Locations/Assembly Shop/Assembly_Scene.unity
+    path: Assets/_Prefabs/Locations/Assembly Shop/Assembly_Scene.unity
     guid: ffbcccf61ec24ab4cbb8c943deb00467
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}
