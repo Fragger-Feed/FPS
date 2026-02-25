@@ -114,7 +114,7 @@ public class Zipline : InteractableOject
     private void AtachZipline(PlayerController _player)
     {
         player = _player;
-        player.disableMovement = true;
+        player.playerMovement.disableMovement = true;
         player.GetComponent<Collider>().enabled = false;
         player.RigidBodyC.interpolation = RigidbodyInterpolation.None;
         player.RigidBodyC.linearVelocity = Vector3.zero;
@@ -134,7 +134,7 @@ public class Zipline : InteractableOject
     private void DeatachZipline(PlayerController _player, bool manual)
     {
         player.GetComponent<Collider>().enabled = true;
-        player.disableMovement = false;
+        player.playerMovement.disableMovement = false;
         isRiding = false;
         float jumpHeight = (2 * player.playerMovement.jumpHeight / player.playerMovement.timeToApex);
         if (player.playerMovement.isJumping)

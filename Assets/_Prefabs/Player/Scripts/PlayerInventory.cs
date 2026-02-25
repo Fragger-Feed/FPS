@@ -4,14 +4,14 @@ using UnityEngine.UI;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public Weapons_Data Weapons;
-
+    // == Data ==
+    [Header("Data")]
+    public Weapons_Data WeaponsData;
     public Inventory_Data InventoryData;
     public PlayerController PlayerController;
-    public UseScript use;
 
-    public Vector3 iconScale;
-
+    // == Objects ==
+    [Header("Objects")]
     public List<GameObject> WeaponSlots = new List<GameObject>();
     public GameObject WeaponParent;
     public GameObject currentWeapon;
@@ -20,15 +20,23 @@ public class PlayerInventory : MonoBehaviour
     public GameObject[] activeItemSlotsUI;
     public GameObject[] pastItem;
 
-    private void Start()
-    {
+    //
+    public UseScript use;
+    public Vector3 iconScale;
+
+
+
+    // === START ===
+    private void Start() {
         UpdateSlots();
         UpdateWeapon();
         UpdateActiveItemSlots();
     }
 
-    private void Update()
-    {
+
+    // === UPDATE ===
+    // = Update =
+    private void Update() {
         UpdateActiveItemSlots();
         int scroll = (int)PlayerController.ControllingData.Player.Scroll.ReadValue<float>();
         if (scroll != 0) SelectWeaponSlot(scroll, false);
@@ -36,53 +44,45 @@ public class PlayerInventory : MonoBehaviour
         if (select != 0) SelectWeaponSlot(select, true);
     }
 
-    public void SelectWeaponSlot(int value, bool direct)
-    {
+
+
+
+    public void SelectWeaponSlot(int value, bool direct) {
         int previousSlot = InventoryData.CurrentWeaponSlot;
-        if (!direct)
-        {
+        if (!direct) {
             InventoryData.CurrentWeaponSlot = (InventoryData.CurrentWeaponSlot + value + WeaponSlots.Count) % WeaponSlots.Count;
         }
-        else
-        {
+        else {
             InventoryData.CurrentWeaponSlot = value - 1;
         }
-        if (previousSlot != InventoryData.CurrentWeaponSlot)
-        {
+
+        if (previousSlot != InventoryData.CurrentWeaponSlot) {
             UpdateSlots();
             UpdateWeapon();
         }
     }
 
-    private void UpdateSlots()
-    {
-        for (int i = 0; i < WeaponSlots.Count; i++)
-        {
+    private void UpdateSlots() {
+        for (int i = 0; i < WeaponSlots.Count; i++) {
             Image image = WeaponSlots[i].transform.GetChild(0).GetComponent<Image>();
-            if (i == InventoryData.CurrentWeaponSlot)
-            {
+            if (i == InventoryData.CurrentWeaponSlot) {
                 WeaponSlots[i].transform.localScale = iconScale;
-                if (InventoryData.WeaponsList[i] != null)
-                {
+                if (InventoryData.WeaponsList[i] != null) {
                     image.sprite = InventoryData.WeaponsList[i].ActiveInventoryIcon;
                     image.color = new Color(255, 255, 255, 1);
                 }
-                else
-                {
+                else {
                     image.sprite = null;
                     image.color = new Color(255, 255, 255, 0);
                 }
             }
-            else
-            {
+            else {
                 WeaponSlots[i].transform.localScale = Vector3.one;
-                if (InventoryData.WeaponsList[i] != null)
-                {
+                if (InventoryData.WeaponsList[i] != null) {
                     image.sprite = InventoryData.WeaponsList[i].PassiveInventoryIcon;
                     image.color = new Color(255, 255, 255, 1);
                 }
-                else
-                {
+                else {
                     image.sprite = null;
                     image.color = new Color(255, 255, 255, 0);
                 }
@@ -90,25 +90,20 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    private void UpdateWeapon()
-    {
+    private void UpdateWeapon() {
         Weapons_Data data = InventoryData.WeaponsList[InventoryData.CurrentWeaponSlot];
-        if (currentWeapon != null)
-        {
+        if (currentWeapon != null) {
             Destroy(currentWeapon);
             currentWeapon = null;
             use.currentWeapon = null;
         }
-        if (data == null)
-            return;
+        if (data == null) return;
         currentWeapon = Instantiate(data.weaponPrefab, WeaponParent.transform);
         use.currentWeapon = currentWeapon.GetComponent<WeaponScript>();
     }
 
-    private void UpdateActiveItemSlots()
-    {
-        for (int i = 0; i < activeItemSlots.Length; i++)
-        {
+    private void UpdateActiveItemSlots() {
+        for (int i = 0; i < activeItemSlots.Length; i++) {
             Transform currentItem = activeItemSlots[i].transform.childCount > 0
                 ? activeItemSlots[i].transform.GetChild(0)
                 : null;
@@ -120,8 +115,7 @@ public class PlayerInventory : MonoBehaviour
 
             Image image = activeItemSlotsUI[i].transform.GetChild(0).GetComponent<Image>();
 
-            if (newItem != null)
-            {
+            if (newItem != null) {
                 image.sprite = newItem.sprite;
                 image.color = new Color(1, 1, 1, 1);
 
@@ -131,8 +125,7 @@ public class PlayerInventory : MonoBehaviour
                 GameObject gc = Instantiate(newItem.script, activeItemSlots[i].transform);
                 pastItem[i] = newItem.script;
             }
-            else
-            {
+            else {
                 image.sprite = null;
                 image.color = new Color(1, 1, 1, 0);
 

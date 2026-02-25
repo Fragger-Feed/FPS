@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class PlayerState : MonoBehaviour
 {
     private int maxHealth = 100;
-    [SerializeField] private int currentHealth;
 
+    [SerializeField] private int currentHealth;
     [SerializeField] private Slider hpSlider;
 
     private void Awake()
