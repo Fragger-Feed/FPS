@@ -143,7 +143,7 @@ public class Zipline : InteractableOject
             player.RigidBodyC.linearVelocity = ziplineVelocity;
         else
             player.RigidBodyC.linearVelocity = Vector2.zero;
-        player.RigidBodyC.interpolation = RigidbodyInterpolation.Interpolate;
+        /*        player.RigidBodyC.interpolation = RigidbodyInterpolation.Interpolate;*/
         print(player.RigidBodyC.linearVelocity);
         player = null;
     }

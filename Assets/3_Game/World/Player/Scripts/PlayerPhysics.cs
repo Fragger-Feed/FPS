@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Localization.SmartFormat.Core.Parsing;
 using UnityEngine.Timeline;
 using UnityEngine.UIElements;
 
@@ -118,7 +119,7 @@ public class PlayerPhysics : MonoBehaviour
         if (PlayerC.RigidBodyC.linearVelocity != Vector3.zero && !groundedSlop)
         {
             RaycastHit raycastHit;
-            if (Physics.Raycast(transform.position, -transform.up, out raycastHit, playerFeet + 1, ground))
+            if (PlayerC.RigidBodyC.linearVelocity != Vector3.zero && Physics.Raycast(transform.position, -transform.up, out raycastHit, playerFeet + 1, ground))
             {
                 Vector3 targetPos = new Vector3(transform.position.x, transform.position.y - raycastHit.distance + playerFeet, transform.position.z);
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, raycastHit.distance * Time.deltaTime * 10);
