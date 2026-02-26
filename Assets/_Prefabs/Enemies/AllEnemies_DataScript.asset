@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b5fc670aed8b5346a3cf05cd98bed02, type: 3}
-  m_Name: LocationsData
-  m_EditorClassIdentifier: Assembly-CSharp::Locations_Data
-  LocationsData:
+  m_Script: {fileID: 11500000, guid: 1c47d9e84b40afc43b3d022582e5671d, type: 3}
+  m_Name: AllEnemies_DataScript
+  m_EditorClassIdentifier: Assembly-CSharp::AllEnemies_DataScript
+  ENEMIES_DATA:
     m_keys:
-    - Ectorris
+    - Dummy
     m_values:
-    - SceneID: 0
+    - {fileID: 11400000, guid: 3e387a834a0aa9a4bbb427433582224c, type: 2}

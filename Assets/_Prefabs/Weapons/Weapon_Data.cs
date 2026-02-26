@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Weapons_Data", menuName = "Static/Weapons/AllWeapons")]
-public class Weapons_Data : ScriptableObject
+[CreateAssetMenu(fileName = "Weapon_Data", menuName = "Prefabs/Weapons/Weapon_Data")]
+public class Weapon_DataScript : ScriptableObject
 {
     public Sprite PassiveInventoryIcon;
     public Sprite ActiveInventoryIcon;

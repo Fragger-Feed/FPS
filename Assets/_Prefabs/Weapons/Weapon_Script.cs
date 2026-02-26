@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class WeaponScript : MonoBehaviour
 {
-    public Weapons_Data data;
+    public Weapon_DataScript data;
 
     public Animator weaponAnimator;
     public Transform firePoint;

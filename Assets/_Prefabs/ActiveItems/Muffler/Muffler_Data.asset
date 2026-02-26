@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb452a59ad49d8a468aa92b6fa44ad04, type: 3}
-  m_Name: EffectsData
-  m_EditorClassIdentifier: Assembly-CSharp::Effects_Data
-  EffectsData:
-    m_keys:
-    - Jamming
-    m_values: []
+  m_Script: {fileID: 11500000, guid: ea2da6887431e4744bf4df59f06f92c9, type: 3}
+  m_Name: Muffler_Data
+  m_EditorClassIdentifier: Assembly-CSharp::ActiveItem_DataScript
+  itemName: Muffler
+  description: Muffling
+  sprite: {fileID: 0}
+  script: {fileID: 0}

@@ -1,18 +1,18 @@
 ﻿using System;
 using UnityEngine;
-using static EnemieScript;
+using static Enemy_Script;
 
 public class EntityStates : MonoBehaviour
 {
     private int maxHealth;
     [SerializeField] private int currentHealth;
 
-    private EnemieScript enemieScript;
+    private Enemy_Script enemieScript;
     private Enemie_Data enemieData;
 
     private void Awake()
     {
-        enemieScript = GetComponent<EnemieScript>();
+        enemieScript = GetComponent<Enemy_Script>();
         enemieData = enemieScript.data;
 
         maxHealth = enemieData.health;

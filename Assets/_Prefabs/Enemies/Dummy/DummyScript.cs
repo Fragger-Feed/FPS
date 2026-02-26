@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DummyScript : EnemieScript
+public class DummyScript : Enemy_Script
 {
     public override void Move()
     {

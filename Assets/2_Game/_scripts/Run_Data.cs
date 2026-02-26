@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 [CreateAssetMenu(fileName = "Run", menuName = "Dinamic/Run")]
 public class Run_Data : ScriptableObject {
 
-    public Locations_Data Locations;
+    public AllLocations_DataScript Locations;
 
     public List<string> LocationsPull = new List<string>();
     public int CurrentLocation = -1;
