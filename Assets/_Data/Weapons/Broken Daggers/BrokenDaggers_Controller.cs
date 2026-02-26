@@ -6,7 +6,7 @@ public class BrokenDaggers_Controller : WeaponScript
 
     public override void PrimaryFire(Transform cameraPos)
     {
-        
+        weaponAnimator.SetBool("Attack", true);
     }
 
     public override void SecondaryFire(Transform cameraPos)
