@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public abstract class Enemy_Script : MonoBehaviour
 {
-    public Enemie_Data data;
+    public Enemy_DataScript data;
     public PlayerController player;
     public NavMeshAgent nav;
     public Animator animator;
@@ -34,8 +34,8 @@ public abstract class Enemy_Script : MonoBehaviour
         nav = GetComponent<NavMeshAgent>();
         player = FindFirstObjectByType<PlayerController>();
 
-        nav.acceleration = data.acceleration;
-        nav.speed = data.speed;
+        nav.acceleration = data.Acceleration;
+        nav.speed = data.Speed;
         nav.stoppingDistance = data.attackRange;
     }
 
