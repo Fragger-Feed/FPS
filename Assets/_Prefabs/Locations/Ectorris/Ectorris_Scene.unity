@@ -21998,6 +21998,62 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1068175005}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1104375982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1104375984}
+  - component: {fileID: 1104375983}
+  m_Layer: 0
+  m_Name: Level Generator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1104375983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104375982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6972517d81106444ad6889f65839c52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ectorris_Generator
+  startPos: {x: 0, y: 0, z: 300}
+  mainPathLength: 25
+  maxBranchLength: 5
+  branchChance: 30
+  branchCount: 10
+  buildingType:
+    m_keys:
+    - Small
+    - Big
+    m_values:
+    - {fileID: 494899932371021599, guid: 91ca16dc4df21824d94fcfa1ffb8bac8, type: 3}
+    - {fileID: 2321188402350105012, guid: a3578480839e8a44aba1bef07e910ae6, type: 3}
+--- !u!4 &1104375984
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104375982}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.72929, y: 0, z: 138.5759}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1113914095
 GameObject:
   m_ObjectHideFlags: 0
@@ -45985,3 +46041,4 @@ SceneRoots:
   - {fileID: 1535557373}
   - {fileID: 1696958985}
   - {fileID: 3405157}
+  - {fileID: 1104375984}

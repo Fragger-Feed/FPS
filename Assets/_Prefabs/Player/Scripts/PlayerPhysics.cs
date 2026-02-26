@@ -16,6 +16,7 @@ public class PlayerPhysics : MonoBehaviour
     // Hash
     [Header("Hash")]
     public Vector3 gcSize;
+
     public Vector3 gcOffset;
     public Vector3 gscSize;
     public Vector3 gscOffset;
@@ -29,22 +30,23 @@ public class PlayerPhysics : MonoBehaviour
     public float coyoteTime = 0.1f;
     public Vector3 groundNormal;
 
-
-
     // === UPDATE ===
     // = Update =
-    public void UPDATE_Physics() {
-        if (!PlayerC.playerMovement.disableMovement) {
+    public void UPDATE_Physics()
+    {
+        if (!PlayerC.playerMovement.disableMovement)
+        {
             coyoteTime -= Time.deltaTime;
             stickTimer -= Time.deltaTime;
             groundCheck();
             slopeCheck();
             if (stickTimer <= 0) { StickToTheGround(ground); }
-        } 
+        }
     }
 
     // = Fixed Update =
-    public void FIXED_UPDATE_Physics() {
+    public void FIXED_UPDATE_Physics()
+    {
         float gravity = -(2 * PlayerC.playerMovement.jumpHeight) / (PlayerC.playerMovement.timeToApex * PlayerC.playerMovement.timeToApex);
         if (PlayerC.RigidBodyC.linearVelocity.y > 0 && !PlayerC.ControllingData.Player.Jump.IsPressed() && coyoteTime < 0)
             Gravity(gravity * 2);
@@ -52,51 +54,59 @@ public class PlayerPhysics : MonoBehaviour
             Gravity(gravity);
     }
 
-
-
     // === PHYSICS
-    // To Ground 
-    public void StickToTheGround(LayerMask ground) {
+    // To Ground
+    public void StickToTheGround(LayerMask ground)
+    {
         playerFeet = (PlayerC.playerCollider.height / 2 - PlayerC.playerCollider.center.y) * transform.lossyScale.y;
-        if (PlayerC.RigidBodyC.linearVelocity != Vector3.zero && !groundedSlop) {
+        if (PlayerC.RigidBodyC.linearVelocity != Vector3.zero && !groundedSlop)
+        {
             RaycastHit raycastHit;
-            if (Physics.Raycast(transform.position, -transform.up, out raycastHit, playerFeet + 1, ground)) {
+            if (Physics.Raycast(transform.position, -transform.up, out raycastHit, playerFeet + 1, ground))
+            {
                 Vector3 targetPos = new Vector3(transform.position.x, transform.position.y - raycastHit.distance + playerFeet, transform.position.z);
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, raycastHit.distance * Time.deltaTime * 10);
                 if (PlayerC.RigidBodyC.linearVelocity.y > 0 && !PlayerC.playerMovement.isJumping && !PlayerC.playerMovement.isDashing && grounded) PlayerC.RigidBodyC.linearVelocity = new Vector3(PlayerC.RigidBodyC.linearVelocity.x, 0f, PlayerC.RigidBodyC.linearVelocity.z);
             }
         }
-        if (grounded && PlayerC.ControllingData.Player.Move.ReadValue<Vector2>() == Vector2.zero && !PlayerC.playerMovement.isJumping) {
+        if (grounded && PlayerC.ControllingData.Player.Move.ReadValue<Vector2>() == Vector2.zero && !PlayerC.playerMovement.isJumping)
+        {
             PlayerC.RigidBodyC.linearVelocity = new Vector3(PlayerC.RigidBodyC.linearVelocity.x, 0f, PlayerC.RigidBodyC.linearVelocity.z);
         }
     }
+
     // Gravity
-    private void Gravity(float gravity) {
+    private void Gravity(float gravity)
+    {
         GravityValue = gravity;
         PlayerC.RigidBodyC.AddForce(new Vector3(0, gravity, 0), ForceMode.Acceleration);
     }
 
-
-
     // === CHECKS ====
     // Ground
-    private void groundCheck() {
-        if (Physics.CheckBox(transform.position + gcOffset, gcSize, new Quaternion(0, 0, 0, 0), enemieAndGround)) {
+    private void groundCheck()
+    {
+        if (Physics.CheckBox(transform.position + gcOffset, gcSize, new Quaternion(0, 0, 0, 0), enemieAndGround))
+        {
             coyoteTime = 0.2f;
             PlayerC.playerMovement.isJumping = false;
             grounded = true;
         }
         else grounded = false;
     }
+
     // Slope
-    public void slopeCheck() {
+    public void slopeCheck()
+    {
         groundedSlop = false;
         RaycastHit hit;
         Vector3 origin = transform.position + gscOffset;
 
-        if (Physics.BoxCast(origin, gscSize, -transform.up, out hit, transform.rotation, slopCheckDistance, ground, QueryTriggerInteraction.Ignore)) {
+        if (Physics.BoxCast(origin, gscSize, -transform.up, out hit, transform.rotation, slopCheckDistance, ground, QueryTriggerInteraction.Ignore))
+        {
             float angle = Vector3.Angle(hit.normal, Vector3.up);
-            if (angle <= 70f && angle > 0)  {
+            if (angle <= 70f && angle > 0)
+            {
                 groundedSlop = true;
                 groundNormal = hit.normal;
             }
@@ -105,10 +115,9 @@ public class PlayerPhysics : MonoBehaviour
         Debug.DrawRay(origin, -transform.up * 1.2f, Color.yellow);
     }
 
-
-
     // === DRAW ===
-    private void OnDrawGizmos() {
+    private void OnDrawGizmos()
+    {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(transform.position + gcOffset, gcSize * 2);
         Gizmos.color = Color.rebeccaPurple;
@@ -129,44 +138,5 @@ public class PlayerPhysics : MonoBehaviour
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, 0.05f);
-    }
-
-    public void StickToTheGround(LayerMask ground)
-    {
-        playerFeet = (PlayerC.playerCollider.height / 2 - PlayerC.playerCollider.center.y) * transform.lossyScale.y;
-        if (PlayerC.RigidBodyC.linearVelocity != Vector3.zero && !groundedSlop)
-        {
-            RaycastHit raycastHit;
-            if (PlayerC.RigidBodyC.linearVelocity != Vector3.zero && Physics.Raycast(transform.position, -transform.up, out raycastHit, playerFeet + 1, ground))
-            {
-                Vector3 targetPos = new Vector3(transform.position.x, transform.position.y - raycastHit.distance + playerFeet, transform.position.z);
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, raycastHit.distance * Time.deltaTime * 10);
-                if (PlayerC.RigidBodyC.linearVelocity.y > 0 && !PlayerC.playerMovement.isJumping && !PlayerC.playerMovement.isDashing && grounded) PlayerC.RigidBodyC.linearVelocity = new Vector3(PlayerC.RigidBodyC.linearVelocity.x, 0f, PlayerC.RigidBodyC.linearVelocity.z);
-            }
-        }
-        if (grounded && PlayerC.ControllingData.Player.Move.ReadValue<Vector2>() == Vector2.zero && !PlayerC.playerMovement.isJumping)
-        {
-            PlayerC.RigidBodyC.linearVelocity = new Vector3(PlayerC.RigidBodyC.linearVelocity.x, 0f, PlayerC.RigidBodyC.linearVelocity.z);
-        }
-    }
-
-    /*
-        public void StickToTheGround(LayerMask ground)
-    {
-        float num = (PlayerC.playerCollider.height / 2f - PlayerC.playerCollider.center.y) * transform.lossyScale.y;
-        if (PlayerC.RigidBodyC.linearVelocity != Vector3.zero && Physics.Raycast(transform.position, -transform.up, out var hitInfo3, num + 1f, ground))
-        {
-            Vector3 target = new Vector3(transform.position.x, transform.position.y - hitInfo3.distance + num, transform.position.z);
-            transform.position = Vector3.MoveTowards(transform.position, target, hitInfo3.distance * Time.deltaTime * 10f);
-            if (PlayerC.RigidBodyC.linearVelocity.y > 0f)
-                PlayerC.RigidBodyC.linearVelocity = new Vector3(PlayerC.RigidBodyC.linearVelocity.x, 0f, PlayerC.RigidBodyC.linearVelocity.z);
-        }
-    }
-    */
-
-    private void Gravity(float gravity)
-    {
-        GravityValue = gravity;
-        PlayerC.RigidBodyC.AddForce(new Vector3(0, gravity, 0), ForceMode.Acceleration);
     }
 }
