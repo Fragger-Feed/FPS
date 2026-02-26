@@ -43,7 +43,7 @@ public class Run_Data : ScriptableObject {
         if (CurrentLocation >= LocationsPull.Count) { RunEnd(); }
         // New Location
         else {
-            SceneManager.LoadScene(Locations.LocationsData[LocationsPull[CurrentLocation]].SceneID);
+            SceneManager.LoadScene(Locations.LOCATIONS_DATA[LocationsPull[CurrentLocation]].SceneID);
 
         }
     }
