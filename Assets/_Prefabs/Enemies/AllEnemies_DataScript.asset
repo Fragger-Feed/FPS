@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c47d9e84b40afc43b3d022582e5671d, type: 3}
+  m_Name: AllEnemies_DataScript
+  m_EditorClassIdentifier: Assembly-CSharp::AllEnemies_DataScript
+  ENEMIES_DATA:
+    m_keys:
+    - Dummy
+    m_values:
+    - {fileID: 11400000, guid: 3e387a834a0aa9a4bbb427433582224c, type: 2}

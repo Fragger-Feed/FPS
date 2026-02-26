@@ -52,7 +52,7 @@ public class UseScript : MonoBehaviour
     private void UseActive(int slot)
     {
         if (activeItemSlots[slot].transform.childCount > 0)
-            activeItemSlots[slot].transform.GetChild(0).GetComponent<ActiveItemScript>().UseItem(playerController);
+            activeItemSlots[slot].transform.GetChild(0).GetComponent<ActiveItem_Script>().UseActiveItem(playerController);
     }
 
     private void OnDrawGizmos()

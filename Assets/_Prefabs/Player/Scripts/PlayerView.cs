@@ -84,16 +84,17 @@ public class PlayerView : MonoBehaviour
 
         // == Interaction ==
         // start
-        if (PlayerC.ControllingData.Player.Interact.WasPressedThisFrame()) {
+        if (PlayerC.ControllingData.Player.Interact.WasPressedThisFrame() && interactionObject != null) {
             interactionObject.Interaction_START();
         }
         // end
-        if (PlayerC.ControllingData.Player.Interact.WasReleasedThisFrame()) {
+        if (PlayerC.ControllingData.Player.Interact.WasReleasedThisFrame() && interactionObject != null) {
             interactionObject.Interaction_END();
+            InteractionHolding = false; 
         }
         // Holding
         if (PlayerC.ControllingData.Player.Interact.IsPressed()) {
-            if (InteractionHolding) { interactionObject.Interaction_HOLDING_TIME(Time.time - InteractionHolding_StartTime); interactionObject.Interaction_HOLDING(); }
+            if (InteractionHolding && interactionObject != null) { interactionObject.Interaction_HOLDING_TIME(Time.time - InteractionHolding_StartTime); interactionObject.Interaction_HOLDING(); }
             else { InteractionHolding = true; InteractionHolding_StartTime = Time.time; }
         }
     }

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
 
-public abstract class EnemieScript : MonoBehaviour
+public abstract class Enemy_Script : MonoBehaviour
 {
     public Enemie_Data data;
     public PlayerController player;

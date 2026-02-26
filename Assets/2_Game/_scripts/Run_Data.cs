@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 [CreateAssetMenu(fileName = "Run", menuName = "Dinamic/Run")]
 public class Run_Data : ScriptableObject {
 
-    public Locations_Data Locations;
+    public AllLocations_DataScript Locations;
 
     public List<string> LocationsPull = new List<string>();
     public int CurrentLocation = -1;
@@ -43,7 +43,7 @@ public class Run_Data : ScriptableObject {
         if (CurrentLocation >= LocationsPull.Count) { RunEnd(); }
         // New Location
         else {
-            SceneManager.LoadScene(Locations.LocationsData[LocationsPull[CurrentLocation]].SceneID);
+            SceneManager.LoadScene(Locations.LOCATIONS_DATA[LocationsPull[CurrentLocation]].SceneID);
 
         }
     }

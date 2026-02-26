@@ -6,7 +6,7 @@ public class PlayerInventory : MonoBehaviour
 {
     // == Data ==
     [Header("Data")]
-    public Weapons_Data WeaponsData;
+    public Weapon_DataScript WeaponsData;
     public Inventory_Data InventoryData;
     public PlayerController PlayerController;
 
@@ -91,7 +91,7 @@ public class PlayerInventory : MonoBehaviour
     }
 
     private void UpdateWeapon() {
-        Weapons_Data data = InventoryData.WeaponsList[InventoryData.CurrentWeaponSlot];
+        Weapon_DataScript data = InventoryData.WeaponsList[InventoryData.CurrentWeaponSlot];
         if (currentWeapon != null) {
             Destroy(currentWeapon);
             currentWeapon = null;
