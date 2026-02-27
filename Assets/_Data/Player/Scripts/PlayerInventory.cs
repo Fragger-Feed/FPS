@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -15,12 +16,14 @@ public class PlayerInventory : MonoBehaviour
     public List<GameObject> WeaponSlots = new List<GameObject>();
     public GameObject WeaponParent;
     public GameObject currentWeapon;
+    public GameObject Inventory;
 
     public GameObject[] activeItemSlots;
     public GameObject[] activeItemSlotsUI;
     public GameObject[] pastItem;
 
     //
+    public bool inInventory = false;
     public UseScript use;
     public Vector3 iconScale;
 
@@ -42,6 +45,13 @@ public class PlayerInventory : MonoBehaviour
         if (scroll != 0) SelectWeaponSlot(scroll, false);
         int select = (int)PlayerController.ControllingData.Player.SelectWeapon.ReadValue<float>();
         if (select != 0) SelectWeaponSlot(select, true);
+
+
+        // Open Inverntory
+        if (PlayerController.ControllingData.Player.Inventory.WasPressedThisFrame()) {
+            inInventory = !inInventory;
+            Inventory.SetActive(inInventory);
+        }
     }
 
 
