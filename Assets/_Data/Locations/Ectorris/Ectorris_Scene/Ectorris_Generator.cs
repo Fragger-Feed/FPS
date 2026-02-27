@@ -7,13 +7,16 @@ public class Ectorris_Generator : MonoBehaviour
 {
     [SerializeField] private Vector3 startPos = Vector3.zero + new Vector3(0, 0, 300);
     private Vector3 position;
-    private Vector3 direction = Vector3.forward;
+    private Vector3 dir = Vector3.forward;
+    private Vector3 prevDir;
+    private Vector3[] directions = { Vector3.right, Vector3.forward, Vector3.left };
     [SerializeField] private int mainPathLength = 20;
     [SerializeField] private int maxBranchLength = 5;
     [SerializeField] private int branchChance = 30;
     [SerializeField] private int branchCount = 10;
     [SerializeField] private SerializableDictionary<string, GameObject> buildingType;
     private List<BuildingNodes> nodes = new List<BuildingNodes>();
+    private int idkHowToNameThisVariable = 1;
 
     private void Start()
     {
@@ -22,12 +25,18 @@ public class Ectorris_Generator : MonoBehaviour
         {
             var node = new BuildingNodes();
             node.position = position;
-            node.rotation = direction;
+            node.rotation = dir;
             node.Type = RandomType();
+
+            if (i > 0)
+            {
+                node.Neighbors.Add(nodes[i - 1]);
+            }
+
             nodes.Add(node);
 
-            direction = randomDirection();
-            position += direction * 50;
+            dir = randomDirection();
+            position += dir * 100;
         }
 
         for (int i = 0; i < nodes.Count; i++)
@@ -38,24 +47,28 @@ public class Ectorris_Generator : MonoBehaviour
 
     private Vector3 randomDirection()
     {
-        List<Vector3> directions = new List<Vector3>();
-
-        directions.Add(direction);
-
         int weightedRandom = Random.Range(0, 100);
 
         if (weightedRandom < 70)
         {
-            return direction;
+            //Don't turn
         }
         else if (weightedRandom < 85)
         {
-            return Quaternion.Euler(0, 90, 0) * direction;
+            idkHowToNameThisVariable++;
         }
         else
         {
-            return Quaternion.Euler(0, -90, 0) * direction;
+            idkHowToNameThisVariable--;
         }
+
+        if (idkHowToNameThisVariable > 2)
+            idkHowToNameThisVariable = 1;
+
+        if (idkHowToNameThisVariable < 0)
+            idkHowToNameThisVariable = 1;
+
+        return directions[idkHowToNameThisVariable];
     }
 
     private GameObject RandomType()
