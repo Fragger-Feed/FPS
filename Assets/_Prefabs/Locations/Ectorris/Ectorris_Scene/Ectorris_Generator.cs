@@ -38,10 +38,6 @@ public class Ectorris_Generator : MonoBehaviour
 
     private Vector3 randomDirection()
     {
-        List<Vector3> directions = new List<Vector3>();
-
-        directions.Add(direction);
-
         int weightedRandom = Random.Range(0, 100);
 
         if (weightedRandom < 70)
