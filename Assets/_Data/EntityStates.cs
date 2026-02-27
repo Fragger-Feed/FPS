@@ -7,15 +7,15 @@ public class EntityStates : MonoBehaviour
     private int maxHealth;
     [SerializeField] private int currentHealth;
 
-    private Enemy_Script enemieScript;
-    private Enemie_Data enemieData;
+    private Enemy_Script enemyScript;
+    private Enemy_DataScript enemieData;
 
     private void Awake()
     {
-        enemieScript = GetComponent<Enemy_Script>();
-        enemieData = enemieScript.data;
+        enemyScript = GetComponent<Enemy_Script>();
+        enemieData = enemyScript.data;
 
-        maxHealth = enemieData.health;
+        maxHealth = enemieData.Health;
         currentHealth = maxHealth;
     }
 
@@ -32,7 +32,7 @@ public class EntityStates : MonoBehaviour
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            enemieScript.currentState = EnemieState.Dead;
+            enemyScript.currentState = EnemieState.Dead;
             Die();
         }
     }
@@ -40,7 +40,7 @@ public class EntityStates : MonoBehaviour
     public void Die()
     {
         print($"I'm object {gameObject} and I'm dead");
-        enemieScript.nav.enabled = false;
+        enemyScript.nav.enabled = false;
         Rigidbody rb = gameObject.AddComponent<Rigidbody>();
         rb.mass = 112;
         transform.Rotate(90, 90, 90);

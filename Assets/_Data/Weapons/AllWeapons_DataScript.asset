@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5fd94228efe0dc47aaf1593b9d0b648, type: 3}
   m_Name: AllWeapons_DataScript
   m_EditorClassIdentifier: Assembly-CSharp::AllWeapons_DataScript
+  WEAPONS_DATA:
+    m_keys:
+    - Broken Daggers
+    m_values:
+    - {fileID: 11400000, guid: 612b19974f4e80b4c85f0f997bc80a85, type: 2}

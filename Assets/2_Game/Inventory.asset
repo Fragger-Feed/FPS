@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d88db322c855d9a47a6287d66ecb6a68, type: 3}
   m_Name: Inventory
   m_EditorClassIdentifier: Assembly-CSharp::Inventory_Data
-  CurrentWeaponSlot: 3
+  CurrentWeaponSlot: 0
   WeaponsList:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 612b19974f4e80b4c85f0f997bc80a85, type: 2}
+  - {fileID: 11400000, guid: 068e3059f183b9840bb09ce40888af95, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   ActiveItemsList:
