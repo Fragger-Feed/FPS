@@ -103,3 +103,4 @@ InitTestScene*.unity*
 .vsconfig/
 .vscode/
 /.vsconfig
+/ProjectSettings/Packages/com.unity.probuilder/Settings.json
