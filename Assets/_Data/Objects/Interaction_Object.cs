@@ -27,5 +27,5 @@ public class InteractionObject : MonoBehaviour
     public void Interaction_START() { Interaction_START_Function?.Invoke(); }
     public void Interaction_HOLDING() { Interaction_HOLDING_Function?.Invoke();  }
     public void Interaction_END() { Interaction_END_Function?.Invoke(); }
-    public void Interaction_HOLDING_TIME(float deltaTime) { Interaction_HOLDING_TIME_Function?.Invoke(deltaTime); print("HOLDING FOR:" + deltaTime.ToString()); }
+    public void Interaction_HOLDING_TIME(float deltaTime) { Interaction_HOLDING_TIME_Function?.Invoke(deltaTime); }
 }
