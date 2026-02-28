@@ -5,9 +5,12 @@ using UnityEngine.UI;
 
 public class PlayerState : MonoBehaviour
 {
-    private int maxHealth = 100;
+    // == Data ==
+    [Header("Data")]
+    public PlayerController PlayerController;
+    public int maxHealth = 100;
 
-    [SerializeField] private int currentHealth;
+    public int currentHealth;
     [SerializeField] private Slider hpSlider;
 
     private void Awake()
@@ -15,20 +18,14 @@ public class PlayerState : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void Heal(int amount)
-    {
+    public void Heal(int amount) {
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
+        PlayerController.playerUIController.UpdateCurrentMenu();
     }
 
-    private void UpdateSlider()
-    {
-        hpSlider.value = currentHealth;
-    }
-
-    public void TakeDamage(int damage)
-    {
+    public void TakeDamage(int damage) {
         currentHealth -= damage;
-        UpdateSlider();
+        PlayerController.playerUIController.UpdateCurrentMenu();
         if (currentHealth <= 0)
         {
             Die();
