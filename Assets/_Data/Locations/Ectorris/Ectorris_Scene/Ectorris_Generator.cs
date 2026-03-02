@@ -36,7 +36,18 @@ public class Ectorris_Generator : MonoBehaviour
             nodes.Add(node);
 
             dir = randomDirection();
-            position += dir * 100;
+            if (i > 0)
+            {
+                Transform prevOut = node.Neighbors[0].Type.transform.Find("ZiplineLocationOut");
+                Transform nextIn = node.Type.transform.Find("ZiplineLocationIn");
+
+                Vector3 target = new Vector3(0, 0, prevOut.localPosition.z + 100);
+                Vector3 offset = target + new Vector3(0, 0, Mathf.Abs(nextIn.localPosition.z));
+
+                Vector3 finalOffset = Quaternion.LookRotation(dir) * offset;
+
+                position += finalOffset;
+            }
         }
 
         for (int i = 0; i < nodes.Count; i++)
