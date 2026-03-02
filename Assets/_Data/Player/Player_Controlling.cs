@@ -14,8 +14,12 @@ public class PlayerController : MonoBehaviour
     public PlayerMovement playerMovement;
     public PlayerView playerView;
     public PlayerPhysics playerPhysics;
+
     public PlayerInventory playerInventory;
     public PlayerState playerState;
+
+    public PlayerInputController playerInputController;
+    public PlayerUIController playerUIController;
 
     // == Components ==
     [Header("Components")]
