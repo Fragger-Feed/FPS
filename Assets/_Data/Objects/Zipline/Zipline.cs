@@ -27,7 +27,7 @@ public class Zipline : InteractableOject
     [SerializeField] private Vector2 grabArea;
     [SerializeField] private Vector3 offset;
 
-    private void Awake()
+    private void Start()
     {
         pointA = transform.GetChild(0).gameObject;
         pointB = transform.GetChild(1).gameObject;
