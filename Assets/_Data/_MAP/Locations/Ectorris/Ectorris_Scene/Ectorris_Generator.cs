@@ -80,29 +80,12 @@ public class Ectorris_Generator : MonoBehaviour
         }
     }
 
-    private Vector3 randomDirection()
-    {
+    private Vector3 randomDirection() {
         int weightedRandom = Random.Range(0, 100);
-
-        if (weightedRandom < 70)
-        {
-            //Don't turn
+        if (weightedRandom >= 70) {
+            idkHowToNameThisVariable += weightedRandom < 85 ? 1 : -1;
         }
-        else if (weightedRandom < 85)
-        {
-            idkHowToNameThisVariable++;
-        }
-        else
-        {
-            idkHowToNameThisVariable--;
-        }
-
-        if (idkHowToNameThisVariable > 2)
-            idkHowToNameThisVariable = 1;
-
-        if (idkHowToNameThisVariable < 0)
-            idkHowToNameThisVariable = 1;
-
+        idkHowToNameThisVariable = idkHowToNameThisVariable < 0 || idkHowToNameThisVariable > 2 ? 1 : idkHowToNameThisVariable;
         return directions[idkHowToNameThisVariable];
     }
 
