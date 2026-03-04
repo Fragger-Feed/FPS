@@ -15,17 +15,17 @@ public class Ectorris_Generator : MonoBehaviour
     [SerializeField] private int branchChance = 30;
     [SerializeField] private int branchCount = 10;
     [SerializeField] private SerializableDictionary<string, GameObject> buildingType;
+    [SerializeField] private GameObject ziplinePrefab;
     private List<BuildingNodes> nodes = new List<BuildingNodes>();
     private int idkHowToNameThisVariable = 1;
 
-    private void Start()
+    private void Awake()
     {
         position = startPos;
         for (int i = 0; i < mainPathLength; i++)
         {
             var node = new BuildingNodes();
-            node.position = position;
-            node.rotation = dir;
+
             node.Type = RandomType();
 
             if (i > 0)
@@ -48,11 +48,35 @@ public class Ectorris_Generator : MonoBehaviour
 
                 position += finalOffset;
             }
+            node.position = position;
+            node.rotation = dir;
         }
 
         for (int i = 0; i < nodes.Count; i++)
         {
-            Instantiate(nodes[i].Type, nodes[i].position, Quaternion.LookRotation(nodes[i].rotation, Vector3.up), transform);
+            nodes[i].instance = Instantiate(nodes[i].Type, nodes[i].position, Quaternion.LookRotation(nodes[i].rotation, Vector3.up), transform);
+            if (i > 0)
+            {
+                GameObject current = nodes[i].instance;
+                GameObject previous = nodes[i - 1].instance;
+
+                Transform ziplineIn = current.transform.Find("ZiplineLocationIn");
+                Transform ziplineOut = previous.transform.Find("ZiplineLocationOut");
+
+                if (ziplineIn != null && ziplineOut != null)
+                {
+                    GameObject zipline = Instantiate(ziplinePrefab, previous.transform);
+                    zipline.transform.position = ziplineOut.position;
+                    Transform pointA = zipline.transform.Find("PointA");
+                    Transform pointB = zipline.transform.Find("PointB");
+
+                    pointA.position = ziplineOut.position;
+                    pointB.position = ziplineIn.position;
+
+                    pointA.rotation = Quaternion.LookRotation(pointA.position - pointB.position);
+                    pointB.rotation = Quaternion.LookRotation(pointB.position - pointA.position);
+                }
+            }
         }
     }
 
@@ -88,5 +112,6 @@ internal class BuildingNodes
     public Vector3 rotation;
     public Vector3 scale;
     public GameObject Type;
+    public GameObject instance;
     public List<BuildingNodes> Neighbors = new List<BuildingNodes>();
 }
