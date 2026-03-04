@@ -14,7 +14,7 @@ public class Ectorris_Generator : MonoBehaviour
     [SerializeField] private int maxBranchLength = 5;
     [SerializeField] private int branchChance = 30;
     [SerializeField] private int branchCount = 10;
-    [SerializeField] private SerializableDictionary<string, GameObject> buildingType;
+    [SerializeField] private List<ASS> buildingType = new List<ASS>();
     [SerializeField] private GameObject ziplinePrefab;
     private List<BuildingNodes> nodes = new List<BuildingNodes>();
     private int idkHowToNameThisVariable = 1;
@@ -110,17 +110,15 @@ public class Ectorris_Generator : MonoBehaviour
     {
         int index = Random.Range(0, buildingType.Count);
 
-        int i = 0;
-        foreach (var pair in buildingType)
-        {
-            if (i == index)
-            {
-                return pair.Value;
-            }
-            i++;
-        }
+        return index;
         return null;
     }
+}
+
+[Serialize]
+public class ASS
+{
+    public GameObject building;
 }
 
 internal class BuildingNodes
