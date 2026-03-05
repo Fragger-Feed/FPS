@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,9 +15,9 @@ public class Ectorris_Generator : MonoBehaviour
     [SerializeField] private int maxBranchLength = 5;
     [SerializeField] private int branchChance = 30;
     [SerializeField] private int branchCount = 10;
-    [SerializeField] private List<ASS> buildingType = new List<ASS>();
+    [SerializeField] private List<prefabs> buildingType = new List<prefabs>();
     [SerializeField] private GameObject ziplinePrefab;
-    private List<BuildingNodes> nodes = new List<BuildingNodes>();
+    [SerializeField] private List<BuildingNodes> nodes = new List<BuildingNodes>();
     private int idkHowToNameThisVariable = 1;
 
     private void Awake()
@@ -80,9 +81,11 @@ public class Ectorris_Generator : MonoBehaviour
         }
     }
 
-    private Vector3 randomDirection() {
-        int weightedRandom = Random.Range(0, 100);
-        if (weightedRandom >= 70) {
+    private Vector3 randomDirection()
+    {
+        int weightedRandom = UnityEngine.Random.Range(0, 100);
+        if (weightedRandom >= 70)
+        {
             idkHowToNameThisVariable += weightedRandom < 85 ? 1 : -1;
         }
         idkHowToNameThisVariable = idkHowToNameThisVariable < 0 || idkHowToNameThisVariable > 2 ? 1 : idkHowToNameThisVariable;
@@ -91,17 +94,33 @@ public class Ectorris_Generator : MonoBehaviour
 
     private GameObject RandomType()
     {
-        int index = Random.Range(0, buildingType.Count);
+        int totalWeight = 0;
+        foreach (var type in buildingType)
+        {
+            totalWeight += type.weight;
+        }
 
-        return index;
-        return null;
+        int randomWeight = UnityEngine.Random.Range(0, totalWeight);
+
+        int num = 0;
+        foreach (var type in buildingType)
+        {
+            num += type.weight;
+            if (randomWeight < num)
+            {
+                return type.prefab;
+            }
+        }
+        return buildingType[0].prefab;
     }
 }
 
-[Serialize]
-public class ASS
+[Serializable]
+public class prefabs
 {
-    public GameObject building;
+    public string name;
+    public GameObject prefab;
+    public int weight;
 }
 
 internal class BuildingNodes

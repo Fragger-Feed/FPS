@@ -20421,12 +20421,7 @@ MonoBehaviour:
   branchChance: 30
   branchCount: 10
   buildingType:
-    m_keys:
-    - Small
-    - Big
-    m_values:
-    - {fileID: 494899932371021599, guid: 91ca16dc4df21824d94fcfa1ffb8bac8, type: 3}
-    - {fileID: 2321188402350105012, guid: a3578480839e8a44aba1bef07e910ae6, type: 3}
+  - building: {fileID: 0}
   ziplinePrefab: {fileID: 5860255931560349581, guid: fe0e44a817259a9429cfd9aef67b8dff, type: 3}
 --- !u!4 &1104375984
 Transform:
