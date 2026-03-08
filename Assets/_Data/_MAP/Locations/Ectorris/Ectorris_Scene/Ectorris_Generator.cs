@@ -43,7 +43,7 @@ public class Ectorris_Generator : MonoBehaviour
                 Transform prevOut = node.Neighbors[0].Type.transform.Find("ZiplineLocationOut");
                 Transform nextIn = node.Type.transform.Find("ZiplineLocationIn");
 
-                Vector3 target = new Vector3(0, 0, prevOut.localPosition.z + 100);
+                Vector3 target = new Vector3(0, 0, prevOut.localPosition.z + 50);
                 Vector3 offset = target + new Vector3(0, 0, Mathf.Abs(nextIn.localPosition.z));
 
                 Vector3 finalOffset = Quaternion.LookRotation(directions[dir]) * offset;
@@ -90,7 +90,7 @@ public class Ectorris_Generator : MonoBehaviour
             Transform prevOut = node.Neighbors[0].Type.transform.Find("ZiplineLocationOut");
             Transform nextIn = node.Type.transform.Find("ZiplineLocationIn");
 
-            Vector3 target = new Vector3(0, 0, prevOut.localPosition.z + 100);
+            Vector3 target = new Vector3(0, 0, prevOut.localPosition.z + 50);
             Vector3 offset = target + new Vector3(0, 0, Mathf.Abs(nextIn.localPosition.z));
 
             Vector3 finalOffset = Quaternion.LookRotation(directions[dir]) * offset;
