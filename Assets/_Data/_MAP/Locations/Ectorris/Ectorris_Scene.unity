@@ -20416,13 +20416,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ectorris_Generator
   startPos: {x: 0, y: 0, z: 300}
-  mainPathLength: 50
+  mainPathLength: 25
   maxBranchLength: 5
-  branchChance: 30
-  branchCount: 10
+  branchChance: 10
+  branchCount: 2
   buildingType:
-  - building: {fileID: 0}
+  - name: Small
+    prefab: {fileID: 494899932371021599, guid: 91ca16dc4df21824d94fcfa1ffb8bac8, type: 3}
+    weight: 20
+  - name: Big
+    prefab: {fileID: 2321188402350105012, guid: a3578480839e8a44aba1bef07e910ae6, type: 3}
+    weight: 40
   ziplinePrefab: {fileID: 5860255931560349581, guid: fe0e44a817259a9429cfd9aef67b8dff, type: 3}
+  branchTEST: {fileID: 1729651851332785635, guid: d979b84cd32d90f479b59a42546f7699, type: 3}
 --- !u!4 &1104375984
 Transform:
   m_ObjectHideFlags: 0

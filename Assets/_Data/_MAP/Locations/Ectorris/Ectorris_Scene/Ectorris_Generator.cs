@@ -8,9 +8,9 @@ public class Ectorris_Generator : MonoBehaviour
 {
     [SerializeField] private Vector3 startPos = Vector3.zero + new Vector3(0, 0, 300);
     private Vector3 position;
-    private Vector3 dir = Vector3.forward;
+    private int dir = 1;
     private Vector3 prevDir;
-    private Vector3[] directions = { Vector3.right, Vector3.forward, Vector3.left };
+    private Vector3[] directions = { Vector3.right, Vector3.forward, Vector3.left, Vector3.back };
     [SerializeField] private int mainPathLength = 20;
     [SerializeField] private int maxBranchLength = 5;
     [SerializeField] private int branchChance = 30;
@@ -18,6 +18,7 @@ public class Ectorris_Generator : MonoBehaviour
     [SerializeField] private List<prefabs> buildingType = new List<prefabs>();
     [SerializeField] private GameObject ziplinePrefab;
     [SerializeField] private List<BuildingNodes> nodes = new List<BuildingNodes>();
+    [SerializeField] private GameObject branchTEST;
     private int idkHowToNameThisVariable = 1;
 
     private void Awake()
@@ -36,7 +37,7 @@ public class Ectorris_Generator : MonoBehaviour
 
             nodes.Add(node);
 
-            dir = randomDirection();
+            dir = randomDirection(node);
             if (i > 0)
             {
                 Transform prevOut = node.Neighbors[0].Type.transform.Find("ZiplineLocationOut");
@@ -45,7 +46,7 @@ public class Ectorris_Generator : MonoBehaviour
                 Vector3 target = new Vector3(0, 0, prevOut.localPosition.z + 100);
                 Vector3 offset = target + new Vector3(0, 0, Mathf.Abs(nextIn.localPosition.z));
 
-                Vector3 finalOffset = Quaternion.LookRotation(dir) * offset;
+                Vector3 finalOffset = Quaternion.LookRotation(directions[dir]) * offset;
 
                 position += finalOffset;
             }
@@ -53,43 +54,105 @@ public class Ectorris_Generator : MonoBehaviour
             node.rotation = dir;
         }
 
-        for (int i = 0; i < nodes.Count; i++)
+        int branchesGenrated = 0;
+        List<BuildingNodes> mainPath = nodes;
+        for (int i = 0; i < mainPath.Count; i++)
         {
-            nodes[i].instance = Instantiate(nodes[i].Type, nodes[i].position, Quaternion.LookRotation(nodes[i].rotation, Vector3.up), transform);
-            if (i > 0)
+            if (branchesGenrated >= branchCount) break;
+            if (UnityEngine.Random.Range(0, 100) >= branchChance) continue;
+
+            GenerateBranch(nodes[i]);
+
+            branchesGenrated++;
+        }
+
+        InstantiateNodes();
+    }
+
+    private void GenerateBranch(BuildingNodes origin)
+    {
+        int lenght = UnityEngine.Random.Range(1, maxBranchLength);
+
+        idkHowToNameThisVariable = origin.rotation + UnityEngine.Random.Range(1, 2) == 1 ? -1 : 1;
+        if (idkHowToNameThisVariable < 0)
+            idkHowToNameThisVariable = 3;
+        if (idkHowToNameThisVariable > 3)
+            idkHowToNameThisVariable = 0;
+        Vector3 position = origin.position;
+        BuildingNodes previousNode = origin;
+
+        for (int j = 0; j < lenght; j++)
+        {
+            var node = new BuildingNodes();
+            node.Type = branchTEST;
+            node.Neighbors.Add(previousNode);
+
+            Transform prevOut = node.Neighbors[0].Type.transform.Find("ZiplineLocationOut");
+            Transform nextIn = node.Type.transform.Find("ZiplineLocationIn");
+
+            Vector3 target = new Vector3(0, 0, prevOut.localPosition.z + 100);
+            Vector3 offset = target + new Vector3(0, 0, Mathf.Abs(nextIn.localPosition.z));
+
+            Vector3 finalOffset = Quaternion.LookRotation(directions[dir]) * offset;
+
+            position += finalOffset;
+
+            node.position = position;
+            node.rotation = idkHowToNameThisVariable;
+            node.isBranch = true;
+
+            nodes.Add(node);
+            previousNode = node;
+        }
+    }
+
+    private void InstantiateNodes()
+    {
+        foreach (BuildingNodes node in nodes)
+        {
+            print(node.rotation);
+            node.instance = Instantiate(node.Type, node.position, Quaternion.LookRotation(directions[node.rotation], Vector3.up), transform);
+
+            if (node.Neighbors.Count == 0 || node.Neighbors[0] == null) continue;
+
+            GameObject previous = node.Neighbors[0].instance;
+
+            if (previous == null) continue;
+
+            Transform ziplineIn = node.instance.transform.Find("ZiplineLocationIn");
+            Transform ziplineOut = previous.transform.Find("ZiplineLocationOut");
+
+            if (ziplineIn != null && ziplineOut != null)
             {
-                GameObject current = nodes[i].instance;
-                GameObject previous = nodes[i - 1].instance;
+                GameObject zipline = Instantiate(ziplinePrefab, previous.transform);
+                zipline.transform.position = ziplineOut.position;
+                Transform pointA = zipline.transform.Find("PointA");
+                Transform pointB = zipline.transform.Find("PointB");
 
-                Transform ziplineIn = current.transform.Find("ZiplineLocationIn");
-                Transform ziplineOut = previous.transform.Find("ZiplineLocationOut");
+                pointA.position = ziplineOut.position;
+                pointB.position = ziplineIn.position;
 
-                if (ziplineIn != null && ziplineOut != null)
-                {
-                    GameObject zipline = Instantiate(ziplinePrefab, previous.transform);
-                    zipline.transform.position = ziplineOut.position;
-                    Transform pointA = zipline.transform.Find("PointA");
-                    Transform pointB = zipline.transform.Find("PointB");
-
-                    pointA.position = ziplineOut.position;
-                    pointB.position = ziplineIn.position;
-
-                    pointA.rotation = Quaternion.LookRotation(pointA.position - pointB.position);
-                    pointB.rotation = Quaternion.LookRotation(pointB.position - pointA.position);
-                }
+                pointA.rotation = Quaternion.LookRotation(pointA.position - pointB.position);
+                pointB.rotation = Quaternion.LookRotation(pointB.position - pointA.position);
             }
         }
     }
 
-    private Vector3 randomDirection()
+    private int randomDirection(BuildingNodes node)
     {
         int weightedRandom = UnityEngine.Random.Range(0, 100);
         if (weightedRandom >= 70)
         {
             idkHowToNameThisVariable += weightedRandom < 85 ? 1 : -1;
         }
-        idkHowToNameThisVariable = idkHowToNameThisVariable < 0 || idkHowToNameThisVariable > 2 ? 1 : idkHowToNameThisVariable;
-        return directions[idkHowToNameThisVariable];
+        if (!node.isBranch)
+            return idkHowToNameThisVariable = idkHowToNameThisVariable < 0 || idkHowToNameThisVariable > 2 ? 1 : idkHowToNameThisVariable;
+
+        if (idkHowToNameThisVariable < 0)
+            idkHowToNameThisVariable = 3;
+        if (idkHowToNameThisVariable > 3)
+            idkHowToNameThisVariable = 0;
+        return idkHowToNameThisVariable;
     }
 
     private GameObject RandomType()
@@ -126,9 +189,10 @@ public class prefabs
 internal class BuildingNodes
 {
     public Vector3 position;
-    public Vector3 rotation;
+    public int rotation;
     public Vector3 scale;
     public GameObject Type;
     public GameObject instance;
+    public bool isBranch;
     public List<BuildingNodes> Neighbors = new List<BuildingNodes>();
 }
