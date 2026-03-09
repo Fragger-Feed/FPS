@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Ectorris_Generator : MonoBehaviour
@@ -19,6 +20,7 @@ public class Ectorris_Generator : MonoBehaviour
     [SerializeField] private GameObject ziplinePrefab;
     [SerializeField] private List<BuildingNodes> nodes = new List<BuildingNodes>();
     [SerializeField] private GameObject branchTEST;
+    [SerializeField] private GameObject bossRoom;
     private int idkHowToNameThisVariable = 1;
 
     private void Awake()
@@ -54,9 +56,26 @@ public class Ectorris_Generator : MonoBehaviour
             node.rotation = dir;
         }
 
+        var final = new BuildingNodes();
+        final.Type = bossRoom;
+        final.Neighbors.Add(nodes.las);
+
+        nodes.Add(final);
+
+        Transform Fout = final.Neighbors[0].Type.transform.Find("ZiplineLocationOut");
+        Transform Fin = final.Type.transform.Find("ZiplineLocationIn");
+
+        Vector3 Ftarget = new Vector3(0, 0, Fout.localPosition.z + 50);
+        Vector3 Foffset = Ftarget + new Vector3(0, 0, Mathf.Abs(Fin.localPosition.z));
+
+        Vector3 lastOffset = Quaternion.LookRotation(directions[dir]) * Foffset;
+
+        final.position += lastOffset;
+        final.rotation = 3 - final.Neighbors[0].rotation;
+
         int branchesGenrated = 0;
         List<BuildingNodes> mainPath = nodes;
-        for (int i = 0; i < mainPath.Count; i++)
+        for (int i = 0; i < mainPath.Count - 1; i++)
         {
             if (branchesGenrated >= branchCount) break;
             if (UnityEngine.Random.Range(0, 100) >= branchChance) continue;
@@ -175,6 +194,28 @@ public class Ectorris_Generator : MonoBehaviour
             }
         }
         return buildingType[0].prefab;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (nodes == null) return;
+
+        foreach (BuildingNodes node in nodes)
+        {
+            if (node.instance == null) continue;
+
+            Renderer[] renderers = node.instance.GetComponentsInChildren<Renderer>();
+            if (renderers.Length == 0) continue;
+
+            Bounds combined = renderers[0].bounds;
+            foreach (Renderer r in renderers)
+                combined.Encapsulate(r.bounds);
+
+            combined.Expand(20);
+
+            Gizmos.color = node.isBranch ? Color.yellow : Color.green;
+            Gizmos.DrawWireCube(combined.center, combined.size);
+        }
     }
 }
 

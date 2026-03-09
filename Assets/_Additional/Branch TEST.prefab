@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5993849964866019266}
   - component: {fileID: 985390526417423814}
   - component: {fileID: 2656318585183700347}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Branch TEST
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1559627326165365262}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ZiplineLocationOut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 735486692764470671}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ZiplineLocationIn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
