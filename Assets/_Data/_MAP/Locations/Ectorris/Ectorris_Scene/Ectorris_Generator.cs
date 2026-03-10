@@ -69,9 +69,10 @@ public class Ectorris_Generator : MonoBehaviour
         Vector3 Foffset = Ftarget + new Vector3(0, 0, Mathf.Abs(Fin.localPosition.z));
 
         Vector3 lastOffset = Quaternion.LookRotation(directions[dir]) * Foffset;
+        position += lastOffset;
 
-        final.position += lastOffset;
-        final.rotation = 3 - final.Neighbors[0].rotation;
+        final.position = position;
+        final.rotation = final.Neighbors[0].rotation;
 
         int branchesGenrated = 0;
         List<BuildingNodes> mainPath = nodes;
