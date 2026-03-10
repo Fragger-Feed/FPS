@@ -58,7 +58,7 @@ public class Ectorris_Generator : MonoBehaviour
 
         var final = new BuildingNodes();
         final.Type = bossRoom;
-        final.Neighbors.Add(nodes.las);
+        final.Neighbors.Add(nodes[nodes.Count - 1]);
 
         nodes.Add(final);
 
