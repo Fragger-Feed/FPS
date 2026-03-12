@@ -6956,20 +6956,26 @@ MonoBehaviour:
   startPos: {x: 0, y: 0, z: 300}
   mainPathLength: 25
   maxBranchLength: 11
-  branchChance: 0
+  branchChance: 10
   branchCount: 10
   buildingType:
   - name: Small
     prefab: {fileID: 494899932371021599, guid: 91ca16dc4df21824d94fcfa1ffb8bac8, type: 3}
     weight: 20
-  - name: Big
-    prefab: {fileID: 2321188402350105012, guid: a3578480839e8a44aba1bef07e910ae6, type: 3}
-    weight: 40
+  - name: Big1
+    prefab: {fileID: 8709962490508990504, guid: f99ac3fc2d28f284d8f9dd7951252493, type: 3}
+    weight: 13
   - name: L
     prefab: {fileID: 1018728759012205358, guid: fd27826aaccb7b44d87b01dd6a66bd47, type: 3}
     weight: 10
+  - name: Big2
+    prefab: {fileID: 3534368030468404734, guid: 2b710dbf44e27c34d9b4c392584eda39, type: 3}
+    weight: 13
+  - name: Big3
+    prefab: {fileID: 8822976947928398958, guid: e90e4f90d1c96d14cbed711ed1855bd9, type: 3}
+    weight: 13
   ziplinePrefab: {fileID: 5860255931560349581, guid: fe0e44a817259a9429cfd9aef67b8dff, type: 3}
-  branchTEST: {fileID: 1729651851332785635, guid: d979b84cd32d90f479b59a42546f7699, type: 3}
+  branchTEST: {fileID: 4439415714370640094, guid: 59f91cf404c20704ebd1061a93893b8e, type: 3}
   bossRoom: {fileID: 490073256}
 --- !u!4 &1104375984
 Transform:

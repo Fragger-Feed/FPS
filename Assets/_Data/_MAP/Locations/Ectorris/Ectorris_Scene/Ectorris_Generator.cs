@@ -10,7 +10,7 @@ public class Ectorris_Generator : MonoBehaviour
     [SerializeField] private Vector3 startPos = Vector3.zero + new Vector3(0, 0, 300);
     private Vector3 position;
     private int dir = 1;
-    private Vector3 prevDir;
+    private int prevDir = 1;
     private Vector3[] directions = { Vector3.right, Vector3.forward, Vector3.left, Vector3.back };
     [SerializeField] private int mainPathLength = 20;
     [SerializeField] private int maxBranchLength = 5;
@@ -39,7 +39,6 @@ public class Ectorris_Generator : MonoBehaviour
 
             nodes.Add(node);
 
-            dir = randomDirection(node);
             if (i > 0)
             {
                 Transform prevOut = node.Neighbors[0].Type.transform.Find("ZiplineLocationOut");
@@ -48,12 +47,15 @@ public class Ectorris_Generator : MonoBehaviour
                 Vector3 target = new Vector3(0, 0, prevOut.localPosition.z + 50);
                 Vector3 offset = target + new Vector3(0, 0, Mathf.Abs(nextIn.localPosition.z));
 
-                Vector3 finalOffset = Quaternion.LookRotation(directions[dir]) * offset;
+                Vector3 finalOffset = Quaternion.LookRotation(directions[prevDir]) * offset;
 
                 position += finalOffset;
             }
             node.position = position;
             node.rotation = dir;
+
+            prevDir = dir;
+            dir = randomDirection(node);
         }
 
         var final = new BuildingNodes();
@@ -68,7 +70,7 @@ public class Ectorris_Generator : MonoBehaviour
         Vector3 Ftarget = new Vector3(0, 0, Fout.localPosition.z + 50);
         Vector3 Foffset = Ftarget + new Vector3(0, 0, Mathf.Abs(Fin.localPosition.z));
 
-        Vector3 lastOffset = Quaternion.LookRotation(directions[dir]) * Foffset;
+        Vector3 lastOffset = Quaternion.LookRotation(directions[prevDir]) * Foffset;
         position += lastOffset;
 
         final.position = position;
@@ -93,11 +95,7 @@ public class Ectorris_Generator : MonoBehaviour
     {
         int lenght = UnityEngine.Random.Range(1, maxBranchLength);
 
-        idkHowToNameThisVariable = origin.rotation + UnityEngine.Random.Range(1, 2) == 1 ? -1 : 1;
-        if (idkHowToNameThisVariable < 0)
-            idkHowToNameThisVariable = 3;
-        if (idkHowToNameThisVariable > 3)
-            idkHowToNameThisVariable = 0;
+        idkHowToNameThisVariable = (origin.rotation + UnityEngine.Random.Range(1, 2) == 1 ? -1 : 1) % 3;
         Vector3 position = origin.position;
         BuildingNodes previousNode = origin;
 
@@ -113,7 +111,7 @@ public class Ectorris_Generator : MonoBehaviour
             Vector3 target = new Vector3(0, 0, prevOut.localPosition.z + 50);
             Vector3 offset = target + new Vector3(0, 0, Mathf.Abs(nextIn.localPosition.z));
 
-            Vector3 finalOffset = Quaternion.LookRotation(directions[dir]) * offset;
+            Vector3 finalOffset = Quaternion.LookRotation(directions[prevDir]) * offset;
 
             position += finalOffset;
 
