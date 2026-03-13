@@ -6956,7 +6956,7 @@ MonoBehaviour:
   startPos: {x: 0, y: 0, z: 300}
   mainPathLength: 25
   maxBranchLength: 11
-  branchChance: 10
+  branchChance: 50
   branchCount: 10
   buildingType:
   - name: Small

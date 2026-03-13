@@ -95,7 +95,7 @@ public class Ectorris_Generator : MonoBehaviour
     {
         int lenght = UnityEngine.Random.Range(1, maxBranchLength);
 
-        idkHowToNameThisVariable = (origin.rotation + UnityEngine.Random.Range(1, 2) == 1 ? -1 : 1) % 3;
+        idkHowToNameThisVariable = (origin.rotation + UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1 + 3) % 3;
         Vector3 position = origin.position;
         BuildingNodes previousNode = origin;
 
