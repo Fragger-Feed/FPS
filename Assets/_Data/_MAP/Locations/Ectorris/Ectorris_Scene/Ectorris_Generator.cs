@@ -7,21 +7,28 @@ using UnityEngine;
 
 public class Ectorris_Generator : MonoBehaviour
 {
-    [SerializeField] private Vector3 startPos = Vector3.zero + new Vector3(0, 0, 300);
     private Vector3 position;
+
     private int dir = 1;
     private int prevDir = 1;
+    private int idkHowToNameThisVariable = 1;
+
     private Vector3[] directions = { Vector3.right, Vector3.forward, Vector3.left, Vector3.back };
+    private List<BuildingNodes> nodes = new List<BuildingNodes>();
+    private List<Bounds> placedBounds = new List<Bounds>();
+
+    [SerializeField] private Vector3 startPos = Vector3.zero + new Vector3(0, 0, 300);
+
     [SerializeField] private int mainPathLength = 20;
     [SerializeField] private int maxBranchLength = 5;
     [SerializeField] private int branchChance = 30;
     [SerializeField] private int branchCount = 10;
+
     [SerializeField] private List<prefabs> buildingType = new List<prefabs>();
+
     [SerializeField] private GameObject ziplinePrefab;
-    [SerializeField] private List<BuildingNodes> nodes = new List<BuildingNodes>();
     [SerializeField] private GameObject branchTEST;
     [SerializeField] private GameObject bossRoom;
-    private int idkHowToNameThisVariable = 1;
 
     private void Awake()
     {
@@ -54,6 +61,8 @@ public class Ectorris_Generator : MonoBehaviour
             node.position = position;
             node.rotation = dir;
 
+            AddedPlaced(node.Type, position, node.rotation);
+
             prevDir = dir;
             dir = randomDirection(node);
         }
@@ -76,6 +85,8 @@ public class Ectorris_Generator : MonoBehaviour
         final.position = position;
         final.rotation = final.Neighbors[0].rotation;
 
+        AddedPlaced(final.Type, position, final.rotation);
+
         int branchesGenrated = 0;
         List<BuildingNodes> mainPath = nodes;
         for (int i = 0; i < mainPath.Count - 1; i++)
@@ -91,11 +102,11 @@ public class Ectorris_Generator : MonoBehaviour
         InstantiateNodes();
     }
 
-    private void GenerateBranch(BuildingNodes origin)
+    private bool GenerateBranch(BuildingNodes origin)
     {
         int lenght = UnityEngine.Random.Range(1, maxBranchLength);
-
-        idkHowToNameThisVariable = (origin.rotation + UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1 + 3) % 3;
+        int random = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
+        idkHowToNameThisVariable = (origin.rotation + random + 4) % 4;
         Vector3 position = origin.position;
         BuildingNodes previousNode = origin;
 
@@ -111,7 +122,7 @@ public class Ectorris_Generator : MonoBehaviour
             Vector3 target = new Vector3(0, 0, prevOut.localPosition.z + 50);
             Vector3 offset = target + new Vector3(0, 0, Mathf.Abs(nextIn.localPosition.z));
 
-            Vector3 finalOffset = Quaternion.LookRotation(directions[prevDir]) * offset;
+            Vector3 finalOffset = Quaternion.LookRotation(directions[idkHowToNameThisVariable]) * offset;
 
             position += finalOffset;
 
@@ -120,8 +131,55 @@ public class Ectorris_Generator : MonoBehaviour
             node.isBranch = true;
 
             nodes.Add(node);
+
+            AddedPlaced(node.Type, position, node.rotation);
+
             previousNode = node;
         }
+
+        return true;
+    }
+
+    private Bounds GetPrefabBounds(GameObject prefab, Vector3 pos, int rotation)
+    {
+        GameObject temp = Instantiate(prefab, pos, Quaternion.LookRotation(directions[rotation]));
+        temp.hideFlags = HideFlags.HideAndDontSave;
+
+        Renderer[] renderers = temp.GetComponentsInChildren<Renderer>();
+
+        if (renderers.Length == 0)
+        {
+            DestroyImmediate(temp);
+            return new Bounds(pos, Vector3.zero);
+        }
+
+        Bounds bounds = renderers[0].bounds;
+        foreach (Renderer r in renderers)
+        {
+            bounds.Encapsulate(r.bounds);
+        }
+
+        DestroyImmediate(temp);
+        return bounds;
+    }
+
+    private bool doesItOverlap(GameObject prefab, Vector3 pos, int rotation)
+    {
+        Bounds newNodeBound = GetPrefabBounds(prefab, pos, rotation);
+        newNodeBound.Expand(20);
+
+        foreach (Bounds existingBound in placedBounds)
+            if (newNodeBound.Intersects(existingBound))
+                return true;
+
+        return false;
+    }
+
+    private void AddedPlaced(GameObject prefab, Vector3 pos, int rotation)
+    {
+        Bounds bounds = GetPrefabBounds(prefab, pos, rotation);
+        bounds.Expand(20);
+        placedBounds.Add(bounds);
     }
 
     private void InstantiateNodes()
@@ -199,21 +257,11 @@ public class Ectorris_Generator : MonoBehaviour
     {
         if (nodes == null) return;
 
-        foreach (BuildingNodes node in nodes)
+        foreach (Bounds bound in placedBounds)
         {
-            if (node.instance == null) continue;
+            if (bound.extents == Vector3.zero) continue;
 
-            Renderer[] renderers = node.instance.GetComponentsInChildren<Renderer>();
-            if (renderers.Length == 0) continue;
-
-            Bounds combined = renderers[0].bounds;
-            foreach (Renderer r in renderers)
-                combined.Encapsulate(r.bounds);
-
-            combined.Expand(20);
-
-            Gizmos.color = node.isBranch ? Color.yellow : Color.green;
-            Gizmos.DrawWireCube(combined.center, combined.size);
+            Gizmos.DrawWireCube(bound.center, bound.size);
         }
     }
 }
