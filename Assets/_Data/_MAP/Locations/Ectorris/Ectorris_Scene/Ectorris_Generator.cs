@@ -49,8 +49,8 @@ public class Ectorris_Generator : MonoBehaviour
 
             if (i > 0)
             {
-                Transform prevOut = node.Neighbors[0].Type.transform.Find("ZiplineLocationOut");
-                Transform nextIn = node.Type.transform.Find("ZiplineLocationIn");
+                Transform prevOut = node.Neighbors[0].Type.transform.Find("ZiplineLocationNorth");
+                Transform nextIn = node.Type.transform.Find("ZiplineLocationSouth");
 
                 Vector3 target = new Vector3(0, 0, prevOut.localPosition.z + 50);
                 Vector3 offset = target + new Vector3(0, 0, Mathf.Abs(nextIn.localPosition.z));
@@ -75,8 +75,8 @@ public class Ectorris_Generator : MonoBehaviour
 
         nodes.Add(final);
 
-        Transform Fout = final.Neighbors[0].Type.transform.Find("ZiplineLocationOut");
-        Transform Fin = final.Type.transform.Find("ZiplineLocationIn");
+        Transform Fout = final.Neighbors[0].Type.transform.Find("ZiplineLocationNorth");
+        Transform Fin = final.Type.transform.Find("ZiplineLocationSouth");
 
         Vector3 Ftarget = new Vector3(0, 0, Fout.localPosition.z + 50);
         Vector3 Foffset = Ftarget + new Vector3(0, 0, Mathf.Abs(Fin.localPosition.z));
@@ -121,8 +121,8 @@ public class Ectorris_Generator : MonoBehaviour
             node.Neighbors.Add(previousNode);
             previousNode.Neighbors.Add(node);
 
-            Transform prevOut = node.Neighbors[0].Type.transform.Find("ZiplineLocationOut");
-            Transform nextIn = node.Type.transform.Find("ZiplineLocationIn");
+            Transform prevOut = node.Neighbors[0].Type.transform.Find("ZiplineLocationNorth");
+            Transform nextIn = node.Type.transform.Find("ZiplineLocationSouth");
 
             if (prevOut == null || nextIn == null) break;
 
@@ -207,8 +207,8 @@ public class Ectorris_Generator : MonoBehaviour
 
             if (previous == null) continue;
 
-            Transform ziplineIn = node.instance.transform.Find("ZiplineLocationIn");
-            Transform ziplineOut = previous.transform.Find("ZiplineLocationOut");
+            Transform ziplineIn = node.instance.transform.Find("ZiplineLocationSouth");
+            Transform ziplineOut = previous.transform.Find("ZiplineLocationNorth");
 
             if (ziplineIn != null && ziplineOut != null)
             {
