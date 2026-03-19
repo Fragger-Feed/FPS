@@ -117,7 +117,7 @@ public class Ectorris_Generator : MonoBehaviour
         for (int j = 0; j < lenght; j++)
         {
             var node = new BuildingNodes();
-            node.Type = branchTEST;
+            node.Type = RandomType();
             node.Neighbors.Add(previousNode);
             previousNode.Neighbors.Add(node);
 
