@@ -15,7 +15,7 @@ public class Ectorris_Generator : MonoBehaviour
 
     private Vector3[] directions = { Vector3.right, Vector3.forward, Vector3.left, Vector3.back };
     private List<BuildingNodes> nodes = new List<BuildingNodes>();
-    private List<Bounds> placedBounds = new List<Bounds>();
+    private List<(Bounds bounds, BuildingNodes nodes)> placedBounds = new List<(Bounds, BuildingNodes)>();
 
     private string[] ziplinePoints = {
     "ZiplineLocationNorth",
@@ -26,10 +26,10 @@ public class Ectorris_Generator : MonoBehaviour
 
     [SerializeField] private Vector3 startPos = Vector3.zero + new Vector3(0, 0, 300);
 
-    [SerializeField] private int mainPathLength = 20;
-    [SerializeField] private int maxBranchLength = 5;
-    [SerializeField] private int branchChance = 30;
-    [SerializeField] private int branchCount = 10;
+    [SerializeField] private int mainPathLength = 69;
+    [SerializeField] private int maxBranchLength = 69;
+    [SerializeField] private int branchChance = 69;
+    [SerializeField] private int branchCount = 69;
 
     [SerializeField] private List<prefabs> buildingType = new List<prefabs>();
 
@@ -48,15 +48,14 @@ public class Ectorris_Generator : MonoBehaviour
 
             if (i > 0)
             {
-                node.Neighbors.Add(nodes[i - 1]);
-                node.Neighbors[0].Neighbors.Add(node);
+                node.Neighbours.Add(nodes[i - 1]);
             }
 
             nodes.Add(node);
 
             if (i > 0)
             {
-                Transform prevOut = node.Neighbors[0].Type.transform.Find("ZiplineLocationNorth");
+                Transform prevOut = node.Neighbours[0].Type.transform.Find("ZiplineLocationNorth");
                 Transform nextIn = node.Type.transform.Find("ZiplineLocationSouth");
 
                 Vector3 target = new Vector3(0, 0, prevOut.localPosition.z + 50);
@@ -69,7 +68,7 @@ public class Ectorris_Generator : MonoBehaviour
             node.position = position;
             node.rotation = dir;
 
-            AddPlaced(node.Type, position, node.rotation);
+            AddPlaced(node.Type, position, node.rotation, node);
 
             prevDir = dir;
             dir = randomDirection(node);
@@ -77,12 +76,11 @@ public class Ectorris_Generator : MonoBehaviour
 
         var final = new BuildingNodes();
         final.Type = bossRoom;
-        final.Neighbors.Add(nodes[nodes.Count - 1]);
-        final.Neighbors[0].Neighbors.Add(final);
+        final.Neighbours.Add(nodes[nodes.Count - 1]);
 
         nodes.Add(final);
 
-        Transform Fout = final.Neighbors[0].Type.transform.Find("ZiplineLocationNorth");
+        Transform Fout = final.Neighbours[0].Type.transform.Find("ZiplineLocationNorth");
         Transform Fin = final.Type.transform.Find("ZiplineLocationSouth");
 
         Vector3 Ftarget = new Vector3(0, 0, Fout.localPosition.z + 50);
@@ -92,9 +90,9 @@ public class Ectorris_Generator : MonoBehaviour
         position += lastOffset;
 
         final.position = position;
-        final.rotation = final.Neighbors[0].rotation;
+        final.rotation = final.Neighbours[0].rotation;
 
-        AddPlaced(final.Type, position, final.rotation);
+        AddPlaced(final.Type, position, final.rotation, final);
 
         int branchesGenrated = 0;
         List<BuildingNodes> mainPath = nodes;
@@ -125,10 +123,9 @@ public class Ectorris_Generator : MonoBehaviour
         {
             var node = new BuildingNodes();
             node.Type = RandomType();
-            node.Neighbors.Add(previousNode);
-            previousNode.Neighbors.Add(node);
+            node.Neighbours.Add(previousNode);
 
-            Transform prevOut = node.Neighbors[0].Type.transform.Find("ZiplineLocationNorth");
+            Transform prevOut = node.Neighbours[0].Type.transform.Find("ZiplineLocationNorth");
             Transform nextIn = node.Type.transform.Find("ZiplineLocationSouth");
 
             if (prevOut == null || nextIn == null) break;
@@ -143,18 +140,22 @@ public class Ectorris_Generator : MonoBehaviour
             node.position = position;
             node.rotation = dir;
             node.isBranch = true;
-
-            if (!doesItOverlap(node.Type, position, node.rotation))
+            BuildingNodes overlapingNode;
+            if (!doesItOverlap(node.Type, position, node.rotation, out overlapingNode))
             {
                 prevDir = dir;
                 dir = randomDirection(node);
                 nodes.Add(node);
-                AddPlaced(node.Type, position, node.rotation);
+                AddPlaced(node.Type, position, node.rotation, node);
                 previousNode = node;
                 didAtleastOneGenerated = true;
             }
             else
+            {
+                if (overlapingNode != null)
+                    previousNode.Neighbours.Add(overlapingNode);
                 break;
+            }
         }
         return didAtleastOneGenerated;
     }
@@ -182,23 +183,26 @@ public class Ectorris_Generator : MonoBehaviour
         return bounds;
     }
 
-    private bool doesItOverlap(GameObject prefab, Vector3 pos, int rotation)
+    private bool doesItOverlap(GameObject prefab, Vector3 pos, int rotation, out BuildingNodes node)
     {
         Bounds newNodeBound = GetPrefabBounds(prefab, pos, rotation);
         newNodeBound.Expand(20);
 
-        foreach (Bounds existingBound in placedBounds)
-            if (newNodeBound.Intersects(existingBound))
+        foreach (var existingBound in placedBounds)
+            if (newNodeBound.Intersects(existingBound.bounds))
+            {
+                node = existingBound.nodes;
                 return true;
-
+            }
+        node = null;
         return false;
     }
 
-    private void AddPlaced(GameObject prefab, Vector3 pos, int rotation)
+    private void AddPlaced(GameObject prefab, Vector3 pos, int rotation, BuildingNodes node)
     {
         Bounds bounds = GetPrefabBounds(prefab, pos, rotation);
         bounds.Expand(20);
-        placedBounds.Add(bounds);
+        placedBounds.Add((bounds, node));
     }
 
     private (Transform from, Transform to) FindClosestPoints(Transform from, Transform to)
@@ -232,29 +236,30 @@ public class Ectorris_Generator : MonoBehaviour
     {
         foreach (BuildingNodes node in nodes)
         {
-            print(node.rotation);
             node.instance = Instantiate(node.Type, node.position, Quaternion.LookRotation(directions[node.rotation], Vector3.up), transform);
+            if (node.Neighbours.Count == 0) continue;
 
-            if (node.Neighbors.Count == 0 || node.Neighbors[0] == null) continue;
-
-            GameObject previous = node.Neighbors[0].instance;
-
-            if (previous == null) continue;
-
-            var (ziplineOut, ziplineIn) = FindClosestPoints(previous.transform, node.instance.transform);
-
-            if (ziplineIn != null && ziplineOut != null)
+            for (int i = 0; i < node.Neighbours.Count; i++)
             {
-                GameObject zipline = Instantiate(ziplinePrefab, previous.transform);
-                zipline.transform.position = ziplineOut.position;
-                Transform pointA = zipline.transform.Find("PointA");
-                Transform pointB = zipline.transform.Find("PointB");
+                GameObject neighbour = node.Neighbours[i].instance;
 
-                pointA.position = ziplineOut.position;
-                pointB.position = ziplineIn.position;
+                if (neighbour == null) continue;
 
-                pointA.rotation = Quaternion.LookRotation(pointA.position - pointB.position);
-                pointB.rotation = Quaternion.LookRotation(pointB.position - pointA.position);
+                var (ziplineOut, ziplineIn) = FindClosestPoints(neighbour.transform, node.instance.transform);
+
+                if (ziplineIn != null && ziplineOut != null)
+                {
+                    GameObject zipline = Instantiate(ziplinePrefab, node.instance.transform);
+                    zipline.transform.position = ziplineOut.position;
+                    Transform pointA = zipline.transform.Find("PointA");
+                    Transform pointB = zipline.transform.Find("PointB");
+
+                    pointA.position = ziplineOut.position;
+                    pointB.position = ziplineIn.position;
+
+                    pointA.rotation = Quaternion.LookRotation(pointA.position - pointB.position);
+                    pointB.rotation = Quaternion.LookRotation(pointB.position - pointA.position);
+                }
             }
         }
     }
@@ -298,11 +303,11 @@ public class Ectorris_Generator : MonoBehaviour
     {
         if (nodes == null) return;
 
-        foreach (Bounds bound in placedBounds)
+        foreach (var bound in placedBounds)
         {
-            if (bound.extents == Vector3.zero) continue;
+            if (bound.bounds.extents == Vector3.zero) continue;
 
-            Gizmos.DrawWireCube(bound.center, bound.size);
+            Gizmos.DrawWireCube(bound.bounds.center, bound.bounds.size);
         }
     }
 }
@@ -323,5 +328,5 @@ internal class BuildingNodes
     public GameObject Type;
     public GameObject instance;
     public bool isBranch;
-    public List<BuildingNodes> Neighbors = new List<BuildingNodes>();
+    public List<BuildingNodes> Neighbours = new List<BuildingNodes>();
 }
