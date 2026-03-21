@@ -17,6 +17,13 @@ public class Ectorris_Generator : MonoBehaviour
     private List<BuildingNodes> nodes = new List<BuildingNodes>();
     private List<Bounds> placedBounds = new List<Bounds>();
 
+    private string[] ziplinePoints = {
+    "ZiplineLocationNorth",
+    "ZiplineLocationSouth",
+    "ZiplineLocationEast",
+    "ZiplineLocationWest"
+};
+
     [SerializeField] private Vector3 startPos = Vector3.zero + new Vector3(0, 0, 300);
 
     [SerializeField] private int mainPathLength = 20;
@@ -194,6 +201,33 @@ public class Ectorris_Generator : MonoBehaviour
         placedBounds.Add(bounds);
     }
 
+    private (Transform from, Transform to) FindClosestPoints(Transform from, Transform to)
+    {
+        Transform closestFrom = null;
+        Transform closestTo = null;
+        float bestDis = float.MaxValue;
+        foreach (string fromPoint in ziplinePoints)
+        {
+            Transform fPoint = from.Find(fromPoint);
+            if (fPoint == null) continue;
+
+            foreach (string toPoint in ziplinePoints)
+            {
+                Transform tPoint = to.Find(toPoint);
+                if (tPoint == null) continue;
+
+                float dist = Vector3.Distance(fPoint.position, tPoint.position);
+                if (dist < bestDis)
+                {
+                    bestDis = dist;
+                    closestFrom = fPoint;
+                    closestTo = tPoint;
+                }
+            }
+        }
+        return (closestFrom, closestTo);
+    }
+
     private void InstantiateNodes()
     {
         foreach (BuildingNodes node in nodes)
@@ -207,8 +241,7 @@ public class Ectorris_Generator : MonoBehaviour
 
             if (previous == null) continue;
 
-            Transform ziplineIn = node.instance.transform.Find("ZiplineLocationSouth");
-            Transform ziplineOut = previous.transform.Find("ZiplineLocationNorth");
+            var (ziplineOut, ziplineIn) = FindClosestPoints(previous.transform, node.instance.transform);
 
             if (ziplineIn != null && ziplineOut != null)
             {
