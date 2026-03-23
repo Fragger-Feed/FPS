@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// ─────────────────────────────────────────────
-// Data Classes
-// ─────────────────────────────────────────────
-
 [Serializable]
 public class Prefabs
 {
@@ -21,21 +17,18 @@ public class BuildingNodes
     public Vector3 scale;
     public GameObject Type;
     public GameObject instance;
+    public bool altPath1;
+    public bool altPath2;
     public bool isBranch;
     public List<BuildingNodes> Neighbors = new List<BuildingNodes>();
 }
 
-// ─────────────────────────────────────────────
-// Generator
-// ─────────────────────────────────────────────
-
 public class Ectorris_Generator : MonoBehaviour
 {
-    // ── Serialized Settings ──────────────────
-
     [SerializeField] private Vector3 startPos = Vector3.zero + new Vector3(0, 0, 300);
 
     [SerializeField] private int mainPathLength = 20;
+    [SerializeField] private int altPathLenght = 69;
     [SerializeField] private int maxBranchLength = 5;
     [SerializeField] private int branchChance = 30;
     [SerializeField] private int branchCount = 10;
@@ -46,13 +39,11 @@ public class Ectorris_Generator : MonoBehaviour
     [SerializeField] private GameObject branchTEST;
     [SerializeField] private GameObject bossRoom;
 
-    // ── Private State ────────────────────────
-
     private Vector3 position;
 
     private int dir = 1;
     private int prevDir = 1;
-    private int directionBias = 1; // Controls weighted direction drift (was idkHowToNameThisVariable)
+    private int idkHowToNameThisVariable = 1;
 
     private readonly Vector3[] directions = { Vector3.right, Vector3.forward, Vector3.left, Vector3.back };
 
@@ -67,30 +58,23 @@ public class Ectorris_Generator : MonoBehaviour
     private List<BuildingNodes> nodes = new List<BuildingNodes>();
     private List<Bounds> placedBounds = new List<Bounds>();
 
-    // ─────────────────────────────────────────
-    // Unity Lifecycle
-    // ─────────────────────────────────────────
-
     private void Awake()
     {
         position = startPos;
 
         GenerateMainPath();
-        GenerateBossRoom();
-        GenerateBranches();
+        GenerateAltPath();
+        /*        GenerateBranches();*/
         InstantiateNodes();
     }
-
-    // ─────────────────────────────────────────
-    // Generation
-    // ─────────────────────────────────────────
 
     private void GenerateMainPath()
     {
         for (int i = 0; i < mainPathLength; i++)
         {
             var node = new BuildingNodes();
-            node.Type = RandomType();
+            bool lastOne = i == mainPathLength - 1;
+            node.Type = lastOne ? bossRoom : RandomType();
 
             if (i > 0)
             {
@@ -101,7 +85,7 @@ public class Ectorris_Generator : MonoBehaviour
             }
 
             node.position = position;
-            node.rotation = dir;
+            node.rotation = lastOne ? prevDir : dir;
 
             AddPlaced(node.Type, position, node.rotation);
             nodes.Add(node);
@@ -127,6 +111,58 @@ public class Ectorris_Generator : MonoBehaviour
         nodes.Add(final);
     }
 
+    private void GenerateAltPath()
+    {
+        List<BuildingNodes> mainPath = nodes;
+        bool succsesfullyGenerated = false;
+
+        while (!succsesfullyGenerated)
+        {
+            BuildingNodes origin = mainPath[UnityEngine.Random.Range(10, mainPath.Count - 1)];
+
+            Vector3 position = origin.position;
+            int dir = (origin.rotation + 1 + 4) % 4;
+            int prevDir = dir;
+            idkHowToNameThisVariable = dir;
+
+            BuildingNodes previousNode = origin;
+            for (int i = 0; i < altPathLenght; i++)
+            {
+                var node = new BuildingNodes();
+                bool lastOne = i == altPathLenght - 1;
+                node.Type = lastOne ? bossRoom : RandomType();
+                node.Neighbors.Add(previousNode);
+                previousNode.Neighbors.Add(node);
+
+                Transform prevOut = previousNode.Type.transform.Find("ZiplineLocationNorth");
+                Transform nextIn = node.Type.transform.Find("ZiplineLocationSouth");
+
+                if (prevOut == null || nextIn == null) break;
+
+                position += CalcOffset(previousNode.Type, node.Type, prevDir);
+
+                node.position = position;
+                node.rotation = lastOne ? prevDir : dir;
+                node.altPath1 = true;
+
+                if (!DoesOverlap(node.Type, position, node.rotation))
+                {
+                    prevDir = dir;
+                    dir = RandomDirection(node);
+                    nodes.Add(node);
+                    AddPlaced(node.Type, position, node.rotation);
+                    previousNode = node;
+                    succsesfullyGenerated = true;
+                }
+                else
+                {
+                    succsesfullyGenerated = false;
+                    break;
+                }
+            }
+        }
+    }
+
     private void GenerateBranches()
     {
         int branchesGenerated = 0;
@@ -145,11 +181,11 @@ public class Ectorris_Generator : MonoBehaviour
     private bool GenerateBranch(BuildingNodes origin)
     {
         int length = UnityEngine.Random.Range(1, maxBranchLength);
-        int turnSign = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
+        int turnDir = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
 
-        dir = (origin.rotation + turnSign + 4) % 4;
+        dir = (origin.rotation + turnDir + 4) % 4;
         prevDir = dir;
-        directionBias = 0;
+        idkHowToNameThisVariable = dir;
 
         Vector3 branchPosition = origin.position;
         BuildingNodes previousNode = origin;
@@ -191,10 +227,6 @@ public class Ectorris_Generator : MonoBehaviour
         return didAtLeastOneGenerate;
     }
 
-    // ─────────────────────────────────────────
-    // Instantiation
-    // ─────────────────────────────────────────
-
     private void InstantiateNodes()
     {
         foreach (BuildingNodes node in nodes)
@@ -234,11 +266,6 @@ public class Ectorris_Generator : MonoBehaviour
         pointB.rotation = Quaternion.LookRotation(pointB.position - pointA.position);
     }
 
-    // ─────────────────────────────────────────
-    // Positioning Helpers
-    // ─────────────────────────────────────────
-
-    /// <summary>Calculates the world-space offset to place the next building after the previous one.</summary>
     private Vector3 CalcOffset(GameObject prevPrefab, GameObject nextPrefab, int facingDir)
     {
         Transform prevOut = prevPrefab.transform.Find("ZiplineLocationNorth");
@@ -278,10 +305,6 @@ public class Ectorris_Generator : MonoBehaviour
 
         return (closestFrom, closestTo);
     }
-
-    // ─────────────────────────────────────────
-    // Bounds & Overlap
-    // ─────────────────────────────────────────
 
     private Bounds GetPrefabBounds(GameObject prefab, Vector3 pos, int rotation)
     {
@@ -323,24 +346,31 @@ public class Ectorris_Generator : MonoBehaviour
         placedBounds.Add(bounds);
     }
 
-    // ─────────────────────────────────────────
-    // Randomisation
-    // ─────────────────────────────────────────
-
     private int RandomDirection(BuildingNodes node)
     {
         int roll = UnityEngine.Random.Range(0, 100);
 
         if (roll >= 70)
-            directionBias += roll < 85 ? 1 : -1;
+            idkHowToNameThisVariable += roll < 85 ? 1 : -1;
+
+        if (node.altPath1)
+        {
+            idkHowToNameThisVariable = (idkHowToNameThisVariable < 1 || idkHowToNameThisVariable > 3) ? 2 : idkHowToNameThisVariable;
+            return idkHowToNameThisVariable;
+        }
+
+        /*        if (node.altPath2)
+                {
+                    idkHowToNameThisVariable = (idkHowToNameThisVariable <)
+                }*/
 
         if (!node.isBranch)
         {
-            directionBias = (directionBias < 0 || directionBias > 2) ? 1 : directionBias;
-            return directionBias;
+            idkHowToNameThisVariable = (idkHowToNameThisVariable < 0 || idkHowToNameThisVariable > 2) ? 1 : idkHowToNameThisVariable;
+            return idkHowToNameThisVariable;
         }
 
-        return (directionBias + 4) % 4;
+        return (idkHowToNameThisVariable + 4) % 4;
     }
 
     private GameObject RandomType()
@@ -350,21 +380,17 @@ public class Ectorris_Generator : MonoBehaviour
             totalWeight += type.weight;
 
         int roll = UnityEngine.Random.Range(0, totalWeight);
-        int cumulative = 0;
+        int total = 0;
 
         foreach (var type in buildingType)
         {
-            cumulative += type.weight;
-            if (roll < cumulative)
+            total += type.weight;
+            if (roll < total)
                 return type.prefab;
         }
 
         return buildingType[0].prefab;
     }
-
-    // ─────────────────────────────────────────
-    // Gizmos
-    // ─────────────────────────────────────────
 
     private void OnDrawGizmos()
     {
