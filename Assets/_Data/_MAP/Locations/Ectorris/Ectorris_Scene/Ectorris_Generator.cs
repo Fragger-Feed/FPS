@@ -258,7 +258,7 @@ public class Ectorris_Generator : MonoBehaviour
             node.isBranch = true;
 
             BuildingNodes overlapingNode;
-            if (!DoesItOverlap(node.Type, position, node.rotation, out overlapingNode))
+            if (!DoesItOverlap(node.Type, branchPosition, node.rotation, out overlapingNode))
             {
                 prevDir = dir;
                 dir = RandomDirection(node);
@@ -292,26 +292,30 @@ public class Ectorris_Generator : MonoBehaviour
 
             if (node.Neighbours.Count == 0) continue;
 
-            GameObject previous = node.Neighbours[0].instance;
-            if (previous == null) continue;
+            for (int i = 0; i < node.Neighbours.Count; i++)
+            {
+                GameObject neighbour = node.Neighbours[i].instance;
+                print(i);
+                if (neighbour == null) continue;
 
-            var (ziplineOut, ziplineIn) = FindClosestZiplinePoints(previous.transform, node.instance.transform);
+                var (ziplineOut, ziplineIn) = FindClosestZiplinePoints(neighbour.transform, node.instance.transform);
 
-            if (ziplineOut != null && ziplineIn != null)
-                SpawnZipline(previous.transform, ziplineOut, ziplineIn);
+                if (ziplineOut != null && ziplineIn != null)
+                    SpawnZipline(node.instance.transform, ziplineOut, ziplineIn);
+            }
         }
     }
 
-    private void SpawnZipline(Transform parent, Transform pointASource, Transform pointBSource)
+    private void SpawnZipline(Transform parent, Transform PointAPos, Transform PointBPos)
     {
         GameObject zipline = Instantiate(ziplinePrefab, parent);
-        zipline.transform.position = pointASource.position;
+        zipline.transform.position = PointAPos.position;
 
         Transform pointA = zipline.transform.Find("PointA");
         Transform pointB = zipline.transform.Find("PointB");
 
-        pointA.position = pointASource.position;
-        pointB.position = pointBSource.position;
+        pointA.position = PointAPos.position;
+        pointB.position = PointBPos.position;
 
         pointA.rotation = Quaternion.LookRotation(pointA.position - pointB.position);
         pointB.rotation = Quaternion.LookRotation(pointB.position - pointA.position);
