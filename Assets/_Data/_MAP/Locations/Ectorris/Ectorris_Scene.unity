@@ -6955,6 +6955,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Ectorris_Generator
   startPos: {x: 0, y: 0, z: 300}
   mainPathLength: 20
+  altPathLenght: 10
   maxBranchLength: 6
   branchChance: 20
   branchCount: 10

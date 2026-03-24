@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 [Serializable]
@@ -20,7 +21,7 @@ public class BuildingNodes
     public bool altPath1;
     public bool altPath2;
     public bool isBranch;
-    public List<BuildingNodes> Neighbors = new List<BuildingNodes>();
+    public List<BuildingNodes> Neighbours = new List<BuildingNodes>();
 }
 
 public class Ectorris_Generator : MonoBehaviour
@@ -56,7 +57,7 @@ public class Ectorris_Generator : MonoBehaviour
     };
 
     private List<BuildingNodes> nodes = new List<BuildingNodes>();
-    private List<Bounds> placedBounds = new List<Bounds>();
+    private List<(Bounds bounds, BuildingNodes nodes)> placedBounds = new List<(Bounds, BuildingNodes)>();
 
     private void Awake()
     {
@@ -64,7 +65,7 @@ public class Ectorris_Generator : MonoBehaviour
 
         GenerateMainPath();
         GenerateAltPath();
-        /*        GenerateBranches();*/
+        GenerateBranches();
         InstantiateNodes();
     }
 
@@ -78,16 +79,15 @@ public class Ectorris_Generator : MonoBehaviour
 
             if (i > 0)
             {
-                node.Neighbors.Add(nodes[i - 1]);
-                node.Neighbors[0].Neighbors.Add(node);
+                node.Neighbours.Add(nodes[i - 1]);
 
-                position += CalcOffset(node.Neighbors[0].Type, node.Type, prevDir);
+                position += CalcOffset(node.Neighbours[0].Type, node.Type, prevDir);
             }
 
             node.position = position;
             node.rotation = lastOne ? prevDir : dir;
 
-            AddPlaced(node.Type, position, node.rotation);
+            AddPlaced(node.Type, position, node.rotation, node);
             nodes.Add(node);
 
             prevDir = dir;
@@ -95,28 +95,13 @@ public class Ectorris_Generator : MonoBehaviour
         }
     }
 
-    private void GenerateBossRoom()
-    {
-        var final = new BuildingNodes();
-        final.Type = bossRoom;
-        final.Neighbors.Add(nodes[nodes.Count - 1]);
-        final.Neighbors[0].Neighbors.Add(final);
-
-        position += CalcOffset(final.Neighbors[0].Type, final.Type, prevDir);
-
-        final.position = position;
-        final.rotation = final.Neighbors[0].rotation;
-
-        AddPlaced(final.Type, position, final.rotation);
-        nodes.Add(final);
-    }
-
     private void GenerateAltPath()
     {
         List<BuildingNodes> mainPath = nodes;
+        List<BuildingNodes> tempList = new List<BuildingNodes>();
         bool succsesfullyGenerated = false;
-
-        while (!succsesfullyGenerated)
+        int loopCount = 0;
+        while (!succsesfullyGenerated && loopCount <= 100)
         {
             BuildingNodes origin = mainPath[UnityEngine.Random.Range(10, mainPath.Count - 1)];
 
@@ -131,8 +116,7 @@ public class Ectorris_Generator : MonoBehaviour
                 var node = new BuildingNodes();
                 bool lastOne = i == altPathLenght - 1;
                 node.Type = lastOne ? bossRoom : RandomType();
-                node.Neighbors.Add(previousNode);
-                previousNode.Neighbors.Add(node);
+                node.Neighbours.Add(previousNode);
 
                 Transform prevOut = previousNode.Type.transform.Find("ZiplineLocationNorth");
                 Transform nextIn = node.Type.transform.Find("ZiplineLocationSouth");
@@ -145,22 +129,87 @@ public class Ectorris_Generator : MonoBehaviour
                 node.rotation = lastOne ? prevDir : dir;
                 node.altPath1 = true;
 
-                if (!DoesOverlap(node.Type, position, node.rotation))
+                if (!DoesItOverlap(node.Type, position, node.rotation))
                 {
                     prevDir = dir;
                     dir = RandomDirection(node);
-                    nodes.Add(node);
-                    AddPlaced(node.Type, position, node.rotation);
+                    tempList.Add(node);
                     previousNode = node;
                     succsesfullyGenerated = true;
                 }
                 else
                 {
+                    tempList.Clear();
                     succsesfullyGenerated = false;
                     break;
                 }
             }
+            loopCount++;
         }
+        if (loopCount == 100)
+        {
+            Debug.LogError("Fuck");
+            return;
+        }
+        print(loopCount);
+        foreach (BuildingNodes node in tempList)
+        {
+            AddPlaced(node.Type, node.position, node.rotation, node);
+        }
+        nodes.AddRange(tempList);
+        tempList.Clear();
+        succsesfullyGenerated = false;
+        loopCount = 0;
+        while (!succsesfullyGenerated && loopCount <= 100)
+        {
+            BuildingNodes origin = mainPath[UnityEngine.Random.Range(10, mainPath.Count - 1)];
+
+            Vector3 position = origin.position;
+            int dir = (origin.rotation - 1 + 4) % 4;
+            int prevDir = dir;
+            idkHowToNameThisVariable = dir;
+
+            BuildingNodes previousNode = origin;
+            for (int i = 0; i < altPathLenght; i++)
+            {
+                var node = new BuildingNodes();
+                bool lastOne = i == altPathLenght - 1;
+                node.Type = lastOne ? bossRoom : RandomType();
+                node.Neighbours.Add(previousNode);
+
+                Transform prevOut = previousNode.Type.transform.Find("ZiplineLocationNorth");
+                Transform nextIn = node.Type.transform.Find("ZiplineLocationSouth");
+
+                if (prevOut == null || nextIn == null) break;
+
+                position += CalcOffset(previousNode.Type, node.Type, prevDir);
+
+                node.position = position;
+                node.rotation = lastOne ? prevDir : dir;
+                node.altPath2 = true;
+
+                if (!DoesItOverlap(node.Type, position, node.rotation))
+                {
+                    prevDir = dir;
+                    dir = RandomDirection(node);
+                    tempList.Add(node);
+                    previousNode = node;
+                    succsesfullyGenerated = true;
+                }
+                else
+                {
+                    tempList.Clear();
+                    succsesfullyGenerated = false;
+                    break;
+                }
+            }
+            loopCount++;
+        }
+        foreach (BuildingNodes node in tempList)
+        {
+            AddPlaced(node.Type, node.position, node.rotation, node);
+        }
+        nodes.AddRange(tempList);
     }
 
     private void GenerateBranches()
@@ -172,7 +221,7 @@ public class Ectorris_Generator : MonoBehaviour
         {
             if (branchesGenerated >= branchCount) break;
             if (UnityEngine.Random.Range(0, 100) >= branchChance) continue;
-
+            print("ЖОПА");
             if (GenerateBranch(nodes[i]))
                 branchesGenerated++;
         }
@@ -195,8 +244,7 @@ public class Ectorris_Generator : MonoBehaviour
         {
             var node = new BuildingNodes();
             node.Type = RandomType();
-            node.Neighbors.Add(previousNode);
-            previousNode.Neighbors.Add(node);
+            node.Neighbours.Add(previousNode);
 
             Transform prevOut = previousNode.Type.transform.Find("ZiplineLocationNorth");
             Transform nextIn = node.Type.transform.Find("ZiplineLocationSouth");
@@ -209,17 +257,21 @@ public class Ectorris_Generator : MonoBehaviour
             node.rotation = dir;
             node.isBranch = true;
 
-            if (!DoesOverlap(node.Type, branchPosition, node.rotation))
+            BuildingNodes overlapingNode;
+            if (!DoesItOverlap(node.Type, position, node.rotation, out overlapingNode))
             {
                 prevDir = dir;
                 dir = RandomDirection(node);
                 nodes.Add(node);
-                AddPlaced(node.Type, branchPosition, node.rotation);
+                AddPlaced(node.Type, branchPosition, node.rotation, overlapingNode);
                 previousNode = node;
                 didAtLeastOneGenerate = true;
             }
             else
             {
+                print("ASS");
+                if (overlapingNode != null || j > 0)
+                    previousNode.Neighbours.Add(overlapingNode);
                 break;
             }
         }
@@ -231,7 +283,6 @@ public class Ectorris_Generator : MonoBehaviour
     {
         foreach (BuildingNodes node in nodes)
         {
-            print(node.rotation);
             node.instance = Instantiate(
                 node.Type,
                 node.position,
@@ -239,9 +290,9 @@ public class Ectorris_Generator : MonoBehaviour
                 transform
             );
 
-            if (node.Neighbors.Count == 0 || node.Neighbors[0] == null) continue;
+            if (node.Neighbours.Count == 0) continue;
 
-            GameObject previous = node.Neighbors[0].instance;
+            GameObject previous = node.Neighbours[0].instance;
             if (previous == null) continue;
 
             var (ziplineOut, ziplineIn) = FindClosestZiplinePoints(previous.transform, node.instance.transform);
@@ -327,23 +378,32 @@ public class Ectorris_Generator : MonoBehaviour
         return bounds;
     }
 
-    private bool DoesOverlap(GameObject prefab, Vector3 pos, int rotation)
+    private bool DoesItOverlap(GameObject prefab, Vector3 pos, int rotation, out BuildingNodes node)
     {
-        Bounds newBounds = GetPrefabBounds(prefab, pos, rotation);
-        newBounds.Expand(20);
+        Bounds newNodeBound = GetPrefabBounds(prefab, pos, rotation);
+        newNodeBound.Expand(20);
 
-        foreach (Bounds existing in placedBounds)
-            if (newBounds.Intersects(existing))
+        foreach (var existingBound in placedBounds)
+            if (newNodeBound.Intersects(existingBound.bounds))
+            {
+                node = existingBound.nodes;
                 return true;
-
+            }
+        node = null;
         return false;
     }
 
-    private void AddPlaced(GameObject prefab, Vector3 pos, int rotation)
+    private bool DoesItOverlap(GameObject prefab, Vector3 pos, int rotation)
+    {
+        BuildingNodes FUck;
+        return DoesItOverlap(prefab, pos, rotation, out FUck);
+    }
+
+    private void AddPlaced(GameObject prefab, Vector3 pos, int rotation, BuildingNodes node)
     {
         Bounds bounds = GetPrefabBounds(prefab, pos, rotation);
         bounds.Expand(20);
-        placedBounds.Add(bounds);
+        placedBounds.Add((bounds, node));
     }
 
     private int RandomDirection(BuildingNodes node)
@@ -353,24 +413,24 @@ public class Ectorris_Generator : MonoBehaviour
         if (roll >= 70)
             idkHowToNameThisVariable += roll < 85 ? 1 : -1;
 
+        idkHowToNameThisVariable = (idkHowToNameThisVariable + 4) % 4;
+
         if (node.altPath1)
         {
-            idkHowToNameThisVariable = (idkHowToNameThisVariable < 1 || idkHowToNameThisVariable > 3) ? 2 : idkHowToNameThisVariable;
-            return idkHowToNameThisVariable;
+            return idkHowToNameThisVariable == 0 ? 2 : idkHowToNameThisVariable;
         }
 
-        /*        if (node.altPath2)
-                {
-                    idkHowToNameThisVariable = (idkHowToNameThisVariable <)
-                }*/
+        if (node.altPath2)
+        {
+            return idkHowToNameThisVariable == 2 ? 0 : idkHowToNameThisVariable;
+        }
 
         if (!node.isBranch)
         {
-            idkHowToNameThisVariable = (idkHowToNameThisVariable < 0 || idkHowToNameThisVariable > 2) ? 1 : idkHowToNameThisVariable;
-            return idkHowToNameThisVariable;
+            return idkHowToNameThisVariable == 3 ? 1 : idkHowToNameThisVariable;
         }
 
-        return (idkHowToNameThisVariable + 4) % 4;
+        return idkHowToNameThisVariable;
     }
 
     private GameObject RandomType()
@@ -396,10 +456,11 @@ public class Ectorris_Generator : MonoBehaviour
     {
         if (nodes == null) return;
 
-        foreach (Bounds bound in placedBounds)
+        foreach (var bound in placedBounds)
         {
-            if (bound.extents == Vector3.zero) continue;
-            Gizmos.DrawWireCube(bound.center, bound.size);
+            if (bound.bounds.extents == Vector3.zero) continue;
+
+            Gizmos.DrawWireCube(bound.bounds.center, bound.bounds.size);
         }
     }
 }
