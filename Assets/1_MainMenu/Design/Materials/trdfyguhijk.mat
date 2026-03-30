@@ -38,10 +38,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Brightness: 0.4
     - _Intensity: 100
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Scale: 109.6
+    - _Scale: 100
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1
