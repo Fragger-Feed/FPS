@@ -6960,9 +6960,6 @@ MonoBehaviour:
   branchChance: 20
   branchCount: 10
   buildingType:
-  - name: Small
-    prefab: {fileID: 2969185510314105488, guid: 81102c92e1ec25a45acaf1b760861ac3, type: 3}
-    weight: 20
   - name: Big1
     prefab: {fileID: 8709962490508990504, guid: f99ac3fc2d28f284d8f9dd7951252493, type: 3}
     weight: 13
