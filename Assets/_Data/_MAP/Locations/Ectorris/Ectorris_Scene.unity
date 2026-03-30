@@ -6975,6 +6975,7 @@ MonoBehaviour:
   ziplinePrefab: {fileID: 5860255931560349581, guid: fe0e44a817259a9429cfd9aef67b8dff, type: 3}
   branchTEST: {fileID: 8709962490508990504, guid: f99ac3fc2d28f284d8f9dd7951252493, type: 3}
   bossRoom: {fileID: 490073256}
+  talkRoom: {fileID: 1286034158048313483, guid: 8f6cf68dfd3b3e24b93e1869721834d7, type: 3}
 --- !u!4 &1104375984
 Transform:
   m_ObjectHideFlags: 0
@@ -10309,7 +10310,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9fe0a856a63e8634ebc7077bc570ea68, type: 2}
+  - {fileID: 2100000, guid: 6915e1e58f0a0b94bb7c3790e94fb317, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
