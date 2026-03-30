@@ -39,6 +39,7 @@ public class Ectorris_Generator : MonoBehaviour
     [SerializeField] private GameObject ziplinePrefab;
     [SerializeField] private GameObject branchTEST;
     [SerializeField] private GameObject bossRoom;
+    [SerializeField] private GameObject talkRoom;
 
     private Vector3 position;
 
@@ -74,8 +75,13 @@ public class Ectorris_Generator : MonoBehaviour
         for (int i = 0; i < mainPathLength; i++)
         {
             var node = new BuildingNodes();
+            bool firstOne = i == 0;
+            bool oneBeforeLastOne = i == mainPathLength - 2;
             bool lastOne = i == mainPathLength - 1;
-            node.Type = lastOne ? bossRoom : RandomType();
+            if (firstOne) node.Type = talkRoom;
+            else if (oneBeforeLastOne) node.Type = talkRoom;
+            else if (lastOne) node.Type = bossRoom;
+            else node.Type = RandomType();
 
             if (i > 0)
             {
@@ -221,7 +227,6 @@ public class Ectorris_Generator : MonoBehaviour
         {
             if (branchesGenerated >= branchCount) break;
             if (UnityEngine.Random.Range(0, 100) >= branchChance) continue;
-            print("ЖОПА");
             if (GenerateBranch(nodes[i]))
                 branchesGenerated++;
         }
@@ -269,8 +274,7 @@ public class Ectorris_Generator : MonoBehaviour
             }
             else
             {
-                print("ASS");
-                if (overlapingNode != null || j > 0)
+                if (overlapingNode != null && j > 0 && overlapingNode.Type != bossRoom)
                     previousNode.Neighbours.Add(overlapingNode);
                 break;
             }
@@ -283,19 +287,19 @@ public class Ectorris_Generator : MonoBehaviour
     {
         foreach (BuildingNodes node in nodes)
         {
-            node.instance = Instantiate(
-                node.Type,
-                node.position,
-                Quaternion.LookRotation(directions[node.rotation], Vector3.up),
-                transform
-            );
+            node.instance = Instantiate(node.Type, node.position, Quaternion.LookRotation(directions[node.rotation], Vector3.up), transform);
+        }
 
+        foreach (BuildingNodes node in nodes)
+        {
             if (node.Neighbours.Count == 0) continue;
 
             for (int i = 0; i < node.Neighbours.Count; i++)
             {
+                if (node.Neighbours[i] == null || node.Neighbours[i].instance == null)
+                    continue;
+
                 GameObject neighbour = node.Neighbours[i].instance;
-                print(i);
                 if (neighbour == null) continue;
 
                 var (ziplineOut, ziplineIn) = FindClosestZiplinePoints(neighbour.transform, node.instance.transform);
