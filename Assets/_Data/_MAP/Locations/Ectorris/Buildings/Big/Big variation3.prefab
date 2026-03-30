@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7212859692769343823}
+  - component: {fileID: 4652670405871192384}
   m_Layer: 3
   m_Name: ZiplineLocationSouth
   m_TagString: Untagged
@@ -32,6 +33,28 @@ Transform:
   - {fileID: 8917855164377216936}
   m_Father: {fileID: 1521852607346005708}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &4652670405871192384
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196600414191302339}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &1405362200067679972
 GameObject:
   m_ObjectHideFlags: 0
@@ -41,6 +64,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3905245848692480608}
+  - component: {fileID: 7020710607244180012}
   m_Layer: 3
   m_Name: ZiplineLocationNorth
   m_TagString: Untagged
@@ -64,6 +88,28 @@ Transform:
   - {fileID: 1124375749959246135}
   m_Father: {fileID: 1521852607346005708}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &7020710607244180012
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405362200067679972}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &5268570816555819858
 GameObject:
   m_ObjectHideFlags: 0
@@ -73,6 +119,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1309678009241299618}
+  - component: {fileID: 68854078540368382}
   m_Layer: 3
   m_Name: ZiplineLocationEast
   m_TagString: Untagged
@@ -96,6 +143,28 @@ Transform:
   - {fileID: 2295993805009571989}
   m_Father: {fileID: 1521852607346005708}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &68854078540368382
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5268570816555819858}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &8822976947928398958
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,6 +210,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3530447053349840036}
+  - component: {fileID: 8816551613133112878}
   m_Layer: 3
   m_Name: ZiplineLocationWest
   m_TagString: Untagged
@@ -164,6 +234,28 @@ Transform:
   - {fileID: 3904289930456296104}
   m_Father: {fileID: 1521852607346005708}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &8816551613133112878
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8829144390148458042}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1001 &581013507510568668
 PrefabInstance:
   m_ObjectHideFlags: 0
