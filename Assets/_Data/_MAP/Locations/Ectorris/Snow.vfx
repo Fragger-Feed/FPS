@@ -314,7 +314,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614662}
   - {fileID: 8926484042661614681}
   dataType: 0
-  capacity: 20000
+  capacity: 30000
   stripCapacity: 1
   particlePerStripCount: 32
   needsComputeBounds: 1
@@ -374,7 +374,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 20.7
+      m_SerializableObject: 10
     m_Space: -1
   m_Property:
     name: A
@@ -408,7 +408,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 50
+      m_SerializableObject: 40
     m_Space: -1
   m_Property:
     name: B
@@ -958,7 +958,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 2
+      m_SerializableObject: 4
     m_Space: -1
   m_Property:
     name: MinSpeed
@@ -992,7 +992,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 6
+      m_SerializableObject: 8
     m_Space: -1
   m_Property:
     name: MaxSpeed
@@ -1050,7 +1050,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Vector, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"vector":{"x":0.0,"y":-1.0,"z":0.0}}'
+      m_SerializableObject: '{"vector":{"x":0.0,"y":-2.0,"z":0.0}}'
     m_Space: 1
   m_Property:
     name: Force
@@ -1984,7 +1984,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.82
+      m_SerializableObject: 1
     m_Space: -1
   m_Property:
     name: Intensity
@@ -4847,7 +4847,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.OrientedBox, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"center":{"x":0.0,"y":60.0,"z":0.0},"angles":{"x":0.0,"y":0.0,"z":0.0},"size":{"x":1000.0,"y":40.0,"z":1000.0}}'
+      m_SerializableObject: '{"center":{"x":0.0,"y":80.0,"z":0.0},"angles":{"x":0.0,"y":0.0,"z":0.0},"size":{"x":1000.0,"y":60.0,"z":1000.0}}'
     m_Space: 1
   m_Property:
     name: Box
@@ -5147,7 +5147,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615155}
   - {fileID: 8926484042661615156}
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
+  m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_MasterSlot: {fileID: 8926484042661615144}
   m_MasterData:

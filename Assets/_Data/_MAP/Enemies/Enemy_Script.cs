@@ -27,7 +27,7 @@ public abstract class Enemy_Script : MonoBehaviour
 
     public EnemieState currentState = EnemieState.Idle;
 
-    protected virtual void Awake()
+    public virtual void Awake()
     {
         canMove = true;
         state = GetComponent<EntityStates>();
@@ -36,7 +36,6 @@ public abstract class Enemy_Script : MonoBehaviour
 
         nav.acceleration = data.Acceleration;
         nav.speed = data.Speed;
-        nav.stoppingDistance = data.attackRange;
     }
 
     public virtual void Update()
@@ -76,19 +75,10 @@ public abstract class Enemy_Script : MonoBehaviour
     {
         if (!canMove)
             return;
-        if (Vector3.Distance(transform.position, player.transform.position) <= data.attackRange)
-        {
-            currentState = EnemieState.Attack;
-            return;
-        }
-        animator.SetTrigger("Move");
-        animator.ResetTrigger("Attack");
     }
 
     public virtual void Attack()
     {
-        animator.ResetTrigger("Move");
-        animator.SetTrigger("Attack");
     }
 
     public virtual void Stunned()

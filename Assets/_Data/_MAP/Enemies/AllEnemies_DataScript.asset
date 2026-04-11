@@ -15,5 +15,7 @@ MonoBehaviour:
   ENEMIES_DATA:
     m_keys:
     - Dummy
+    - Shooter cop
     m_values:
     - {fileID: 11400000, guid: 3e387a834a0aa9a4bbb427433582224c, type: 2}
+    - {fileID: 11400000, guid: 8c6dc5a2c8f909049907f347c673749d, type: 2}

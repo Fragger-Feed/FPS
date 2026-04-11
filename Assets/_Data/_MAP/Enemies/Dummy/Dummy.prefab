@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 456d3f1d64eb3454e8af6240c80ee4fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DummyScript
-  data: {fileID: 11400000, guid: ab4ba6348c274de49bc1e4493fd3eeca, type: 2}
+  data: {fileID: 11400000, guid: 3e387a834a0aa9a4bbb427433582224c, type: 2}
   player: {fileID: 0}
   nav: {fileID: 0}
   animator: {fileID: 5736175354237632578}

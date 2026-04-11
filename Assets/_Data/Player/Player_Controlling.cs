@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     // == Player Scripts ==
     [Header("Player Scripts")]
     public PlayerMovement playerMovement;
+
     public PlayerView playerView;
     public PlayerPhysics playerPhysics;
 
@@ -24,13 +25,14 @@ public class PlayerController : MonoBehaviour
     // == Components ==
     [Header("Components")]
     public Rigidbody RigidBodyC;
+
     public CapsuleCollider playerCollider;
 
     // == Objects ==
     [Header("Objects")]
     public GameObject ForwardObj;
-    public Camera CameraObj;
 
+    public Camera CameraObj;
 
     // === START ===
     private void Awake()
@@ -42,21 +44,24 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     { ControllingData.Disable(); }
 
-
-
     // === UPDATE ===
     // = Update =
-    private void Update() {
+    private void Update()
+    {
         playerView.UPDATE_View();
         playerPhysics.UPDATE_Physics();
         playerMovement.UPDATE_Movement();
     }
+
     // = Late Update =
-    private void LateUpdate() {
+    private void LateUpdate()
+    {
         playerView.LATE_UPDATE_View();
     }
+
     // = Fixed Update =
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
         playerMovement.FIXED_UPDATE_Movement();
         playerPhysics.FIXED_UPDATE_Physics();
     }

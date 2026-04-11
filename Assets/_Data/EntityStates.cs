@@ -42,7 +42,8 @@ public class EntityStates : MonoBehaviour
         print($"I'm object {gameObject} and I'm dead");
         enemyScript.nav.enabled = false;
         Rigidbody rb = gameObject.AddComponent<Rigidbody>();
-        rb.mass = 112;
+        if (rb != null)
+            rb.mass = 112;
         transform.Rotate(90, 90, 90);
     }
 }

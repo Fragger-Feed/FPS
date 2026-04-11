@@ -1,8 +1,8 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Enemy_Data", menuName = "Prefabs/Enemies/Enemy")]
-public class Enemy_DataScript : ScriptableObject {
-
+public class Enemy_DataScript : ScriptableObject
+{
     public int Health;
 
     public int Speed;

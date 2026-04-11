@@ -2,9 +2,24 @@ using UnityEngine;
 
 public class DummyScript : Enemy_Script
 {
+    public override void Awake()
+    {
+        base.Awake();
+        nav.stoppingDistance = data.attackRange;
+    }
+
     public override void Move()
     {
         base.Move();
+
+        if (Vector3.Distance(transform.position, player.transform.position) <= data.attackRange)
+        {
+            currentState = EnemieState.Attack;
+            return;
+        }
+
+        animator.SetTrigger("Move");
+        animator.ResetTrigger("Attack");
 
         nav.SetDestination(player.transform.position);
     }
@@ -12,6 +27,9 @@ public class DummyScript : Enemy_Script
     public override void Attack()
     {
         base.Attack();
+
+        animator.ResetTrigger("Move");
+        animator.SetTrigger("Attack");
 
         /*        if (Time.time < cooldownTimer)
                     return;*/

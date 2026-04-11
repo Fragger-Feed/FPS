@@ -11762,7 +11762,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5360417173235200725, guid: 91659714fd99b0d4086f9864ed0bfab0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -123.7
+      value: 9.5
       objectReference: {fileID: 0}
     - target: {fileID: 8699276012832668442, guid: 91659714fd99b0d4086f9864ed0bfab0, type: 3}
       propertyPath: speed
@@ -11774,9 +11774,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5360417173235200725, guid: 91659714fd99b0d4086f9864ed0bfab0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 151761093}
-    - targetCorrespondingSourceObject: {fileID: 5360417173235200725, guid: 91659714fd99b0d4086f9864ed0bfab0, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1508071064}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91659714fd99b0d4086f9864ed0bfab0, type: 3}
 --- !u!1 &1104375982
@@ -11828,6 +11825,7 @@ MonoBehaviour:
   branchTEST: {fileID: 8709962490508990504, guid: f99ac3fc2d28f284d8f9dd7951252493, type: 3}
   bossRoom: {fileID: 490073256}
   talkRoom: {fileID: 1286034158048313483, guid: 8f6cf68dfd3b3e24b93e1869721834d7, type: 3}
+  snowVFX: {fileID: 1508071066}
 --- !u!4 &1104375984
 Transform:
   m_ObjectHideFlags: 0
@@ -13351,6 +13349,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 771970135}
+  - {fileID: 1508071064}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1242899545
@@ -15591,12 +15590,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1508071063}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 308.40002, z: 300}
+  m_LocalScale: {x: 1, y: 1.45, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 741203722}
+  m_Father: {fileID: 1242899544}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!73398921 &1508071065
 VFXRenderer:

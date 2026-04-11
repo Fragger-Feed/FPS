@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 [Serializable]
 public class Prefabs
@@ -39,6 +40,8 @@ public class Ectorris_Generator : MonoBehaviour
     [SerializeField] private GameObject branchTEST;
     [SerializeField] private GameObject bossRoom;
     [SerializeField] private GameObject talkRoom;
+
+    [SerializeField] private VisualEffect snowVFX;
 
     private Vector3 position;
 
@@ -469,5 +472,10 @@ public class Ectorris_Generator : MonoBehaviour
 
             Gizmos.DrawWireCube(bound.bounds.center, bound.bounds.size);
         }
+    }
+
+    private void OnGUI()
+    {
+        GUI.Label(new Rect(10, 10, 200, 20), $"Particles: {snowVFX.aliveParticleCount}");
     }
 }
