@@ -34,8 +34,11 @@ public abstract class Enemy_Script : MonoBehaviour
         nav = GetComponent<NavMeshAgent>();
         player = FindFirstObjectByType<PlayerController>();
 
-        nav.acceleration = data.Acceleration;
-        nav.speed = data.Speed;
+        if (nav != null)
+        {
+            nav.acceleration = data.Acceleration;
+            nav.speed = data.Speed;
+        }
     }
 
     public virtual void Update()
@@ -61,6 +64,10 @@ public abstract class Enemy_Script : MonoBehaviour
             case EnemieState.Dead:
                 break;
         }
+    }
+
+    public virtual void FixedUpdate()
+    {
     }
 
     public virtual void Idle()
