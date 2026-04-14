@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Saw_Data
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_DataScript
   Health: 20
-  Speed: 5
-  Acceleration: 24
+  Speed: 15
+  Acceleration: 0
   attackCooldown: 0
   attackDamage: 0
   attackRange: 0

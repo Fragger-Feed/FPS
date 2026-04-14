@@ -32,6 +32,8 @@ public class PistolScript : WeaponScript
 
     public override void SecondaryFire(Transform cameraPos)
     {
-        Debug.Log("Secondary Pew Pew suka");
+        RaycastHit hit;
+        if (Physics.Raycast(cameraPos.position, cameraPos.forward, out hit, data.range))
+            print(hit.normal);
     }
 }
