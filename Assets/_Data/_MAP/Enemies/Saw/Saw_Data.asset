@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b392639162707b49af993cac36f10e8, type: 3}
   m_Name: Saw_Data
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_DataScript
-  Health: 20
+  Health: 5
   Speed: 15
   Acceleration: 0
   attackCooldown: 0

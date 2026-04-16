@@ -20442,11 +20442,10 @@ MonoBehaviour:
   cooldownTimer: 0
   canMove: 1
   currentState: 0
-  Player: {fileID: 0}
   Rigidbody: {fileID: 2024846866}
-  playerDirectionLerp: 0.02
+  playerDirectionLerp: 0.032
   rayCount: 8
-  distance: 0.27
+  distance: 0.7
 --- !u!43 &2079394246
 Mesh:
   m_ObjectHideFlags: 0

@@ -2,25 +2,29 @@ using UnityEngine;
 
 public class SawScript : Enemy_Script
 {
-    public GameObject Player;
     public Rigidbody Rigidbody;
 
     [SerializeField, Range(0, 1)] private float playerDirectionLerp;
 
     [SerializeField] private int rayCount = 8;
     [SerializeField] private float distance;
+
+    private float bounceCooldown;
+    private const float BounceCooldownTime = 0.1f;
     private float angleStep;
 
     public override void Awake()
     {
         base.Awake();
+        angleStep = 360 / rayCount;
     }
 
     public override void FixedUpdate()
     {
         base.FixedUpdate();
 
-        angleStep = 360 / rayCount;
+        bounceCooldown -= Time.fixedDeltaTime;
+
         bool bounced = false;
 
         if (currentState != EnemieState.Move) return;
@@ -28,16 +32,22 @@ public class SawScript : Enemy_Script
         if (Rigidbody.linearVelocity == Vector3.zero)
             Rigidbody.linearVelocity = Vector3.forward * data.Speed;
 
-        for (int i = 0; i < rayCount; i++)
+        if (bounceCooldown <= 0)
         {
-            float angle = i * angleStep;
-            Vector3 dir = Quaternion.Euler(0, angle, 0) * Vector3.forward;
-
-            if (Physics.Raycast(transform.position, dir, out RaycastHit hit, distance))
+            for (int i = 0; i < rayCount; i++)
             {
-                Rigidbody.linearVelocity = Vector3.Reflect(Rigidbody.linearVelocity, hit.normal);
-                bounced = true;
-                break;
+                float angle = i * angleStep;
+                Vector3 dir = Quaternion.Euler(0, angle, 0) * Vector3.forward;
+
+                if (Physics.Raycast(transform.position, dir, out RaycastHit hit, distance))
+                {
+                    Debug.DrawRay(transform.position, dir, Color.red);
+                    print(Rigidbody.linearVelocity);
+                    bounceCooldown = BounceCooldownTime;
+                    Rigidbody.linearVelocity = Vector3.Reflect(Rigidbody.linearVelocity, hit.normal);
+                    bounced = true;
+                    break;
+                }
             }
         }
 
@@ -46,8 +56,6 @@ public class SawScript : Enemy_Script
         Vector3 playerDirection = (player.transform.position - transform.position).normalized;
         Vector3 currentDirection = Rigidbody.linearVelocity.normalized;
         Vector3 finalDirection = Vector3.Lerp(currentDirection, playerDirection, playerDirectionLerp).normalized;
-
-        Rigidbody.AddForce(finalDirection * data.Acceleration);
 
         Rigidbody.linearVelocity = finalDirection * data.Speed;
     }
