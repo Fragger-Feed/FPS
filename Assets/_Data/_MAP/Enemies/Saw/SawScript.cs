@@ -9,6 +9,8 @@ public class SawScript : Enemy_Script
     [SerializeField] private int rayCount = 8;
     [SerializeField] private float distance;
 
+    [SerializeField] private LayerMask excludeLayer;
+
     private float bounceCooldown;
     private const float BounceCooldownTime = 0.1f;
     private float angleStep;
@@ -19,6 +21,35 @@ public class SawScript : Enemy_Script
         angleStep = 360 / rayCount;
     }
 
+    public override void Move()
+    {
+        base.Move();
+        currentState = EnemieState.Attack;
+    }
+
+    public override void Attack()
+    {
+        base.Attack();
+
+        animator.SetTrigger("Attack");
+
+        Collider[] hits = Physics.OverlapBox(transform.position, new Vector3(data.attackRange, data.attackRangeY, data.attackRange));
+        foreach (Collider hit in hits)
+        {
+            PlayerState playerState = hit.GetComponent<PlayerState>();
+            EntityStates entityStates = hit.GetComponent<EntityStates>();
+
+            if (playerState != null)
+            {
+                playerState.TakeDamage(data.attackDamage);
+            }
+            if (entityStates != null)
+            {
+                entityStates.Damage(data.attackDamage);
+            }
+        }
+    }
+
     public override void FixedUpdate()
     {
         base.FixedUpdate();
@@ -27,7 +58,7 @@ public class SawScript : Enemy_Script
 
         bool bounced = false;
 
-        if (currentState != EnemieState.Move) return;
+        if (currentState != EnemieState.Attack) return;
 
         if (Rigidbody.linearVelocity == Vector3.zero)
             Rigidbody.linearVelocity = Vector3.forward * data.Speed;
@@ -39,7 +70,7 @@ public class SawScript : Enemy_Script
                 float angle = i * angleStep;
                 Vector3 dir = Quaternion.Euler(0, angle, 0) * Vector3.forward;
 
-                if (Physics.Raycast(transform.position, dir, out RaycastHit hit, distance))
+                if (Physics.Raycast(transform.position, dir, out RaycastHit hit, distance/*, ~excludeLayer*/))
                 {
                     Debug.DrawRay(transform.position, dir, Color.red);
                     print(Rigidbody.linearVelocity);
@@ -71,5 +102,7 @@ public class SawScript : Enemy_Script
 
             Gizmos.DrawRay(transform.position, dir * distance);
         }
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position, new Vector3(data.attackRange * 2, data.attackRangeY * 2, data.attackRange * 2));
     }
 }

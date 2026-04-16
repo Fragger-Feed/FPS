@@ -11,6 +11,7 @@ public class Enemy_DataScript : ScriptableObject
     public int attackCooldown;
     public int attackDamage;
     public float attackRange;
+    public float attackRangeY;
 
     public GameObject enemiePrefab;
 }
