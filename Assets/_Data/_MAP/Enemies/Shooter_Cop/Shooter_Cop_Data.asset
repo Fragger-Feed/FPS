@@ -18,4 +18,5 @@ MonoBehaviour:
   attackCooldown: 5
   attackDamage: 12
   attackRange: 17.1
-  enemiePrefab: {fileID: 0}
+  attackRangeY: 0
+  enemiePrefab: {fileID: 8497088873873992699, guid: 06e68b43eaebea741a6a6d8834412f2c, type: 3}
