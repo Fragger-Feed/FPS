@@ -208,6 +208,15 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Melee"",
+                    ""type"": ""Button"",
+                    ""id"": ""c7a3038e-9510-4e9b-8dee-5d7592dd653a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -617,6 +626,17 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
                     ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9d06c9ff-d3b9-44f8-b956-e2ee5b6b3c95"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Melee"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -727,6 +747,7 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
         m_Player_SecondaryFire = m_Player.FindAction("SecondaryFire", throwIfNotFound: true);
         m_Player_UseArtifact = m_Player.FindAction("UseArtifact", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
+        m_Player_Melee = m_Player.FindAction("Melee", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Goback = m_Menu.FindAction("Go back", throwIfNotFound: true);
@@ -824,6 +845,7 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SecondaryFire;
     private readonly InputAction m_Player_UseArtifact;
     private readonly InputAction m_Player_Inventory;
+    private readonly InputAction m_Player_Melee;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -887,6 +909,10 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Inventory".
         /// </summary>
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Melee".
+        /// </summary>
+        public InputAction @Melee => m_Wrapper.m_Player_Melee;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -952,6 +978,9 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
             @Inventory.started += instance.OnInventory;
             @Inventory.performed += instance.OnInventory;
             @Inventory.canceled += instance.OnInventory;
+            @Melee.started += instance.OnMelee;
+            @Melee.performed += instance.OnMelee;
+            @Melee.canceled += instance.OnMelee;
         }
 
         /// <summary>
@@ -1002,6 +1031,9 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
             @Inventory.started -= instance.OnInventory;
             @Inventory.performed -= instance.OnInventory;
             @Inventory.canceled -= instance.OnInventory;
+            @Melee.started -= instance.OnMelee;
+            @Melee.performed -= instance.OnMelee;
+            @Melee.canceled -= instance.OnMelee;
         }
 
         /// <summary>
@@ -1294,6 +1326,13 @@ public partial class @Controlling_Data: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInventory(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Melee" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMelee(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Menu" which allows adding and removing callbacks.

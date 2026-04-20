@@ -19,6 +19,7 @@ public class SawScript : Enemy_Script
     {
         base.Awake();
         angleStep = 360 / rayCount;
+        animator.SetTrigger("Attack");
     }
 
     public override void Move()
@@ -31,7 +32,7 @@ public class SawScript : Enemy_Script
     {
         base.Attack();
 
-        animator.SetTrigger("Attack");
+        if (Time.time < cooldownTimer) return;
 
         Collider[] hits = Physics.OverlapBox(transform.position, new Vector3(data.attackRange, data.attackRangeY, data.attackRange));
         foreach (Collider hit in hits)
@@ -48,6 +49,8 @@ public class SawScript : Enemy_Script
                 entityStates.Damage(data.attackDamage);
             }
         }
+
+        cooldownTimer = Time.time + data.attackCooldown;
     }
 
     public override void FixedUpdate()
@@ -86,9 +89,12 @@ public class SawScript : Enemy_Script
 
         Vector3 playerDirection = (player.transform.position - transform.position).normalized;
         Vector3 currentDirection = Rigidbody.linearVelocity.normalized;
-        Vector3 finalDirection = Vector3.Lerp(currentDirection, playerDirection, playerDirectionLerp).normalized;
+        Vector3 lerpDirection = Vector3.Lerp(currentDirection, playerDirection, playerDirectionLerp).normalized;
 
-        Rigidbody.linearVelocity = finalDirection * data.Speed;
+        Vector3 finalDirection = lerpDirection * data.Speed;
+        finalDirection.y = Rigidbody.linearVelocity.y;
+
+        Rigidbody.linearVelocity = finalDirection;
     }
 
     private void OnDrawGizmos()

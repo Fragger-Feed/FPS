@@ -8,7 +8,7 @@ public class Enemy_DataScript : ScriptableObject
     public int Speed;
     public int Acceleration;
 
-    public int attackCooldown;
+    public float attackCooldown;
     public int attackDamage;
     public float attackRange;
     public float attackRangeY;

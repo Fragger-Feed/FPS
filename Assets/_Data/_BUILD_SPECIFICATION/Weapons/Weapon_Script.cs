@@ -18,6 +18,8 @@ public abstract class WeaponScript : MonoBehaviour
 
     public abstract void SecondaryFire(Transform cameraPos);
 
+    public abstract void PerformMelee(Transform cameraPos);
+
     public virtual int CalculateCritDamage()
     {
         bool _;

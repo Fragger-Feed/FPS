@@ -36,4 +36,8 @@ public class PistolScript : WeaponScript
         if (Physics.Raycast(cameraPos.position, cameraPos.forward, out hit, data.range))
             print(hit.normal);
     }
+
+    public override void PerformMelee(Transform cameraPos)
+    {
+    }
 }
