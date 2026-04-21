@@ -2,24 +2,20 @@ using UnityEngine;
 
 public class PipeScript : WeaponScript
 {
-    private Transform cameraPos;
-    public Vector3 offset;
     private float cooldown;
 
-    public override void PrimaryFire(Transform cameraPos)
+    public override void PrimaryFire()
     {
-        weaponAnimator.SetBool("Attack", true);
-
-        this.cameraPos = cameraPos;
+        PerformMelee();
     }
 
-    public void Attack()
+    public override void HitCheck()
     {
-        Vector3 half = new Vector3(0.5f, 0.5f, data.range * 0.5f);
-        Vector3 center = cameraPos.position + cameraPos.forward * (data.range * 0.5f);
-        center += cameraPos.rotation * offset;
+        if (didHit)
+            return;
 
-        Collider[] hit = Physics.OverlapBox(center, half, cameraPos.rotation, mask);
+        Vector3 center = cameraPos.position + cameraPos.rotation * data.meleeHitPoint;
+        Collider[] hit = Physics.OverlapBox(center, data.meleeHitArea / 2, cameraPos.rotation, mask);
 
         foreach (var item in hit)
         {
@@ -31,24 +27,11 @@ public class PipeScript : WeaponScript
                 enemie.Damage(CalculateCritDamage(out crit)); if (crit) print("CRITICAL!!");
             }
         }
+        didHit = true;
     }
 
-    public override void SecondaryFire(Transform cameraPos)
+    public override void SecondaryFire()
     {
         Debug.Log("BONK BONK");
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (cameraPos == null) return;
-
-        Gizmos.color = Color.red;
-
-        Vector3 half = new Vector3(0.5f, 0.5f, data.range * 0.5f);
-        Vector3 center = cameraPos.position + cameraPos.forward * (data.range * 0.5f);
-        center += cameraPos.rotation * offset;
-
-        Gizmos.matrix = Matrix4x4.TRS(center, cameraPos.rotation, Vector3.one);
-        Gizmos.DrawWireCube(Vector3.zero, half * 2f);
     }
 }

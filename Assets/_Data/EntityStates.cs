@@ -40,7 +40,9 @@ public class EntityStates : MonoBehaviour
     public void Die()
     {
         print($"I'm object {gameObject} and I'm dead");
-        enemyScript.nav.enabled = false;
+        if (enemyScript.nav != null)
+            enemyScript.nav.enabled = false;
+        gameObject.AddComponent<Rigidbody>();
         Rigidbody rb = gameObject.AddComponent<Rigidbody>();
         if (rb != null)
             rb.mass = 112;

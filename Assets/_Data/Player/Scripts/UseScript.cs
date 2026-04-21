@@ -18,11 +18,11 @@ public class UseScript : MonoBehaviour
             activeSlot = (int)playerController.ControllingData.Player.UseArtifact.ReadValue<float>();
         if (currentWeapon != null && playerController.ControllingData.Player.PrimaryFire.WasPressedThisFrame())
         {
-            currentWeapon.PrimaryFire(playerController.CameraObj.transform);
+            currentWeapon.PrimaryFire();
         }
         if (currentWeapon != null && playerController.ControllingData.Player.SecondaryFire.WasPressedThisFrame())
         {
-            currentWeapon.SecondaryFire(playerController.CameraObj.transform);
+            currentWeapon.SecondaryFire();
         }
         if (activeSlot != 0)
         {
@@ -50,7 +50,7 @@ public class UseScript : MonoBehaviour
 
         if (currentWeapon != null && playerController.ControllingData.Player.Interact.WasPressedThisFrame())
         {
-            currentWeapon.PerformMelee(playerController.CameraObj.transform);
+            currentWeapon.PerformMelee();
         }
     }
 

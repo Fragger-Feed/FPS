@@ -5,7 +5,7 @@ public class PistolScript : WeaponScript
 {
     private float cooldown;
 
-    public override void PrimaryFire(Transform cameraPos)
+    public override void PrimaryFire()
     {
         if (Time.time < cooldown)
             return;
@@ -30,14 +30,14 @@ public class PistolScript : WeaponScript
         cooldown = Time.time + data.fireRate;
     }
 
-    public override void SecondaryFire(Transform cameraPos)
+    public override void SecondaryFire()
     {
         RaycastHit hit;
         if (Physics.Raycast(cameraPos.position, cameraPos.forward, out hit, data.range))
             print(hit.normal);
     }
 
-    public override void PerformMelee(Transform cameraPos)
+    public override void HitCheck()
     {
     }
 }
