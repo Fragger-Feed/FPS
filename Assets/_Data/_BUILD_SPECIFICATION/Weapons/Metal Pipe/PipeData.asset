@@ -17,6 +17,12 @@ MonoBehaviour:
   weaponPrefab: {fileID: 9167056706417798712, guid: 161c427d90150434ebf1076b8074d790, type: 3}
   damage: 30
   range: 2.5
+  hitTime: 0.1
+  hitCooldown: 0
+  meleeHitPoint: {x: 0, y: 0, z: 1.35}
+  meleeHitArea: {x: 1, y: 1, z: 3}
+  projectileParryPoint: {x: 0, y: 0, z: 0}
+  projectileParryArea: {x: 0, y: 0, z: 0}
   fireRate: 0.53
   critMultiplier: 2
   critChance: 10

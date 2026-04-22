@@ -10,9 +10,13 @@ public abstract class Enemy_Script : MonoBehaviour
     public NavMeshAgent nav;
     public Animator animator;
 
+    public bool attacking;
+    public bool canBeParried;
+
     private EntityStates state;
 
     public float cooldownTimer = 0f;
+    public float
 
     [SerializeField] private bool canMove = true;
 
