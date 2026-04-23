@@ -31,6 +31,11 @@ public class DummyScript : Enemy_Script
         animator.ResetTrigger("Move");
         animator.SetTrigger("Attack");
 
+        if (attacking)
+        {
+            Damage();
+        }
+
         /*        if (Time.time < cooldownTimer)
                     return;*/
         cooldownTimer = Time.time + data.attackCooldown;

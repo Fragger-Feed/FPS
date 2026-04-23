@@ -16,7 +16,7 @@ public abstract class Enemy_Script : MonoBehaviour
     private EntityStates state;
 
     public float cooldownTimer = 0f;
-    public float
+    public float stunTimer;
 
     [SerializeField] private bool canMove = true;
 
@@ -94,6 +94,14 @@ public abstract class Enemy_Script : MonoBehaviour
 
     public virtual void Stunned()
     {
+        if (stunTimer > 0)
+        {
+            stunTimer -= Time.deltaTime;
+        }
+        else
+        {
+            currentState = EnemieState.Move;
+        }
     }
 
     private void SwitchCanMove()

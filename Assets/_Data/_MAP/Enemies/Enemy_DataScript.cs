@@ -8,10 +8,11 @@ public class Enemy_DataScript : ScriptableObject
     public int Speed;
     public int Acceleration;
 
-    public float attackCooldown;
     public int attackDamage;
+    public float attackCooldown;
     public float attackRange;
     public float attackRangeY;
+    public float stunTime;
 
     public GameObject enemiePrefab;
 }
