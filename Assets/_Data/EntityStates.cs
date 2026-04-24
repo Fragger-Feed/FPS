@@ -32,7 +32,7 @@ public class EntityStates : MonoBehaviour
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            enemyScript.currentState = EnemieState.Dead;
+            enemyScript.currentState = EnemyState.Dead;
             Die();
         }
     }

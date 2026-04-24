@@ -52,7 +52,7 @@ public class Shooter_CopScript : Enemy_Script
         {
             nav.SetDestination(transform.position);
 
-            currentState = EnemieState.Attack;
+            currentState = EnemyState.Attack;
         }
         else
         {
@@ -66,7 +66,7 @@ public class Shooter_CopScript : Enemy_Script
 
         float distance = Vector3.Distance(player.transform.position, transform.position);
         if (distance < tooCloseRange || distance > data.attackRange)
-            currentState = EnemieState.Move;
+            currentState = EnemyState.Move;
 
         FacePlayer();
 
@@ -106,7 +106,7 @@ public class Shooter_CopScript : Enemy_Script
 
     public void Damage()
     {
-        currentState = EnemieState.Move;
+        currentState = EnemyState.Move;
     }
 
     private void FacePlayer()

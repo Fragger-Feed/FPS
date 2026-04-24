@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class DummyScript : Enemy_Script
 {
+    private bool alreadyDamaged;
+
     public override void Awake()
     {
         base.Awake();
@@ -14,7 +16,7 @@ public class DummyScript : Enemy_Script
 
         if (Vector3.Distance(transform.position, player.transform.position) <= data.attackRange)
         {
-            currentState = EnemieState.Attack;
+            currentState = EnemyState.Attack;
             return;
         }
 
@@ -31,7 +33,7 @@ public class DummyScript : Enemy_Script
         animator.ResetTrigger("Move");
         animator.SetTrigger("Attack");
 
-        if (attacking)
+        if (attacking && !alreadyDamaged)
         {
             Damage();
         }
@@ -51,9 +53,34 @@ public class DummyScript : Enemy_Script
             if (player != null)
             {
                 player.TakeDamage(data.attackDamage);
+                alreadyDamaged = true;
             }
         }
-        currentState = EnemieState.Move;
+    }
+
+    public void StartDamaging()
+    {
+        attacking = true;
+        alreadyDamaged = false;
+        canBeParried = true;
+    }
+
+    public void StopDamaging()
+    {
+        attacking = false;
+        alreadyDamaged = false;
+        canBeParried = false;
+    }
+
+    public void OpenParrtyWindow()
+    {
+        canBeParried = true;
+    }
+
+    public void GetParried()
+    {
+        stunTimer = data.stunTime;
+        currentState = EnemyState.Stunned;
     }
 
     private void OnDrawGizmos()

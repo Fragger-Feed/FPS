@@ -14,6 +14,7 @@ public abstract class WeaponScript : MonoBehaviour
     public bool didParry;
 
     public float hittingTimer;
+    public float lastHitTime;
 
     protected int mask;
 
@@ -43,6 +44,19 @@ public abstract class WeaponScript : MonoBehaviour
         canHit = false;
         didHit = false;
         didParry = false;
+        lastHitTime = Time.time;
+
+        Vector3 center = cameraPos.position + cameraPos.rotation * data.meleeHitPoint;
+        Collider[] hit = Physics.OverlapBox(center, data.meleeHitArea / 2, cameraPos.rotation, mask);
+        foreach (var item in hit)
+        {
+            Enemy_Script enemy = item.GetComponent<Enemy_Script>();
+            if (enemy.canBeParried == true)
+            {
+                canHit = true;
+                break;
+            }
+        }
         weaponAnimator.SetTrigger("Hit");
     }
 

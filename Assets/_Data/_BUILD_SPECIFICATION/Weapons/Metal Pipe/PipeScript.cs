@@ -9,6 +9,11 @@ public class PipeScript : WeaponScript
         PerformMelee();
     }
 
+    public override void PerformMelee()
+    {
+        base.PerformMelee();
+    }
+
     public override void HitCheck()
     {
         if (didHit)

@@ -25,7 +25,7 @@ public class SawScript : Enemy_Script
     public override void Move()
     {
         base.Move();
-        currentState = EnemieState.Attack;
+        currentState = EnemyState.Attack;
     }
 
     public override void Attack()
@@ -61,7 +61,7 @@ public class SawScript : Enemy_Script
 
         bool bounced = false;
 
-        if (currentState != EnemieState.Attack) return;
+        if (currentState != EnemyState.Attack) return;
 
         if (Rigidbody.linearVelocity == Vector3.zero)
             Rigidbody.linearVelocity = Vector3.forward * data.Speed;

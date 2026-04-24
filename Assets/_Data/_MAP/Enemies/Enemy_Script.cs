@@ -20,7 +20,7 @@ public abstract class Enemy_Script : MonoBehaviour
 
     [SerializeField] private bool canMove = true;
 
-    public enum EnemieState
+    public enum EnemyState
     {
         Idle,
         Move,
@@ -29,7 +29,7 @@ public abstract class Enemy_Script : MonoBehaviour
         Dead
     }
 
-    public EnemieState currentState = EnemieState.Idle;
+    public EnemyState currentState = EnemyState.Idle;
 
     public virtual void Awake()
     {
@@ -49,23 +49,23 @@ public abstract class Enemy_Script : MonoBehaviour
     {
         switch (currentState)
         {
-            case EnemieState.Idle:
+            case EnemyState.Idle:
                 Idle();
                 break;
 
-            case EnemieState.Move:
+            case EnemyState.Move:
                 Move();
                 break;
 
-            case EnemieState.Attack:
+            case EnemyState.Attack:
                 Attack();
                 break;
 
-            case EnemieState.Stunned:
+            case EnemyState.Stunned:
                 Stunned();
                 break;
 
-            case EnemieState.Dead:
+            case EnemyState.Dead:
                 break;
         }
     }
@@ -78,7 +78,7 @@ public abstract class Enemy_Script : MonoBehaviour
     {
         if (player.ControllingData.Player.Interact.WasPressedThisFrame())
         {
-            currentState = EnemieState.Move;
+            currentState = EnemyState.Move;
         }
     }
 
@@ -100,7 +100,7 @@ public abstract class Enemy_Script : MonoBehaviour
         }
         else
         {
-            currentState = EnemieState.Move;
+            currentState = EnemyState.Move;
         }
     }
 
