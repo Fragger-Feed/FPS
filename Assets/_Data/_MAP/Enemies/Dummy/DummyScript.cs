@@ -72,7 +72,12 @@ public class DummyScript : Enemy_Script
         canBeParried = false;
     }
 
-    public void OpenParrtyWindow()
+    public void OpenParryWindow()
+    {
+        canBeParried = true;
+    }
+
+    public void CloseParryWindow()
     {
         canBeParried = true;
     }

@@ -7,24 +7,30 @@ public class EntityStates : MonoBehaviour
     private int maxHealth;
     [SerializeField] private int currentHealth;
 
-    private Enemy_Script enemyScript;
-    private Enemy_DataScript enemieData;
+    public bool IsDead => currentHealth <= 0;
+
+    public Enemy_Script enemyScript;
+    private Enemy_DataScript enemyData;
 
     private void Awake()
     {
         enemyScript = GetComponent<Enemy_Script>();
-        enemieData = enemyScript.data;
+        enemyData = enemyScript.data;
 
-        maxHealth = enemieData.Health;
+        maxHealth = enemyData.Health;
         currentHealth = maxHealth;
     }
 
     public void Heal(int heal)
     { currentHealth = Mathf.Min(currentHealth + heal, maxHealth); }
 
-    public void Damage(int damage)
+    public void Damage(bool melee, int damage)
     {
         print($"took {damage} damage");
+        if (enemyScript != null && melee && enemyScript.canBeParried)
+        {
+            GetParried();
+        }
         if (damage == 0)
         {
             print("BUG");
@@ -37,8 +43,18 @@ public class EntityStates : MonoBehaviour
         }
     }
 
+    public void GetParried()
+    {
+        enemyScript.stunTimer = enemyData.stunTime;
+        enemyScript.currentState = enemyScript.currentState = EnemyState.Stunned;
+        enemyScript.animator.SetBool("Stunned", true);
+        print("PPPPPPARY");
+    }
+
     public void Die()
     {
+        Animator anim = GetComponent<Animator>();
+        anim.StopPlayback();
         print($"I'm object {gameObject} and I'm dead");
         if (enemyScript.nav != null)
             enemyScript.nav.enabled = false;

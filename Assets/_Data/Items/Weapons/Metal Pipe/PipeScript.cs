@@ -26,10 +26,10 @@ public class PipeScript : WeaponScript
         {
             Debug.Log("Hit " + item.transform.name);
             bool crit;
-            EntityStates enemie = item.GetComponent<EntityStates>();
-            if (enemie != null)
+            EntityStates enemy = item.GetComponent<EntityStates>();
+            if (enemy != null)
             {
-                enemie.Damage(CalculateCritDamage(out crit)); if (crit) print("CRITICAL!!");
+                enemy.Damage(true, CalculateCritDamage(out crit)); if (crit) print("CRITICAL!!");
             }
         }
         didHit = true;
