@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class DummyScript : Enemy_Script
 {
-    private bool alreadyDamaged;
-
     public override void Awake()
     {
         base.Awake();
@@ -33,6 +31,12 @@ public class DummyScript : Enemy_Script
         animator.ResetTrigger("Move");
         animator.SetTrigger("Attack");
 
+        if (Vector3.Distance(transform.position, player.transform.position) >= data.attackRange && canMove)
+        {
+            currentState = EnemyState.Move;
+            return;
+        }
+
         if (attacking && !alreadyDamaged)
         {
             Damage();
@@ -45,6 +49,7 @@ public class DummyScript : Enemy_Script
 
     public void Damage()
     {
+        if (alreadyDamaged) return;
         Collider[] hits = Physics.OverlapSphere(transform.position, data.attackRange, LayerMask.GetMask("Player"));
         foreach (var hit in hits)
         {
@@ -56,36 +61,6 @@ public class DummyScript : Enemy_Script
                 alreadyDamaged = true;
             }
         }
-    }
-
-    public void StartDamaging()
-    {
-        attacking = true;
-        alreadyDamaged = false;
-        canBeParried = true;
-    }
-
-    public void StopDamaging()
-    {
-        attacking = false;
-        alreadyDamaged = false;
-        canBeParried = false;
-    }
-
-    public void OpenParryWindow()
-    {
-        canBeParried = true;
-    }
-
-    public void CloseParryWindow()
-    {
-        canBeParried = true;
-    }
-
-    public void GetParried()
-    {
-        stunTimer = data.stunTime;
-        currentState = EnemyState.Stunned;
     }
 
     private void OnDrawGizmos()

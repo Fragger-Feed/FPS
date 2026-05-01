@@ -17,8 +17,9 @@ public abstract class Enemy_Script : MonoBehaviour
 
     public bool attacking;
     public bool canBeParried;
+    public bool alreadyDamaged;
 
-    [SerializeField] private bool canMove = true;
+    public bool canMove = true;
 
     public enum EnemyState
     {
@@ -92,6 +93,29 @@ public abstract class Enemy_Script : MonoBehaviour
     {
     }
 
+    public virtual void StartDamaging()
+    {
+        attacking = true;
+        alreadyDamaged = false;
+    }
+
+    public virtual void StopDamaging()
+    {
+        attacking = false;
+        alreadyDamaged = false;
+        canBeParried = false;
+    }
+
+    public virtual void OpenParryWindow()
+    {
+        canBeParried = true;
+    }
+
+    public virtual void CloseParryWindow()
+    {
+        canBeParried = false;
+    }
+
     public virtual void Stunned()
     {
         if (stunTimer > 0)
@@ -100,6 +124,7 @@ public abstract class Enemy_Script : MonoBehaviour
         }
         else
         {
+            animator.SetBool("Stunned", false);
             currentState = EnemyState.Move;
         }
     }

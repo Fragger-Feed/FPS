@@ -863,27 +863,34 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.23333333
-    functionName: 
+    functionName: OpenParryWindow
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.38333333
-    functionName: Damage
+    functionName: StartDamaging
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.56666666
-    functionName: 
+    functionName: CloseParryWindow
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.71666664
+  - time: 0.56666666
+    functionName: StopDamaging
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.7
     functionName: SwitchCanMove
     data: 
     objectReferenceParameter: {fileID: 0}
