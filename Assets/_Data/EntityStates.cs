@@ -12,6 +12,8 @@ public class EntityStates : MonoBehaviour
     public Enemy_Script enemyScript;
     private Enemy_DataScript enemyData;
 
+    public WeaponScript lastHitBy;
+
     private void Awake()
     {
         enemyScript = GetComponent<Enemy_Script>();
@@ -24,7 +26,7 @@ public class EntityStates : MonoBehaviour
     public void Heal(int heal)
     { currentHealth = Mathf.Min(currentHealth + heal, maxHealth); }
 
-    public void Damage(bool melee, int damage)
+    public void Damage(bool melee, int damage, WeaponScript weapon)
     {
         print($"took {damage} damage");
         if (enemyScript != null && melee && enemyScript.canBeParried)
@@ -36,6 +38,8 @@ public class EntityStates : MonoBehaviour
             print("BUG");
         }
         currentHealth -= damage;
+        if (weapon != null)
+            lastHitBy = weapon;
         if (currentHealth <= 0)
         {
             enemyScript.currentState = EnemyState.Dead;
@@ -47,6 +51,8 @@ public class EntityStates : MonoBehaviour
     {
         enemyScript.stunTimer = enemyData.stunTime;
         enemyScript.currentState = enemyScript.currentState = EnemyState.Stunned;
+        enemyScript.canBeParried = false;
+        enemyScript.attacking = false;
         enemyScript.animator.SetBool("Stunned", true);
         print("PPPPPPARY");
     }

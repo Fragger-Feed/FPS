@@ -19,7 +19,7 @@ public class PistolScript : WeaponScript
             bool crit;
             if (enemie != null)
             {
-                enemie.Damage(false, CalculateCritDamage(out crit));
+                enemie.Damage(false, CalculateCritDamage(out crit), null);
                 if (crit)
                     print("CRITICAL!!!");
             }

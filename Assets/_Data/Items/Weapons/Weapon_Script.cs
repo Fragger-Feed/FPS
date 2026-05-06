@@ -52,6 +52,7 @@ public abstract class WeaponScript : MonoBehaviour
     public virtual void StartHitting()
     {
         hittingTimer = Time.time + data.hitTime;
+        lastHitTime = Time.time;
     }
 
     public virtual void StopHitting()

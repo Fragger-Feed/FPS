@@ -46,7 +46,7 @@ public class SawScript : Enemy_Script
             }
             if (entityStates != null)
             {
-                entityStates.Damage(true, data.attackDamage);
+                entityStates.Damage(true, data.attackDamage, null);
             }
         }
 

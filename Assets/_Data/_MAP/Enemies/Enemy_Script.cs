@@ -14,6 +14,7 @@ public abstract class Enemy_Script : MonoBehaviour
 
     public float cooldownTimer = 0f;
     public float stunTimer;
+    public float lastPlayerAttackTime;
 
     public bool attacking;
     public bool canBeParried;
@@ -109,6 +110,11 @@ public abstract class Enemy_Script : MonoBehaviour
     public virtual void OpenParryWindow()
     {
         canBeParried = true;
+        if (Time.time - lastPlayerAttackTime < state.lastHitBy.data.hitTime)
+        {
+            print("PPPPPPARY");
+            state.GetParried();
+        }
     }
 
     public virtual void CloseParryWindow()

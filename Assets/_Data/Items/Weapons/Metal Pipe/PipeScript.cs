@@ -29,7 +29,8 @@ public class PipeScript : WeaponScript
             EntityStates enemy = item.GetComponent<EntityStates>();
             if (enemy != null)
             {
-                enemy.Damage(true, CalculateCritDamage(out crit)); if (crit) print("CRITICAL!!");
+                enemy.Damage(true, CalculateCritDamage(out crit), this); if (crit) print("CRITICAL!!");
+                enemy.enemyScript.lastPlayerAttackTime = lastHitTime;
             }
         }
         didHit = true;
