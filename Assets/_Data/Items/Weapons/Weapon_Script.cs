@@ -78,8 +78,13 @@ public abstract class WeaponScript : MonoBehaviour
         return data.damage;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+    }
+
     private void OnDrawGizmos()
     {
+        Gizmos.DrawRay(new Vector3(1, 0, 0), Vector3.up);
         Gizmos.color = (Time.time < hittingTimer) ? Color.red : Color.yellow;
         Vector3 center = cameraPos.position + cameraPos.rotation * data.meleeHitPoint;
         Gizmos.matrix = Matrix4x4.TRS(center, cameraPos.rotation, Vector3.one);
