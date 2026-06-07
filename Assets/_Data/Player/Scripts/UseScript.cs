@@ -48,7 +48,7 @@ public class UseScript : MonoBehaviour
             }
         }
 
-        if (currentWeapon != null && playerController.ControllingData.Player.Interact.WasPressedThisFrame())
+        if (currentWeapon != null && playerController.ControllingData.Player.Melee.WasPressedThisFrame())
         {
             currentWeapon.PerformMelee();
         }

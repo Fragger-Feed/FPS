@@ -1,0 +1,33 @@
+using UnityEngine;
+
+public class Twin_Script : WeaponScript
+{
+    private bool canShoot = true;
+    private bool isLeft;
+
+    public override void PrimaryFire()
+    {
+        if (canShoot)
+        {
+            if (isLeft)
+                weaponAnimator.SetTrigger("Shoot L");
+            else
+                weaponAnimator.SetTrigger("Shoot R");
+
+            isLeft = !isLeft;
+            canShoot = false;
+        }
+    }
+
+    public override void SecondaryFire()
+    { }
+
+    public override void HitCheck()
+    {
+    }
+
+    public void MakeReadyToShoot()
+    {
+        canShoot = true;
+    }
+}
