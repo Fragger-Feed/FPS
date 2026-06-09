@@ -18,9 +18,8 @@ MonoBehaviour:
   damage: 151000
   range: 100
   hitTime: 0.1
-  hitCooldown: 0
   meleeHitPoint: {x: 0, y: 0, z: 0.73}
-  meleeHitArea: {x: 1, y: 1, z: 1.5}
+  meleeHitArea: {x: 1, y: 1, z: 2}
   projectileParryPoint: {x: 0, y: 0, z: 0}
   projectileParryArea: {x: 0, y: 0, z: 0}
   fireRate: 0.2
