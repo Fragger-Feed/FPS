@@ -110,9 +110,8 @@ public abstract class Enemy_Script : MonoBehaviour
     public virtual void OpenParryWindow()
     {
         canBeParried = true;
-        if (Time.time - lastPlayerAttackTime < state.lastHitBy.data.hitTime)
+        if (state.lastHitBy != null && Time.time - lastPlayerAttackTime < state.lastHitBy.data.hitTime)
         {
-            print("PPPPPPARY");
             state.GetParried();
         }
     }

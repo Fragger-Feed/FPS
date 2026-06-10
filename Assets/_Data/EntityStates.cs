@@ -32,6 +32,12 @@ public class EntityStates : MonoBehaviour
         if (enemyScript != null && melee && enemyScript.canBeParried)
         {
             GetParried();
+            print(weapon);
+            if (weapon != null)
+            {
+                weapon.didParry = true;
+                weapon.weaponAnimator.SetTrigger("Parry");
+            }
         }
         if (damage == 0)
         {
@@ -64,7 +70,6 @@ public class EntityStates : MonoBehaviour
         print($"I'm object {gameObject} and I'm dead");
         if (enemyScript.nav != null)
             enemyScript.nav.enabled = false;
-        gameObject.AddComponent<Rigidbody>();
         Rigidbody rb = gameObject.AddComponent<Rigidbody>();
         if (rb != null)
             rb.mass = 112;
