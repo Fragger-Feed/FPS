@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e96535beb8e99744a0bb9752f5e0487, type: 3}
   m_Name: Twin_pistol_Data
   m_EditorClassIdentifier: Assembly-CSharp::Weapon_DataScript
+  weaponType: 1
   PassiveInventoryIcon: {fileID: 0}
   ActiveInventoryIcon: {fileID: 0}
   weaponPrefab: {fileID: 7987897541145450801, guid: 40f241b66aaaa6c4dba2f37c27668057, type: 3}
   damage: 5
   range: 69
-  hitTime: 0.35
+  hitTime: 0.1
+  hitCooldown: 0
   meleeHitPoint: {x: 0, y: 0, z: 1}
   meleeHitArea: {x: 0.5, y: 0.5, z: 1.5}
-  projectileParryPoint: {x: 0, y: 0, z: 0}
-  projectileParryArea: {x: 0, y: 0, z: 0}
+  projectileParryPoint: {x: 0, y: 0, z: 1.42}
+  projectileParryArea: {x: 0.89, y: 0.94, z: 2.34}
   fireRate: 0
-  critMultiplier: 0
-  critChance: 0
+  critMultiplier: 1.3
+  critChance: 20

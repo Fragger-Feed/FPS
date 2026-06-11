@@ -89,5 +89,9 @@ public abstract class WeaponScript : MonoBehaviour
         Vector3 center = cameraPos.position + cameraPos.rotation * data.meleeHitPoint;
         Gizmos.matrix = Matrix4x4.TRS(center, cameraPos.rotation, Vector3.one);
         Gizmos.DrawWireCube(Vector3.zero, data.meleeHitArea);
+        Gizmos.color = Color.pink;
+        Vector3 centerParry = cameraPos.position + cameraPos.rotation * data.projectileParryPoint;
+        Gizmos.matrix = Matrix4x4.TRS(centerParry, cameraPos.rotation, Vector3.one);
+        Gizmos.DrawWireCube(Vector3.zero, data.projectileParryArea);
     }
 }

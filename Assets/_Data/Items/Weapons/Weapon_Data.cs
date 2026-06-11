@@ -4,6 +4,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Weapon_Data", menuName = "Prefabs/Weapons/Weapon_Data")]
 public class Weapon_DataScript : ScriptableObject
 {
+    public enum WeaponType
+    {
+        Melee,
+        Ranged
+    }
+
+    public WeaponType weaponType;
+
     [Header("Icons")]
     public Sprite PassiveInventoryIcon;
 
