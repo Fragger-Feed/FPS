@@ -12,6 +12,7 @@ public abstract class WeaponScript : MonoBehaviour
     public bool canHit;
     public bool didHit;
     public bool didParry;
+    public bool IsInActiveWindow => Time.time < hittingTimer;
 
     public float hittingTimer;
     public float lastHitTime;

@@ -19,6 +19,8 @@ public class Shooter_CopScript : Enemy_Script
 
     [SerializeField] private Material[] sightColors = new Material[2];
 
+    [SerializeField] private GameObject hitscanBulletPrefab;
+
     private float strafeTime;
     private float lockOnTimer;
 
@@ -76,7 +78,15 @@ public class Shooter_CopScript : Enemy_Script
         float angle = Vector3.Angle(transform.forward, playerDirection);
 
         if (lockOnTimer > flashTime)
+        {
             laserSight.material = sightColors[1];
+
+            WeaponScript weapon = player.playerInventory.currentWeapon;
+            if (weapon != null && weapon.IsInActiveWindow)
+            {
+                Shoot();
+            }
+        }
         else
             laserSight.material = sightColors[0];
 
@@ -86,16 +96,7 @@ public class Shooter_CopScript : Enemy_Script
 
             if (lockOnTimer > lockOnTime)
             {
-                RaycastHit hit;
-                if (Physics.Raycast(shootPoint.position, shootPoint.forward, out hit, 100))
-                {
-                    PlayerState playerState = hit.transform.GetComponent<PlayerState>();
-                    if (playerState != null)
-                        playerState.TakeDamage(data.attackDamage);
-                }
-                laserSight.material = sightColors[0];
-                lockOnTimer = 0;
-                cooldownTimer = Time.time + data.attackCooldown;
+                Shoot();
             }
         }
         else
@@ -117,6 +118,18 @@ public class Shooter_CopScript : Enemy_Script
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.fixedDeltaTime * rotateSpeed);
         }
+    }
+
+    private void Shoot()
+    {
+        GameObject bulletObj = Instantiate(hitscanBulletPrefab, shootPoint.position, shootPoint.rotation);
+        HitscanBullet bullet = bulletObj.GetComponent<HitscanBullet>();
+        bullet.owner = HitscanBullet.Owner.Enemy;
+        bullet.damage = data.attackDamage;
+
+        laserSight.material = sightColors[0];
+        lockOnTimer = 0;
+        cooldownTimer = Time.time + data.attackCooldown;
     }
 
     public override void Update()

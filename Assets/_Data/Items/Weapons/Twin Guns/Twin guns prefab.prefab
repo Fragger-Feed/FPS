@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6256368005599276135
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8444777336675500225}
+  m_Layer: 7
+  m_Name: FirePointR
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8444777336675500225
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6256368005599276135}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.010810256, y: -0.6819564, z: -0.7296701, w: -0.048991613}
+  m_LocalPosition: {x: -0.00031, y: 0.01221, z: -0.00414}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 470706828988005267}
+  m_LocalEulerAnglesHint: {x: -1.743, y: 1.998, z: -93.063}
+--- !u!1 &9024254330571334050
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3298401099254732193}
+  m_Layer: 7
+  m_Name: FirePointL
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3298401099254732193
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9024254330571334050}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.70576894, y: 0.037763476, z: -0.021505656, w: -0.70710796}
+  m_LocalPosition: {x: 0.00010000165, y: 0.012199999, z: -0.004299996}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2267708096453183835}
+  m_LocalEulerAnglesHint: {x: -1.743, y: 1.998, z: -93.063}
 --- !u!1001 &7069489970288649312
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -122,7 +184,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7247302190976720883, guid: 13157c20b0f02044dadf89618c2f08a6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8444777336675500225}
+    - targetCorrespondingSourceObject: {fileID: 9035166241939221819, guid: 13157c20b0f02044dadf89618c2f08a6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3298401099254732193}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 13157c20b0f02044dadf89618c2f08a6, type: 3}
       insertIndex: -1
@@ -134,6 +202,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2406038388838128077}
   m_SourcePrefab: {fileID: 100100000, guid: 13157c20b0f02044dadf89618c2f08a6, type: 3}
+--- !u!4 &470706828988005267 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7247302190976720883, guid: 13157c20b0f02044dadf89618c2f08a6, type: 3}
+  m_PrefabInstance: {fileID: 7069489970288649312}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1658715822283079751 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -783856216362376153, guid: 13157c20b0f02044dadf89618c2f08a6, type: 3}
@@ -249,6 +322,11 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!4 &2267708096453183835 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9035166241939221819, guid: 13157c20b0f02044dadf89618c2f08a6, type: 3}
+  m_PrefabInstance: {fileID: 7069489970288649312}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7987897541145450801 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 13157c20b0f02044dadf89618c2f08a6, type: 3}
@@ -298,3 +376,7 @@ MonoBehaviour:
   didParry: 0
   hittingTimer: 0
   lastHitTime: 0
+  bulletTrailLeft: {fileID: 4660485787609654133, guid: b42d471034b752f42b6bf5bc00abd8c5, type: 3}
+  bulletTrailRight: {fileID: 0}
+  shootPointL: {fileID: 3298401099254732193}
+  shootPointR: {fileID: 8444777336675500225}

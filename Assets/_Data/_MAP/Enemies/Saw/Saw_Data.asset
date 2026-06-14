@@ -15,8 +15,9 @@ MonoBehaviour:
   Health: 30
   Speed: 15
   Acceleration: 0
-  attackCooldown: 0.02
   attackDamage: 2
+  attackCooldown: 0.02
   attackRange: 1.7
   attackRangeY: 0.09
+  stunTime: 0
   enemiePrefab: {fileID: 0}

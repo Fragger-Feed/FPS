@@ -2111,7 +2111,7 @@ AnimationClip:
   m_HasGenericRootTransform: 1
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.625
+  - time: 0.33333334
     functionName: StartHitting
     data: 
     objectReferenceParameter: {fileID: 0}

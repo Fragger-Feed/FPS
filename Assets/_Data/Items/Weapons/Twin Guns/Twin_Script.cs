@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class Twin_Script : WeaponScript
 {
-    [SerializeField] private LineRenderer bulletTrailLeft;
+    [SerializeField] private GameObject bulletTrailLeft;
     [SerializeField] private LineRenderer bulletTrailRight;
+    [SerializeField] private Transform shootPointL;
+    [SerializeField] private Transform shootPointR;
     private bool canShoot = true;
     private bool isLeft;
 
@@ -11,10 +13,33 @@ public class Twin_Script : WeaponScript
     {
         if (canShoot)
         {
-            if (isLeft)
-                weaponAnimator.SetTrigger("Shoot L");
+            RaycastHit hit;
+            Vector3 targetPoint;
+
+            if (Physics.Raycast(cameraPos.position, cameraPos.forward, out hit, 200))
+                targetPoint = hit.point;
             else
+                targetPoint = cameraPos.position + cameraPos.forward * 200;
+
+            shootPointL.transform.LookAt(targetPoint);
+            shootPointR.transform.LookAt(targetPoint);
+            if (isLeft)
+            {
+                weaponAnimator.SetTrigger("Shoot L");
+                GameObject bulletObj = Instantiate(bulletTrailLeft, shootPointL.position, shootPointL.rotation);
+                HitscanBullet bullet = bulletObj.GetComponent<HitscanBullet>();
+                bullet.owner = HitscanBullet.Owner.Player;
+                bullet.damage = data.damage;
+                print(bullet.damage);
+            }
+            else
+            {
                 weaponAnimator.SetTrigger("Shoot R");
+                GameObject bulletObj = Instantiate(bulletTrailLeft, shootPointR.position, shootPointR.rotation);
+                HitscanBullet bullet = bulletObj.GetComponent<HitscanBullet>();
+                bullet.owner = HitscanBullet.Owner.Player;
+                bullet.damage = data.damage;
+            }
 
             isLeft = !isLeft;
             canShoot = false;

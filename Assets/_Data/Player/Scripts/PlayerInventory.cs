@@ -16,7 +16,7 @@ public class PlayerInventory : MonoBehaviour
     public List<GameObject> WeaponSlots = new List<GameObject>();
 
     public GameObject WeaponParent;
-    public GameObject currentWeapon;
+
     public GameObject Inventory;
 
     public GameObject[] activeItemSlots;
@@ -26,6 +26,7 @@ public class PlayerInventory : MonoBehaviour
     //
     public bool inInventory = false;
 
+    public WeaponScript currentWeapon;
     public UseScript use;
     public Vector3 iconScale;
 
@@ -115,13 +116,13 @@ public class PlayerInventory : MonoBehaviour
         Weapon_DataScript data = InventoryData.WeaponsList[InventoryData.CurrentWeaponSlot];
         if (currentWeapon != null)
         {
-            Destroy(currentWeapon);
+            Destroy(currentWeapon.gameObject);
             currentWeapon = null;
             use.currentWeapon = null;
         }
         if (data == null) return;
-        currentWeapon = Instantiate(data.weaponPrefab, WeaponParent.transform);
-        use.currentWeapon = currentWeapon.GetComponent<WeaponScript>();
+        currentWeapon = Instantiate(data.weaponPrefab, WeaponParent.transform).GetComponent<WeaponScript>();
+        use.currentWeapon = currentWeapon;
     }
 
     private void UpdateActiveItemSlots()
