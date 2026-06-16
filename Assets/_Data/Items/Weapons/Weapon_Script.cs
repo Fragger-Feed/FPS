@@ -23,7 +23,7 @@ public abstract class WeaponScript : MonoBehaviour
 
     protected virtual void Awake()
     {
-        mask = ~LayerMask.GetMask("Player");
+        mask = ~LayerMask.GetMask("Player", "Hands");
         player = FindFirstObjectByType<PlayerController>();
         cameraPos = player.CameraObj.transform;
     }

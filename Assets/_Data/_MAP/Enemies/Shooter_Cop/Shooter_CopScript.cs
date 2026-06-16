@@ -38,15 +38,14 @@ public class Shooter_CopScript : Enemy_Script
 
             nav.SetDestination(transform.position + finalDirection);
         }
-        else if (distance < data.attackRange)
+        else if (Physics.Linecast(transform.position, player.transform.position, ~LayerMask.GetMask("Player")))
         {
-            nav.SetDestination(transform.position);
-
-            currentState = EnemyState.Attack;
+            nav.SetDestination(player.transform.position);
         }
         else
         {
-            nav.SetDestination(player.transform.position);
+            nav.SetDestination(transform.position);
+            currentState = EnemyState.Attack;
         }
     }
 
@@ -104,7 +103,7 @@ public class Shooter_CopScript : Enemy_Script
         direction.y = 0;
         if (direction != Vector3.zero)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.fixedDeltaTime * rotateSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * rotateSpeed);
         }
     }
 

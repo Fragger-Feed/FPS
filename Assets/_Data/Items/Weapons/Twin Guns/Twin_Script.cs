@@ -16,17 +16,16 @@ public class Twin_Script : WeaponScript
             RaycastHit hit;
             Vector3 targetPoint;
 
-            if (Physics.Raycast(cameraPos.position, cameraPos.forward, out hit, 200))
+            if (Physics.Raycast(cameraPos.position, cameraPos.forward, out hit, 200, mask))
                 targetPoint = hit.point;
             else
                 targetPoint = cameraPos.position + cameraPos.forward * 200;
 
-            shootPointL.transform.LookAt(targetPoint);
-            shootPointR.transform.LookAt(targetPoint);
             if (isLeft)
             {
                 weaponAnimator.SetTrigger("Shoot L");
-                GameObject bulletObj = Instantiate(bulletTrailLeft, shootPointL.position, shootPointL.rotation);
+                GameObject bulletObj = Instantiate(bulletTrailLeft, shootPointL.position, Quaternion.identity);
+                bulletObj.transform.LookAt(targetPoint);
                 HitscanBullet bullet = bulletObj.GetComponent<HitscanBullet>();
                 bullet.owner = HitscanBullet.Owner.Player;
                 bullet.damage = CalculateCritDamage(data.rangedDamage);
@@ -34,7 +33,8 @@ public class Twin_Script : WeaponScript
             else
             {
                 weaponAnimator.SetTrigger("Shoot R");
-                GameObject bulletObj = Instantiate(bulletTrailLeft, shootPointR.position, shootPointR.rotation);
+                GameObject bulletObj = Instantiate(bulletTrailLeft, shootPointR.position, Quaternion.identity);
+                bulletObj.transform.LookAt(targetPoint);
                 HitscanBullet bullet = bulletObj.GetComponent<HitscanBullet>();
                 bullet.owner = HitscanBullet.Owner.Player;
                 bullet.damage = CalculateCritDamage(data.rangedDamage);

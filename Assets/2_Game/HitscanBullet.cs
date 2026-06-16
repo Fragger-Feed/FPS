@@ -31,13 +31,22 @@ public class HitscanBullet : MonoBehaviour
         Vector3 origin = transform.position;
         Vector3 end = transform.position + transform.forward * distance;
 
-        int layerMask = owner == Owner.Player ? ~LayerMask.GetMask("Player") : ~LayerMask.GetMask("Enemy");
+        int layerMask = owner == Owner.Player ? ~LayerMask.GetMask("Player", "Hands") : ~LayerMask.GetMask("Enemy");
 
         RaycastHit hit;
         if (Physics.Raycast(origin, transform.forward, out hit, distance, layerMask))
         {
             end = hit.point;
             HitSomething(hit);
+        }
+        if (hit.transform != null)
+        {
+            print(hit.transform.gameObject);
+        }
+        Vector3 a = transform.forward;
+        if (a.z < 0)
+        {
+            print("ass");
         }
 
         lr.SetPosition(0, origin);
