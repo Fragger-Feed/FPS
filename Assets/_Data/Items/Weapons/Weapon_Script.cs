@@ -62,21 +62,21 @@ public abstract class WeaponScript : MonoBehaviour
 
     public abstract void HitCheck();
 
-    public virtual int CalculateCritDamage()
+    public virtual int CalculateCritDamage(int damage)
     {
         bool _;
-        return CalculateCritDamage(out _);
+        return CalculateCritDamage(damage, out _);
     }
 
-    public virtual int CalculateCritDamage(out bool isCrit)
+    public virtual int CalculateCritDamage(int damage, out bool isCrit)
     {
         float critRoll = Random.Range(0f, 100f);
         isCrit = critRoll <= data.critChance;
         if (isCrit)
         {
-            return Mathf.RoundToInt(data.damage * data.critMultiplier);
+            return Mathf.RoundToInt(damage * data.critMultiplier);
         }
-        return data.damage;
+        return damage;
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -29,8 +29,7 @@ public class Twin_Script : WeaponScript
                 GameObject bulletObj = Instantiate(bulletTrailLeft, shootPointL.position, shootPointL.rotation);
                 HitscanBullet bullet = bulletObj.GetComponent<HitscanBullet>();
                 bullet.owner = HitscanBullet.Owner.Player;
-                bullet.damage = data.damage;
-                print(bullet.damage);
+                bullet.damage = CalculateCritDamage(data.rangedDamage);
             }
             else
             {
@@ -38,7 +37,7 @@ public class Twin_Script : WeaponScript
                 GameObject bulletObj = Instantiate(bulletTrailLeft, shootPointR.position, shootPointR.rotation);
                 HitscanBullet bullet = bulletObj.GetComponent<HitscanBullet>();
                 bullet.owner = HitscanBullet.Owner.Player;
-                bullet.damage = data.damage;
+                bullet.damage = CalculateCritDamage(data.rangedDamage);
             }
 
             isLeft = !isLeft;
@@ -66,10 +65,10 @@ public class Twin_Script : WeaponScript
         {
             Debug.Log("Hit " + item.transform.name);
             bool crit;
-            EntityStates enemy = item.GetComponent<EntityStates>();
+            EntityStates enemy = item.GetComponentInParent<EntityStates>();
             if (enemy != null)
             {
-                enemy.Damage(true, CalculateCritDamage(out crit), this); if (crit) print("CRITICAL!!");
+                enemy.Damage(true, CalculateCritDamage(data.meleeDamage, out crit), this); if (crit) print("CRITICAL!!");
                 enemy.enemyScript.lastPlayerAttackTime = lastHitTime;
             }
         }

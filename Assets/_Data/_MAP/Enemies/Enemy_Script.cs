@@ -112,13 +112,17 @@ public abstract class Enemy_Script : MonoBehaviour
         canBeParried = true;
         if (state.lastHitBy != null && Time.time - lastPlayerAttackTime < state.lastHitBy.data.hitTime)
         {
-            state.GetParried();
+            GetParried();
         }
     }
 
     public virtual void CloseParryWindow()
     {
         canBeParried = false;
+    }
+
+    public virtual void GetParried()
+    {
     }
 
     public virtual void Stunned()

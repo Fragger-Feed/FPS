@@ -16,8 +16,9 @@ MonoBehaviour:
   PassiveInventoryIcon: {fileID: 21300000, guid: a950907361bc8824aa20e135f1cd9c3a, type: 3}
   ActiveInventoryIcon: {fileID: -5287583415368288564, guid: a0027bef2af3809458f2b8a407b22383, type: 3}
   weaponPrefab: {fileID: 9087714225238801266, guid: 6674425755f3fb34ebc375eeb1411540, type: 3}
-  damage: 151000
+  rangedDamage: 30510
   range: 100
+  meleeDamage: 0
   hitTime: 0.1
   hitCooldown: 0
   meleeHitPoint: {x: 0, y: 0, z: 0.73}

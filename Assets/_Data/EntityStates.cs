@@ -31,7 +31,7 @@ public class EntityStates : MonoBehaviour
         print($"took {damage} damage");
         if (enemyScript != null && melee && enemyScript.canBeParried)
         {
-            GetParried();
+            enemyScript.GetParried();
             print(weapon);
             if (weapon != null)
             {
@@ -51,16 +51,6 @@ public class EntityStates : MonoBehaviour
             enemyScript.currentState = EnemyState.Dead;
             Die();
         }
-    }
-
-    public void GetParried()
-    {
-        enemyScript.stunTimer = enemyData.stunTime;
-        enemyScript.currentState = enemyScript.currentState = EnemyState.Stunned;
-        enemyScript.canBeParried = false;
-        enemyScript.attacking = false;
-        enemyScript.animator.SetBool("Stunned", true);
-        print("PPPPPPARY");
     }
 
     public void Die()

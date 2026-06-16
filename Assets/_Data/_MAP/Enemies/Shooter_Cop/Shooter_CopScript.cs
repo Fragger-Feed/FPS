@@ -3,9 +3,6 @@ using UnityEngine;
 public class Shooter_CopScript : Enemy_Script
 {
     [SerializeField] private float tooCloseRange;
-    [SerializeField] private float strafeSpeedMin;
-    [SerializeField] private float strafeSpeedMax;
-    [SerializeField] private float strafeSpeed;
     [SerializeField] private float rotateSpeed;
     [SerializeField] private float lockOnTime;
     [SerializeField] private float flashTime;
@@ -35,16 +32,7 @@ public class Shooter_CopScript : Enemy_Script
 
         if (distance < tooCloseRange)
         {
-            strafeTime -= Time.deltaTime;
-
             Vector3 awayDirection = (transform.position - player.transform.position).normalized;
-
-            if (strafeTime < 0)
-            {
-                strafeDirection = Random.Range(0, 2) >= 0.5f ? transform.right * strafeSpeed : -transform.right * strafeSpeed;
-                strafeTime = Random.Range(1, 4);
-                strafeSpeed = Random.Range(strafeSpeedMin, strafeSpeedMax);
-            }
 
             Vector3 finalDirection = awayDirection * 2 + strafeDirection;
 

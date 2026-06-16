@@ -31,8 +31,10 @@ public class HitscanBullet : MonoBehaviour
         Vector3 origin = transform.position;
         Vector3 end = transform.position + transform.forward * distance;
 
+        int layerMask = owner == Owner.Player ? ~LayerMask.GetMask("Player") : ~LayerMask.GetMask("Enemy");
+
         RaycastHit hit;
-        if (Physics.Raycast(origin, transform.forward, out hit, distance))
+        if (Physics.Raycast(origin, transform.forward, out hit, distance, layerMask))
         {
             end = hit.point;
             HitSomething(hit);
@@ -46,7 +48,7 @@ public class HitscanBullet : MonoBehaviour
     {
         if (owner == Owner.Player)
         {
-            EntityStates enemy = hit.transform.GetComponent<EntityStates>();
+            EntityStates enemy = hit.transform.GetComponentInParent<EntityStates>();
             if (enemy == null) return;
 
             float damageFinal = parried ? damage * parryMultiplier : damage;

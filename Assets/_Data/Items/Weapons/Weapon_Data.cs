@@ -21,13 +21,14 @@ public class Weapon_DataScript : ScriptableObject
     public GameObject weaponPrefab;
 
     [Header("Ranged related variables"), Space(5)]
-    public int damage;
+    public int rangedDamage;
 
     public float range;
 
     [Header("Melee related variables"), Space(5)]
-    public float hitTime;
+    public int meleeDamage;
 
+    public float hitTime;
     public float hitCooldown;
 
     public Vector3 meleeHitPoint;

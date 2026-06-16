@@ -47,6 +47,16 @@ public class DummyScript : Enemy_Script
         cooldownTimer = Time.time + data.attackCooldown;
     }
 
+    public override void GetParried()
+    {
+        stunTimer = data.stunTime;
+        currentState = currentState = EnemyState.Stunned;
+        canBeParried = false;
+        attacking = false;
+        animator.SetBool("Stunned", true);
+        print("PPPPPPARY");
+    }
+
     public void Damage()
     {
         if (alreadyDamaged) return;

@@ -16,12 +16,13 @@ MonoBehaviour:
   PassiveInventoryIcon: {fileID: 0}
   ActiveInventoryIcon: {fileID: 0}
   weaponPrefab: {fileID: 7987897541145450801, guid: 40f241b66aaaa6c4dba2f37c27668057, type: 3}
-  damage: 5
+  rangedDamage: 5
   range: 69
+  meleeDamage: 1
   hitTime: 0.1
   hitCooldown: 0
   meleeHitPoint: {x: 0, y: 0, z: 1}
-  meleeHitArea: {x: 0.5, y: 0.5, z: 1.5}
+  meleeHitArea: {x: 0.5, y: 0.5, z: 1.7}
   projectileParryPoint: {x: 0, y: 0, z: 1.42}
   projectileParryArea: {x: 0.89, y: 0.94, z: 2.34}
   fireRate: 0

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class SawScript : Enemy_Script
 {
@@ -15,11 +16,48 @@ public class SawScript : Enemy_Script
     private const float BounceCooldownTime = 0.1f;
     private float angleStep;
 
+    private int n = 0;
+    private float result;
+
     public override void Awake()
     {
         base.Awake();
         angleStep = 360 / rayCount;
         animator.SetTrigger("Attack");
+        canBeParried = true;
+
+        while (result < 253)
+        {
+            string n2 = "";
+            int ncopy = n;
+            while (ncopy != 0)
+            {
+                n2 = (ncopy % 2).ToString() + n2;
+                ncopy = ncopy / 2;
+            }
+            int sum1 = 0;
+            for (int i = 0; i < n2.Length; i++)
+            {
+                sum1 += n2[i];
+            }
+            n2 = n2 + (sum1 % 2);
+            int sum2 = 0;
+            for (int i = 0; i < n2.Length; i++)
+            {
+                sum2 += n2[i];
+            }
+            n2 = n2 + (sum2 % 2);
+            float n3 = 0;
+            for (int i = 1; i < n2.Length + 1; i++)
+            {
+                if (n2[n2.Length - i] == '1')
+                {
+                    n3 += Mathf.Pow(2, i - 1);
+                }
+            }
+            result = n3;
+            n++;
+        }
     }
 
     public override void Move()
@@ -95,6 +133,12 @@ public class SawScript : Enemy_Script
         finalDirection.y = Rigidbody.linearVelocity.y;
 
         Rigidbody.linearVelocity = finalDirection;
+    }
+
+    public override void GetParried()
+    {
+        bounceCooldown = BounceCooldownTime;
+        Rigidbody.linearVelocity = Vector3.Reflect(Rigidbody.linearVelocity * 3, player.CameraObj.transform.forward);
     }
 
     private void OnDrawGizmos()
