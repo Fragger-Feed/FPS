@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
+using static Ectorris_Generator;
 
 [Serializable]
 public class Prefabs
@@ -21,6 +22,7 @@ public class BuildingNodes
     public bool altPath1;
     public bool altPath2;
     public bool isBranch;
+    public RoomType roomType;
     public List<BuildingNodes> Neighbours = new List<BuildingNodes>();
 }
 
@@ -43,6 +45,10 @@ public class Ectorris_Generator : MonoBehaviour
 
     [SerializeField] private VisualEffect snowVFX;
 
+    [SerializeField] private int lootRoomBaseChance;
+    [SerializeField] private int lootRoomChanceStep;
+    [SerializeField] private int lootRoomResetTo;
+
     private Vector3 position;
 
     private int dir = 1;
@@ -61,6 +67,11 @@ public class Ectorris_Generator : MonoBehaviour
 
     private List<BuildingNodes> nodes = new List<BuildingNodes>();
     private List<(Bounds bounds, BuildingNodes nodes)> placedBounds = new List<(Bounds, BuildingNodes)>();
+
+    public enum RoomType
+    {
+        encounter, loot
+    }
 
     private void Awake()
     {
@@ -84,6 +95,8 @@ public class Ectorris_Generator : MonoBehaviour
             else if (oneBeforeLastOne) node.Type = talkRoom;
             else if (lastOne) node.Type = bossRoom;
             else node.Type = RandomType();
+
+            node.roomType = (firstOne || oneBeforeLastOne || lastOne) ? RoomType.encounter : RollRoomType(lootRoomBaseChance);
 
             if (i > 0)
             {
@@ -109,7 +122,7 @@ public class Ectorris_Generator : MonoBehaviour
         List<BuildingNodes> tempList = new List<BuildingNodes>();
         bool succsesfullyGenerated = false;
         int loopCount = 0;
-        while (!succsesfullyGenerated && loopCount <= 100)
+        while (!succsesfullyGenerated && loopCount < 100)
         {
             BuildingNodes origin = mainPath[UnityEngine.Random.Range(10, mainPath.Count - 1)];
 
@@ -136,6 +149,8 @@ public class Ectorris_Generator : MonoBehaviour
                 node.position = position;
                 node.rotation = lastOne ? prevDir : dir;
                 node.altPath1 = true;
+
+                node.roomType = lastOne ? RoomType.encounter : RollRoomType(lootRoomBaseChance);
 
                 if (!DoesItOverlap(node.Type, position, node.rotation))
                 {
@@ -196,6 +211,8 @@ public class Ectorris_Generator : MonoBehaviour
                 node.rotation = lastOne ? prevDir : dir;
                 node.altPath2 = true;
 
+                node.roomType = lastOne ? RoomType.encounter : RollRoomType(lootRoomBaseChance);
+
                 if (!DoesItOverlap(node.Type, position, node.rotation))
                 {
                     prevDir = dir;
@@ -246,6 +263,7 @@ public class Ectorris_Generator : MonoBehaviour
         Vector3 branchPosition = origin.position;
         BuildingNodes previousNode = origin;
         bool didAtLeastOneGenerate = false;
+        int currentLootChance = lootRoomBaseChance;
 
         for (int j = 0; j < length; j++)
         {
@@ -264,13 +282,24 @@ public class Ectorris_Generator : MonoBehaviour
             node.rotation = dir;
             node.isBranch = true;
 
+            if (RollRoomType(currentLootChance) == RoomType.loot)
+            {
+                node.roomType = RoomType.loot;
+                currentLootChance = lootRoomResetTo;
+            }
+            else
+            {
+                node.roomType = RoomType.encounter;
+                currentLootChance += lootRoomChanceStep;
+            }
+
             BuildingNodes overlapingNode;
             if (!DoesItOverlap(node.Type, branchPosition, node.rotation, out overlapingNode))
             {
                 prevDir = dir;
                 dir = RandomDirection(node);
                 nodes.Add(node);
-                AddPlaced(node.Type, branchPosition, node.rotation, overlapingNode);
+                AddPlaced(node.Type, branchPosition, node.rotation, node);
                 previousNode = node;
                 didAtLeastOneGenerate = true;
             }
@@ -287,9 +316,12 @@ public class Ectorris_Generator : MonoBehaviour
 
     private void InstantiateNodes()
     {
-        foreach (BuildingNodes node in nodes)
+        for (int i = 0; i < nodes.Count; i++)
         {
-            node.instance = Instantiate(node.Type, node.position, Quaternion.LookRotation(directions[node.rotation], Vector3.up), transform);
+            nodes[i].instance = Instantiate(nodes[i].Type, nodes[i].position, Quaternion.LookRotation(directions[nodes[i].rotation], Vector3.up), transform);
+
+            BuildingContent content = nodes[i].instance.GetComponent<BuildingContent>();
+            if (content != null) content.Populate(nodes[i].roomType, GetNodeDifficulty(nodes[i], i));
         }
 
         foreach (BuildingNodes node in nodes)
@@ -310,6 +342,26 @@ public class Ectorris_Generator : MonoBehaviour
                     SpawnZipline(node.instance.transform, ziplineOut, ziplineIn);
             }
         }
+    }
+
+    private float GetNodeDifficulty(BuildingNodes node, int indexOfNode)
+    {
+        if (!node.altPath1 && !node.altPath2 && !node.isBranch)
+        {
+            return Mathf.Clamp01((float)indexOfNode / Mathf.Max(1, mainPathLength - 1));
+        }
+
+        BuildingNodes currentNode = node;
+        int ifthisnumberisneededthatmeansimstupidandifuckedup = 0;
+
+        while (currentNode != null && (currentNode.altPath1 || currentNode.altPath2 || currentNode.isBranch) && ifthisnumberisneededthatmeansimstupidandifuckedup < 200)
+        {
+            currentNode = currentNode.Neighbours.Count > 0 ? currentNode.Neighbours[0] : null;
+            ifthisnumberisneededthatmeansimstupidandifuckedup++;
+        }
+        if (currentNode == null) return 0.5f;
+        int originsIndex = nodes.IndexOf(currentNode);
+        return Mathf.Clamp01((float)originsIndex / Mathf.Max(1, mainPathLength - 1));
     }
 
     private void SpawnZipline(Transform parent, Transform PointAPos, Transform PointBPos)
@@ -365,6 +417,12 @@ public class Ectorris_Generator : MonoBehaviour
         }
 
         return (closestFrom, closestTo);
+    }
+
+    private RoomType RollRoomType(int chance)
+    {
+        int random = UnityEngine.Random.Range(0, 100);
+        return random < chance ? RoomType.loot : RoomType.encounter;
     }
 
     private Bounds GetPrefabBounds(GameObject prefab, Vector3 pos, int rotation)
