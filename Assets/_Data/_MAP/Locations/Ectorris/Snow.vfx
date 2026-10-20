@@ -16,9 +16,9 @@ MonoBehaviour:
   - title: Base Loop
     position:
       serializedVersion: 2
-      x: 852
+      x: 274
       y: -1433
-      width: 474
+      width: 1052
       height: 2860
     contents:
     - model: {fileID: 8926484042661614608}
@@ -33,13 +33,22 @@ MonoBehaviour:
     - model: {fileID: 8926484042661614681}
       id: 0
       isStickyNote: 0
+    - model: {fileID: 8926484042661614854}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661615120}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661615088}
+      id: 0
+      isStickyNote: 0
   stickyNoteInfos: []
   categories: []
   uiBounds:
     serializedVersion: 2
-    x: 228
+    x: 274
     y: -1433
-    width: 1098
+    width: 1052
     height: 2860
 --- !u!114 &114350483966674976
 MonoBehaviour:
@@ -1447,7 +1456,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614855}
       inputSlot: {fileID: 8926484042661614611}
-    position: {x: 639, y: -1280}
+    position: {x: 533, y: -1280}
     expandedSlots: []
     expanded: 1
     supecollapsed: 0
@@ -2950,7 +2959,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 228, y: -625}
+  m_UIPosition: {x: 299, y: -657}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -4026,7 +4035,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 416, y: -625}
+  m_UIPosition: {x: 477, y: -657}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:

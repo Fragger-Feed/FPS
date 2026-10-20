@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using UnityEditor.Timeline;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PlayerInventory : MonoBehaviour
@@ -18,6 +20,8 @@ public class PlayerInventory : MonoBehaviour
     public GameObject WeaponParent;
 
     public GameObject Inventory;
+    public GameObject[] InventoryWeaponSlots;
+
 
     public GameObject[] activeItemSlots;
     public GameObject[] activeItemSlotsUI;
@@ -42,16 +46,23 @@ public class PlayerInventory : MonoBehaviour
     // = Update =
     private void Update()
     {
-        UpdateActiveItemSlots();
         int scroll = (int)PlayerController.ControllingData.Player.Scroll.ReadValue<float>();
         if (scroll != 0) SelectWeaponSlot(scroll, false);
         int select = (int)PlayerController.ControllingData.Player.SelectWeapon.ReadValue<float>();
         if (select != 0) SelectWeaponSlot(select, true);
 
+
+        if (inInventory && PlayerController.ControllingData.Inventory.Select.IsPressed())
+        {
+            print("Penis");
+        }
         // Open Inverntory
-        if (PlayerController.ControllingData.Player.Inventory.WasPressedThisFrame())
+        if (PlayerController.ControllingData.Player.Inventory.WasPressedThisFrame() || PlayerController.ControllingData.Inventory.Inventory.WasPressedThisFrame())
         {
             inInventory = !inInventory;
+            UpdateInventory();
+            PlayerController.ControllingData.Player.Get().SetActive(!inInventory);
+            Cursor.lockState = (inInventory) ? CursorLockMode.None : CursorLockMode.Locked; 
             Inventory.SetActive(inInventory);
         }
     }
@@ -111,6 +122,26 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
+    void UpdateInventory()
+    {
+        for (int i = 0; i < WeaponSlots.Count; i++)
+        {
+            Image image = InventoryWeaponSlots[i].transform.GetChild(0).GetComponent<Image>();
+
+            if (InventoryData.WeaponsList[i] != null)
+            {
+                image.sprite = InventoryData.WeaponsList[i].PassiveInventoryIcon;
+                image.color = new Color(255, 255, 255, 1);
+            }
+            else
+            {
+                image.sprite = null;
+                image.color = new Color(255, 255, 255, 0);
+                
+            }
+        }
+    }
+
     private void UpdateWeapon()
     {
         Weapon_DataScript data = InventoryData.WeaponsList[InventoryData.CurrentWeaponSlot];
@@ -162,5 +193,14 @@ public class PlayerInventory : MonoBehaviour
                 pastItem[i] = null;
             }
         }
+    }
+}
+
+public static class InputExtensions
+{
+    public static void SetActive(this UnityEngine.InputSystem.InputActionMap map, bool value)
+    {
+        if (value) map.Enable();
+        else map.Disable();
     }
 }
