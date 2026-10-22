@@ -298,7 +298,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2650639721534384506}
   - {fileID: 3280860497794151459}
   - {fileID: 2196773012469648167}
   - {fileID: 6529149057041053758}
@@ -2144,11 +2143,11 @@ Transform:
   m_GameObject: {fileID: 4262294721515431075}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1920, y: -1080, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -432, y: -379.1, z: -300}
+  m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5215839962222773387}
+  m_Father: {fileID: 1894448087697336279}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8900094384268085599
 MonoBehaviour:
@@ -3228,6 +3227,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2650639721534384506}
   - {fileID: 5215839962222773387}
   - {fileID: 1156724457709076469}
   m_Father: {fileID: 1630706062182919915}
@@ -3808,8 +3808,8 @@ MonoBehaviour:
   - {fileID: 9168939768586916053}
   - {fileID: 2148898827231070390}
   WeaponParent: {fileID: 293295992679535648}
-  currentWeapon: {fileID: 0}
   Inventory: {fileID: 4118514907238156784}
+  InventoryWeaponSlots: []
   activeItemSlots:
   - {fileID: 9016570051455226592}
   - {fileID: 4093913334730746004}
@@ -3823,6 +3823,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   inInventory: 0
+  currentWeapon: {fileID: 0}
   use: {fileID: 1412884547860066204}
   iconScale: {x: 1.2, y: 1.2, z: 1.2}
 --- !u!114 &1412884547860066204

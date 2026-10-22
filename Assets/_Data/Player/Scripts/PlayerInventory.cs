@@ -1,10 +1,13 @@
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor.Timeline;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class PlayerInventory : MonoBehaviour
+public class PlayerInventory : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     // == Data ==
     [Header("Data")]
@@ -51,10 +54,12 @@ public class PlayerInventory : MonoBehaviour
         int select = (int)PlayerController.ControllingData.Player.SelectWeapon.ReadValue<float>();
         if (select != 0) SelectWeaponSlot(select, true);
 
+        
+
 
         if (inInventory && PlayerController.ControllingData.Inventory.Select.IsPressed())
         {
-            print("Penis");
+            
         }
         // Open Inverntory
         if (PlayerController.ControllingData.Player.Inventory.WasPressedThisFrame() || PlayerController.ControllingData.Inventory.Inventory.WasPressedThisFrame())
@@ -121,6 +126,20 @@ public class PlayerInventory : MonoBehaviour
             }
         }
     }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (inInventory && eventData.button == 0) 
+        {
+            GameObject clickedObject = eventData.pointerCurrentRaycast.gameObject;
+        }
+    }
+
+    public void OnPointerUp(PointerEventData eventData) 
+    { 
+        
+    }
+
 
     void UpdateInventory()
     {
