@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -7,7 +8,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class PlayerInventory : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class PlayerInventory : MonoBehaviour
 {
     // == Data ==
     [Header("Data")]
@@ -36,6 +37,9 @@ public class PlayerInventory : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     public WeaponScript currentWeapon;
     public UseScript use;
     public Vector3 iconScale;
+
+    Weapon_DataScript movingWeapon;
+    int indexOfTheMovingWeapon;
 
     // === START ===
     private void Start()
@@ -127,16 +131,34 @@ public class PlayerInventory : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         }
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnPointerDown(BaseEventData data)
     {
-        if (inInventory && eventData.button == 0) 
+        PointerEventData eventData = data as PointerEventData;
+
+        if (inInventory && eventData != null) 
         {
             GameObject clickedObject = eventData.pointerCurrentRaycast.gameObject;
+            if (InventoryWeaponSlots.Contains(clickedObject))
+            {
+                int i = Array.IndexOf(InventoryWeaponSlots, clickedObject);
+                movingWeapon = InventoryData.WeaponsList[i];
+                indexOfTheMovingWeapon = i;
+                InventoryData.WeaponsList[i] = null;
+                UpdateInventory();
+                UpdateSlots();
+                UpdateWeapon();
+            }
         }
     }
 
-    public void OnPointerUp(PointerEventData eventData) 
-    { 
+    public void HandleMouseUp()
+    {
+        PointerEventData pointerData = new PointerEventData(EventSystem.current) { position = Mouse.current.position.ReadValue() };
+
+
+        List<RaycastResult> result = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerData, result);
+
         
     }
 
