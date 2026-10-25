@@ -3834,6 +3834,81 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7789588047216063651, guid: 06e68b43eaebea741a6a6d8834412f2c, type: 3}
   m_PrefabInstance: {fileID: 1716145439908199664}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &464097141
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 464097142}
+  - component: {fileID: 464097144}
+  - component: {fileID: 464097143}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &464097142
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464097141}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2109882238}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -71, y: 137}
+  m_SizeDelta: {x: -1356.65, y: -716.65}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &464097143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464097141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &464097144
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464097141}
+  m_CullTransparentMesh: 1
 --- !u!1 &490073256 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6156706152690028705, guid: 36f7e001aa6481e4c88cb87e563e449d, type: 3}
@@ -5098,17 +5173,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6932449307411645993, guid: 91659714fd99b0d4086f9864ed0bfab0, type: 3}
   m_PrefabInstance: {fileID: 1084215881}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &567313061 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4923404175303388920, guid: 91659714fd99b0d4086f9864ed0bfab0, type: 3}
-  m_PrefabInstance: {fileID: 1084215881}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 567313053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac794c258939e7543b9ebdc6c35046df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
 --- !u!43 &645532655
 Mesh:
   m_ObjectHideFlags: 0
@@ -7425,6 +7489,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4923404175303388920, guid: 91659714fd99b0d4086f9864ed0bfab0, type: 3}
+      propertyPath: cursorImage
+      value: 
+      objectReference: {fileID: 464097143}
+    - target: {fileID: 4923404175303388920, guid: 91659714fd99b0d4086f9864ed0bfab0, type: 3}
+      propertyPath: cursorImageObj
+      value: 
+      objectReference: {fileID: 464097142}
+    - target: {fileID: 4923404175303388920, guid: 91659714fd99b0d4086f9864ed0bfab0, type: 3}
       propertyPath: InventoryWeaponSlots.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -7463,6 +7535,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8437399853144290024, guid: 91659714fd99b0d4086f9864ed0bfab0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2132715120}
+    - targetCorrespondingSourceObject: {fileID: 8437399853144290024, guid: 91659714fd99b0d4086f9864ed0bfab0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 464097142}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91659714fd99b0d4086f9864ed0bfab0, type: 3}
 --- !u!1 &1104375982
@@ -8080,7 +8155,6 @@ GameObject:
   - component: {fileID: 1183454895}
   - component: {fileID: 1183454894}
   - component: {fileID: 1183454896}
-  - component: {fileID: 1183454897}
   m_Layer: 5
   m_Name: Panel (1)
   m_TagString: Untagged
@@ -8190,51 +8264,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1183454897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1183454892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
-  m_Delegates:
-  - eventID: 2
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 567313061}
-          m_TargetAssemblyTypeName: PlayerInventory, Assembly-CSharp
-          m_MethodName: OnPointerDown
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 3
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 567313061}
-          m_TargetAssemblyTypeName: PlayerInventory, Assembly-CSharp
-          m_MethodName: OnPointerUp
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!43 &1193817674
 Mesh:
   m_ObjectHideFlags: 0

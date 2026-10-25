@@ -25,7 +25,8 @@ public class PlayerInventory : MonoBehaviour
 
     public GameObject Inventory;
     public GameObject[] InventoryWeaponSlots;
-
+    public RectTransform cursorImageObj;
+    public Image cursorImage;
 
     public GameObject[] activeItemSlots;
     public GameObject[] activeItemSlotsUI;
@@ -38,8 +39,8 @@ public class PlayerInventory : MonoBehaviour
     public UseScript use;
     public Vector3 iconScale;
 
-    Weapon_DataScript movingWeapon;
-    int indexOfTheMovingWeapon;
+    private Weapon_DataScript movingWeapon;
+    private int indexOfTheMovingWeapon;
 
     // === START ===
     private void Start()
@@ -58,12 +59,21 @@ public class PlayerInventory : MonoBehaviour
         int select = (int)PlayerController.ControllingData.Player.SelectWeapon.ReadValue<float>();
         if (select != 0) SelectWeaponSlot(select, true);
 
-        
-
-
+        if (inInventory && PlayerController.ControllingData.Inventory.Select.WasPressedThisFrame())
+        {
+            HandleMouseDown();
+        }
         if (inInventory && PlayerController.ControllingData.Inventory.Select.IsPressed())
         {
-            
+            if (movingWeapon != null)
+            {
+                Vector2 pos = PlayerController.ControllingData.Inventory.MousePosition.ReadValue<Vector2>();
+                cursorImageObj.position = new Vector3(pos.x, pos.y);
+            }
+        }
+        if (inInventory && PlayerController.ControllingData.Inventory.Select.WasReleasedThisFrame())
+        {
+            HandleMouseUp();
         }
         // Open Inverntory
         if (PlayerController.ControllingData.Player.Inventory.WasPressedThisFrame() || PlayerController.ControllingData.Inventory.Inventory.WasPressedThisFrame())
@@ -71,7 +81,7 @@ public class PlayerInventory : MonoBehaviour
             inInventory = !inInventory;
             UpdateInventory();
             PlayerController.ControllingData.Player.Get().SetActive(!inInventory);
-            Cursor.lockState = (inInventory) ? CursorLockMode.None : CursorLockMode.Locked; 
+            Cursor.lockState = (inInventory) ? CursorLockMode.None : CursorLockMode.Locked;
             Inventory.SetActive(inInventory);
         }
     }
@@ -131,22 +141,26 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    public void OnPointerDown(BaseEventData data)
+    public void HandleMouseDown()
     {
-        PointerEventData eventData = data as PointerEventData;
+        PointerEventData pointerData = new PointerEventData(EventSystem.current) { position = Mouse.current.position.ReadValue() };
 
-        if (inInventory && eventData != null) 
+        List<RaycastResult> result = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerData, result);
+
+        if (inInventory && result.Count > 0)
         {
-            GameObject clickedObject = eventData.pointerCurrentRaycast.gameObject;
-            if (InventoryWeaponSlots.Contains(clickedObject))
+            if (InventoryWeaponSlots.Contains(result[0].gameObject))
             {
-                int i = Array.IndexOf(InventoryWeaponSlots, clickedObject);
+                int i = Array.IndexOf(InventoryWeaponSlots, result[0].gameObject);
+                if (InventoryData.WeaponsList[i] == null) return;
                 movingWeapon = InventoryData.WeaponsList[i];
                 indexOfTheMovingWeapon = i;
                 InventoryData.WeaponsList[i] = null;
+                cursorImage.sprite = movingWeapon.PassiveInventoryIcon;
+                cursorImage.color = new Color(255, 255, 255, 1);
                 UpdateInventory();
                 UpdateSlots();
-                UpdateWeapon();
             }
         }
     }
@@ -155,15 +169,40 @@ public class PlayerInventory : MonoBehaviour
     {
         PointerEventData pointerData = new PointerEventData(EventSystem.current) { position = Mouse.current.position.ReadValue() };
 
-
         List<RaycastResult> result = new List<RaycastResult>();
         EventSystem.current.RaycastAll(pointerData, result);
 
-        
+        if (result[0].gameObject == null) return;
+
+        if (movingWeapon == null) return;
+
+        if (InventoryWeaponSlots.Contains(result[0].gameObject))
+        {
+            int i = Array.IndexOf(InventoryWeaponSlots, result[0].gameObject);
+
+            if (InventoryData.WeaponsList[i] != null)
+            {
+                InventoryData.WeaponsList[indexOfTheMovingWeapon] = InventoryData.WeaponsList[i];
+            }
+
+            InventoryData.WeaponsList[i] = movingWeapon;
+
+            if (i == InventoryData.CurrentWeaponSlot) UpdateWeapon();
+        }
+        else
+        {
+            InventoryData.WeaponsList[indexOfTheMovingWeapon] = movingWeapon;
+        }
+        UpdateInventory();
+        UpdateSlots();
+        if (indexOfTheMovingWeapon == InventoryData.CurrentWeaponSlot) UpdateWeapon();
+        cursorImage.color = new Color(255, 255, 255, 0);
+        cursorImage.sprite = null;
+        movingWeapon = null;
+        indexOfTheMovingWeapon = -1;
     }
 
-
-    void UpdateInventory()
+    private void UpdateInventory()
     {
         for (int i = 0; i < WeaponSlots.Count; i++)
         {
@@ -178,7 +217,6 @@ public class PlayerInventory : MonoBehaviour
             {
                 image.sprite = null;
                 image.color = new Color(255, 255, 255, 0);
-                
             }
         }
     }
