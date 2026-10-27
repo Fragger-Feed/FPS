@@ -33,9 +33,7 @@ public class Shooter_CopScript : Enemy_Script
         if (distance < tooCloseRange)
         {
             Vector3 awayDirection = (transform.position - player.transform.position).normalized;
-
             Vector3 finalDirection = awayDirection * 2 + strafeDirection;
-
             nav.SetDestination(transform.position + finalDirection);
         }
         else if (Physics.Linecast(transform.position, player.transform.position, ~LayerMask.GetMask("Player")))
@@ -54,8 +52,16 @@ public class Shooter_CopScript : Enemy_Script
         base.Attack();
 
         float distance = Vector3.Distance(player.transform.position, transform.position);
-        if (distance < tooCloseRange || distance > data.attackRange)
+
+        bool lineOfSightBroken = Physics.Linecast(transform.position, player.transform.position, ~LayerMask.GetMask("Player"));
+
+        if (distance < tooCloseRange || distance > data.attackRange || lineOfSightBroken)
+        {
             currentState = EnemyState.Move;
+            return;
+        }
+
+        nav.SetDestination(transform.position);
 
         FacePlayer();
 

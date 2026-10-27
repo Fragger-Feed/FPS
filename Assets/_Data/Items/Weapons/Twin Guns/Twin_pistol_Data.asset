@@ -18,7 +18,7 @@ MonoBehaviour:
   weaponPrefab: {fileID: 7987897541145450801, guid: 40f241b66aaaa6c4dba2f37c27668057, type: 3}
   rangedDamage: 5
   range: 69
-  meleeDamage: 1
+  meleeDamage: 2
   hitTime: 0.1
   hitCooldown: 0
   meleeHitPoint: {x: 0, y: 0, z: 1}

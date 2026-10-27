@@ -16,6 +16,7 @@ public abstract class WeaponScript : MonoBehaviour
 
     public float hittingTimer;
     public float lastHitTime;
+    public float leftClickBuffer;
 
     protected int mask;
 
@@ -34,9 +35,13 @@ public abstract class WeaponScript : MonoBehaviour
         {
             HitCheck();
         }
+        leftClickBuffer -= Time.deltaTime;
     }
 
-    public abstract void PrimaryFire();
+    public virtual void PrimaryFire()
+    {
+        leftClickBuffer = 0.1f;
+    }
 
     public abstract void SecondaryFire();
 

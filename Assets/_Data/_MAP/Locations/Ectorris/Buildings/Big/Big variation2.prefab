@@ -119,7 +119,7 @@ MonoBehaviour:
         prefab: {fileID: 2157130823046669306, guid: 8aa5d0aecf5b9a1418f986b04ee1214f, type: 3}
         weight: 80
         minSpawnDificulty: 0.036
-      - name: Dummy
+      - name: Saw
         prefab: {fileID: 2226637712150760426, guid: ec63386cff85f2a46b12fa7079e13cf7, type: 3}
         weight: 10
         minSpawnDificulty: 0.563
@@ -130,7 +130,7 @@ MonoBehaviour:
       spawnPointPrefix: Loot_SP
       spawnPool:
       - name: Test whatever
-        prefab: {fileID: 3534368030468404734}
+        prefab: {fileID: 2828388052442973476, guid: 7c310c5be230ea64689d8dc6495506c8, type: 3}
         weight: 10
         minSpawnDificulty: 0
       spawnAmountRange: {x: 1, y: 1}

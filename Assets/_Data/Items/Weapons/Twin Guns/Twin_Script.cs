@@ -11,7 +11,9 @@ public class Twin_Script : WeaponScript
 
     public override void PrimaryFire()
     {
-        if (canShoot)
+        base.PrimaryFire();
+
+        if (canShoot || leftClickBuffer > 0)
         {
             RaycastHit hit;
             Vector3 targetPoint;

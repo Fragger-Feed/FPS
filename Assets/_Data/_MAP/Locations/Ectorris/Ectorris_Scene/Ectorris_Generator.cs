@@ -39,7 +39,6 @@ public class Ectorris_Generator : MonoBehaviour
     [SerializeField] private List<Prefabs> buildingType = new List<Prefabs>();
 
     [SerializeField] private GameObject ziplinePrefab;
-    [SerializeField] private GameObject branchTEST;
     [SerializeField] private GameObject bossRoom;
     [SerializeField] private GameObject talkRoom;
 

@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Data/_MAP/Locations/Ectorris/Ectorris_Scene.unity
-    guid: 128264e553cc2bd44a855fdd00a32bcf
+    path: Assets/2_Game/_Hub/Hub_Scene.unity
+    guid: daaa9a4a5a8997d4f9160c328fdf3fc5
   - enabled: 1
     path: Assets/0_LoadingScreen/LoadingScreen_Scene.unity
     guid: ff38d7e6fec87104388c746b301447b9
@@ -15,8 +15,8 @@ EditorBuildSettings:
     path: Assets/1_MainMenu/MainMenu_Scene.unity
     guid: 449b32b3954d4f54698e293fa28be280
   - enabled: 1
-    path: Assets/2_Game/_Hub/Hub_Scene.unity
-    guid: daaa9a4a5a8997d4f9160c328fdf3fc5
+    path: Assets/_Data/_MAP/Locations/Ectorris/Ectorris_Scene.unity
+    guid: 128264e553cc2bd44a855fdd00a32bcf
   - enabled: 1
     path: Assets/_Additional/TestScene.unity
     guid: 02a7f536e8815e04a9c64e296c8fc9f6

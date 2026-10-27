@@ -78,7 +78,7 @@ public abstract class Enemy_Script : MonoBehaviour
 
     public virtual void Idle()
     {
-        if (player.ControllingData.Player.Interact.WasPressedThisFrame())
+        if (Vector3.Distance(player.transform.position, transform.position) < 50)
         {
             currentState = EnemyState.Move;
         }

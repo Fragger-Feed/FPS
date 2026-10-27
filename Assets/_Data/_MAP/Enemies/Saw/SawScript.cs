@@ -114,7 +114,6 @@ public class SawScript : Enemy_Script
                 if (Physics.Raycast(transform.position, dir, out RaycastHit hit, distance/*, ~excludeLayer*/))
                 {
                     Debug.DrawRay(transform.position, dir, Color.red);
-                    print(Rigidbody.linearVelocity);
                     bounceCooldown = BounceCooldownTime;
                     Rigidbody.linearVelocity = Vector3.Reflect(Rigidbody.linearVelocity, hit.normal);
                     bounced = true;
@@ -138,7 +137,8 @@ public class SawScript : Enemy_Script
     public override void GetParried()
     {
         bounceCooldown = BounceCooldownTime;
-        Rigidbody.linearVelocity = Vector3.Reflect(Rigidbody.linearVelocity * 3, player.CameraObj.transform.forward);
+        if (state.lastHitBy.data.weaponType == Weapon_DataScript.WeaponType.Melee) Rigidbody.linearVelocity = Vector3.Reflect(Rigidbody.linearVelocity * 10, player.CameraObj.transform.forward);
+        else Rigidbody.linearVelocity = Vector3.Reflect(Rigidbody.linearVelocity * 4, player.CameraObj.transform.forward);
     }
 
     private void OnDrawGizmos()

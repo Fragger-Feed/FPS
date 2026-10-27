@@ -17,7 +17,7 @@ MonoBehaviour:
   Acceleration: 50
   attackDamage: 12
   attackCooldown: 5
-  attackRange: 17.1
+  attackRange: 89.2
   attackRangeY: 0
   stunTime: 0
   enemiePrefab: {fileID: 8497088873873992699, guid: 06e68b43eaebea741a6a6d8834412f2c, type: 3}

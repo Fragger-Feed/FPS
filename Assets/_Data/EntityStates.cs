@@ -5,7 +5,7 @@ using static Enemy_Script;
 public class EntityStates : MonoBehaviour
 {
     private int maxHealth;
-    [SerializeField] private int currentHealth;
+    [SerializeField] private float currentHealth;
 
     public bool IsDead => currentHealth <= 0;
 
@@ -26,9 +26,11 @@ public class EntityStates : MonoBehaviour
     public void Heal(int heal)
     { currentHealth = Mathf.Min(currentHealth + heal, maxHealth); }
 
-    public void Damage(bool melee, int damage, WeaponScript weapon)
+    public void Damage(bool melee, float damage, WeaponScript weapon)
     {
         print($"took {damage} damage");
+        if (weapon != null)
+            lastHitBy = weapon;
         if (enemyScript != null && melee && enemyScript.canBeParried)
         {
             enemyScript.GetParried();
@@ -44,8 +46,6 @@ public class EntityStates : MonoBehaviour
             print("BUG");
         }
         currentHealth -= damage;
-        if (weapon != null)
-            lastHitBy = weapon;
         if (currentHealth <= 0)
         {
             enemyScript.currentState = EnemyState.Dead;
