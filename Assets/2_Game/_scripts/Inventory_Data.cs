@@ -8,4 +8,6 @@ public class Inventory_Data : ScriptableObject
     public List<Weapon_DataScript> WeaponsList = new List<Weapon_DataScript>();
 
     public List<ActiveItem_DataScript> ActiveItemsList = new List<ActiveItem_DataScript>();
+
+    public List<PassiveItem_DataScript> PassiveItemList = new List<PassiveItem_DataScript>();
 }

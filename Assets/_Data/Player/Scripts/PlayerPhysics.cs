@@ -47,7 +47,7 @@ public class PlayerPhysics : MonoBehaviour
     // = Fixed Update =
     public void FIXED_UPDATE_Physics()
     {
-        float gravity = -(2 * PlayerC.playerMovement.jumpHeight) / (PlayerC.playerMovement.timeToApex * PlayerC.playerMovement.timeToApex);
+        float gravity = -(2 * PlayerC.data.jumpHeight) / (PlayerC.data.timeToApex * PlayerC.data.timeToApex);
         if (PlayerC.RigidBodyC.linearVelocity.y > 0 && !PlayerC.ControllingData.Player.Jump.IsPressed() && coyoteTime < 0)
             Gravity(gravity * 2);
         else if (!grounded)

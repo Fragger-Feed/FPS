@@ -136,7 +136,7 @@ public class Zipline : InteractableOject
         player.playerCollider.enabled = true;
         player.playerMovement.disableMovement = false;
         isRiding = false;
-        float jumpHeight = (2 * player.playerMovement.jumpHeight / player.playerMovement.timeToApex);
+        float jumpHeight = (2 * player.data.jumpHeight / player.data.timeToApex);
         if (player.playerMovement.isJumping)
             player.RigidBodyC.linearVelocity = new Vector3(ziplineVelocity.x, Mathf.Clamp(ziplineVelocity.y < 0 ? jumpHeight : jumpHeight + ziplineVelocity.y, 0, jumpHeight + jumpHeightLimit), ziplineVelocity.z);
         else if (manual)

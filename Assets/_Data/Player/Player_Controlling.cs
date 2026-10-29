@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     [Header("Data")]
     public Controlling_Data ControllingData;
 
+    public Player_Data data;
+
     // == Player Scripts ==
     [Header("Player Scripts")]
     public PlayerMovement playerMovement;
