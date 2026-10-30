@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51795ed49b8d8304d8b43c2c3cebe0ef, type: 3}
+  m_Name: Test
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveItem_DataScript
+  sprite: {fileID: 21300000, guid: b0fa70abd2a79904cb00b175dfd8ec7e, type: 3}
+  script: {fileID: 6951885630755744155, guid: 6accc2c55c5dc5248b6bdabc1dfe9cae, type: 3}

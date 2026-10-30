@@ -27,9 +27,14 @@ public class PlayerInventory : MonoBehaviour
     public RectTransform cursorImageObj;
     public Image cursorImage;
 
+    //
     public GameObject[] activeItemSlots;
+
     public GameObject[] activeItemSlotsUI;
     public GameObject[] pastItem;
+
+    //
+    public GameObject PassiveItemParent;
 
     //
     public bool inInventory = false;
@@ -47,6 +52,7 @@ public class PlayerInventory : MonoBehaviour
         UpdateSlots();
         UpdateWeapon();
         UpdateActiveItemSlots();
+        EnableAllPassives();
     }
 
     // === UPDATE ===
@@ -82,6 +88,16 @@ public class PlayerInventory : MonoBehaviour
             PlayerController.ControllingData.Player.Get().SetActive(!inInventory);
             Cursor.lockState = (inInventory) ? CursorLockMode.None : CursorLockMode.Locked;
             Inventory.SetActive(inInventory);
+        }
+    }
+
+    private void EnableAllPassives()
+    {
+        for (int i = 0; i < InventoryData.PassiveItemList.Count; i++)
+        {
+            GameObject item = Instantiate(InventoryData.PassiveItemList[i].script, PassiveItemParent.transform);
+
+            item.GetComponent<PassiveItem_Script>().OnEquip();
         }
     }
 
