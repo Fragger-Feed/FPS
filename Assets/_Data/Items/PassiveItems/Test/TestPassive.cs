@@ -1,16 +1,11 @@
 using UnityEngine;
 
-public class TestPassive : MonoBehaviour
+public class TestPassive : PassiveItem_Script
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private float speedAddition;
 
-    // Update is called once per frame
-    void Update()
+    public override void OnEquip(PlayerController player)
     {
-        
+        player.playerMovement.speed += speedAddition;
     }
 }

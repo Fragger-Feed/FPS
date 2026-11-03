@@ -22,8 +22,8 @@ public class PlayerInventory : MonoBehaviour
 
     public GameObject WeaponParent;
 
-    public GameObject Inventory;
-    public GameObject[] InventoryWeaponSlots;
+    public GameObject inventory;
+    public GameObject[] inventoryWeaponSlots;
     public RectTransform cursorImageObj;
     public Image cursorImage;
 
@@ -31,6 +31,7 @@ public class PlayerInventory : MonoBehaviour
     public GameObject[] activeItemSlots;
 
     public GameObject[] activeItemSlotsUI;
+    public GameObject[] inventoryActiveItemSlotsUI;
     public GameObject[] pastItem;
 
     //
@@ -43,8 +44,13 @@ public class PlayerInventory : MonoBehaviour
     public UseScript use;
     public Vector3 iconScale;
 
+    // Item dragging
     private Weapon_DataScript movingWeapon;
-    private int indexOfTheMovingWeapon;
+
+    private ActiveItem_DataScript movingItem;
+
+    private int indexOfTheMovingItem;
+    private bool isWeapon;
 
     // === START ===
     private void Start()
@@ -52,7 +58,6 @@ public class PlayerInventory : MonoBehaviour
         UpdateSlots();
         UpdateWeapon();
         UpdateActiveItemSlots();
-        EnableAllPassives();
     }
 
     // === UPDATE ===
@@ -70,7 +75,7 @@ public class PlayerInventory : MonoBehaviour
         }
         if (inInventory && PlayerController.ControllingData.Inventory.Select.IsPressed())
         {
-            if (movingWeapon != null)
+            if (movingWeapon != null || movingItem != null)
             {
                 Vector2 pos = PlayerController.ControllingData.Inventory.MousePosition.ReadValue<Vector2>();
                 cursorImageObj.position = new Vector3(pos.x, pos.y);
@@ -87,17 +92,17 @@ public class PlayerInventory : MonoBehaviour
             UpdateInventory();
             PlayerController.ControllingData.Player.Get().SetActive(!inInventory);
             Cursor.lockState = (inInventory) ? CursorLockMode.None : CursorLockMode.Locked;
-            Inventory.SetActive(inInventory);
+            inventory.SetActive(inInventory);
         }
     }
 
-    private void EnableAllPassives()
+    public void EnableAllPassives()
     {
         for (int i = 0; i < InventoryData.PassiveItemList.Count; i++)
         {
             GameObject item = Instantiate(InventoryData.PassiveItemList[i].script, PassiveItemParent.transform);
 
-            item.GetComponent<PassiveItem_Script>().OnEquip();
+            item.GetComponent<PassiveItem_Script>().OnEquip(PlayerController);
         }
     }
 
@@ -165,14 +170,25 @@ public class PlayerInventory : MonoBehaviour
 
         if (inInventory && result.Count > 0)
         {
-            if (InventoryWeaponSlots.Contains(result[0].gameObject))
+            GameObject slot = result[0].gameObject;
+            isWeapon = inventoryWeaponSlots.Contains(slot);
+            bool contains = isWeapon || inventoryActiveItemSlotsUI.Contains(slot);
+
+            if (contains)
             {
-                int i = Array.IndexOf(InventoryWeaponSlots, result[0].gameObject);
-                if (InventoryData.WeaponsList[i] == null) return;
-                movingWeapon = InventoryData.WeaponsList[i];
-                indexOfTheMovingWeapon = i;
-                InventoryData.WeaponsList[i] = null;
-                cursorImage.sprite = movingWeapon.PassiveInventoryIcon;
+                int i = isWeapon ? Array.IndexOf(inventoryWeaponSlots, slot) : Array.IndexOf(inventoryActiveItemSlotsUI, slot);
+                if (isWeapon && InventoryData.WeaponsList[i] == null) return;
+                else if (!isWeapon && InventoryData.ActiveItemsList[i] == null) return;
+                if (isWeapon)
+                    movingWeapon = InventoryData.WeaponsList[i];
+                else
+                    movingItem = InventoryData.ActiveItemsList[i];
+                indexOfTheMovingItem = i;
+                if (isWeapon)
+                    InventoryData.WeaponsList[i] = null;
+                else
+                    InventoryData.ActiveItemsList[i] = null;
+                cursorImage.sprite = isWeapon ? movingWeapon.PassiveInventoryIcon : movingItem.sprite;
                 cursorImage.color = new Color(255, 255, 255, 1);
                 UpdateInventory();
                 UpdateSlots();
@@ -186,46 +202,73 @@ public class PlayerInventory : MonoBehaviour
 
         List<RaycastResult> result = new List<RaycastResult>();
         EventSystem.current.RaycastAll(pointerData, result);
+        GameObject slot = result[0].gameObject;
 
-        if (result[0].gameObject == null) return;
+        if (slot == null) return;
 
-        if (movingWeapon == null) return;
+        if (movingWeapon == null && movingItem == null) return;
 
-        if (InventoryWeaponSlots.Contains(result[0].gameObject))
+        bool contains = isWeapon ? inventoryWeaponSlots.Contains(slot) : inventoryActiveItemSlotsUI.Contains(slot);
+
+        if (contains)
         {
-            int i = Array.IndexOf(InventoryWeaponSlots, result[0].gameObject);
+            int i = isWeapon ? Array.IndexOf(inventoryWeaponSlots, slot) : Array.IndexOf(inventoryActiveItemSlotsUI, slot);
 
-            if (InventoryData.WeaponsList[i] != null)
-            {
-                InventoryData.WeaponsList[indexOfTheMovingWeapon] = InventoryData.WeaponsList[i];
-            }
+            if (isWeapon && InventoryData.WeaponsList[i] != null)
+                InventoryData.WeaponsList[indexOfTheMovingItem] = InventoryData.WeaponsList[i];
+            else if (!isWeapon && InventoryData.ActiveItemsList[i] != null)
+                InventoryData.ActiveItemsList[indexOfTheMovingItem] = InventoryData.ActiveItemsList[i];
 
-            InventoryData.WeaponsList[i] = movingWeapon;
+            if (isWeapon)
+                InventoryData.WeaponsList[i] = movingWeapon;
+            else
+                InventoryData.ActiveItemsList[i] = movingItem;
 
-            if (i == InventoryData.CurrentWeaponSlot) UpdateWeapon();
+            if (isWeapon && i == InventoryData.CurrentWeaponSlot) UpdateWeapon();
         }
         else
         {
-            InventoryData.WeaponsList[indexOfTheMovingWeapon] = movingWeapon;
+            if (isWeapon)
+                InventoryData.WeaponsList[indexOfTheMovingItem] = movingWeapon;
+            else
+                InventoryData.ActiveItemsList[indexOfTheMovingItem] = movingItem;
         }
         UpdateInventory();
         UpdateSlots();
-        if (indexOfTheMovingWeapon == InventoryData.CurrentWeaponSlot) UpdateWeapon();
+        UpdateActiveItemSlots();
+        if (isWeapon && indexOfTheMovingItem == InventoryData.CurrentWeaponSlot) UpdateWeapon();
         cursorImage.color = new Color(255, 255, 255, 0);
         cursorImage.sprite = null;
         movingWeapon = null;
-        indexOfTheMovingWeapon = -1;
+        movingItem = null;
+        isWeapon = false;
+        indexOfTheMovingItem = -1;
     }
 
     private void UpdateInventory()
     {
         for (int i = 0; i < WeaponSlots.Count; i++)
         {
-            Image image = InventoryWeaponSlots[i].transform.GetChild(0).GetComponent<Image>();
+            Image image = inventoryWeaponSlots[i].transform.GetChild(0).GetComponent<Image>();
 
             if (InventoryData.WeaponsList[i] != null)
             {
                 image.sprite = InventoryData.WeaponsList[i].PassiveInventoryIcon;
+                image.color = new Color(255, 255, 255, 1);
+            }
+            else
+            {
+                image.sprite = null;
+                image.color = new Color(255, 255, 255, 0);
+            }
+        }
+        for (int i = 0; i < activeItemSlots.Length; i++)
+        {
+            Image image = inventoryActiveItemSlotsUI[i].transform.GetChild(0).GetComponent<Image>();
+
+            if (InventoryData.ActiveItemsList[i] != null)
+            {
+                image.sprite = InventoryData.ActiveItemsList[i].sprite;
                 image.color = new Color(255, 255, 255, 1);
             }
             else
@@ -250,6 +293,8 @@ public class PlayerInventory : MonoBehaviour
         use.currentWeapon = currentWeapon;
     }
 
+    // To my future self that WILL forget why there's past item here:
+    // It's so if that slot wasn't changed do nothing idk if it's the best way to handle this but at least it works
     private void UpdateActiveItemSlots()
     {
         for (int i = 0; i < activeItemSlots.Length; i++)

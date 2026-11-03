@@ -44,3 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9922568c3008b43af90dd21a980d09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestPassive
+  speedAddition: 1000
