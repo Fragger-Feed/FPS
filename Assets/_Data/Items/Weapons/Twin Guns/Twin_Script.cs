@@ -6,14 +6,14 @@ public class Twin_Script : WeaponScript
     [SerializeField] private LineRenderer bulletTrailRight;
     [SerializeField] private Transform shootPointL;
     [SerializeField] private Transform shootPointR;
-    private bool canShoot = true;
+    public bool canShoot = true;
     private bool isLeft;
 
     public override void PrimaryFire()
     {
         base.PrimaryFire();
 
-        if (canShoot || leftClickBuffer > 0)
+        if (canShoot && leftClickBuffer > 0)
         {
             RaycastHit hit;
             Vector3 targetPoint;

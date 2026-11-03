@@ -40,7 +40,7 @@ public abstract class WeaponScript : MonoBehaviour
 
     public virtual void PrimaryFire()
     {
-        leftClickBuffer = 0.1f;
+        leftClickBuffer = 0.2f;
     }
 
     public abstract void SecondaryFire();
