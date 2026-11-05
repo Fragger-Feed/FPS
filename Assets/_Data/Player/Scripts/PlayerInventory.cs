@@ -35,7 +35,10 @@ public class PlayerInventory : MonoBehaviour
     public GameObject[] pastItem;
 
     //
-    public GameObject PassiveItemParent;
+    public GameObject passiveItemParent;
+
+    public GameObject passiveItemUIParent;
+    public GameObject passiveItemUIPrefab;
 
     //
     public bool inInventory = false;
@@ -100,7 +103,7 @@ public class PlayerInventory : MonoBehaviour
     {
         for (int i = 0; i < InventoryData.PassiveItemList.Count; i++)
         {
-            GameObject item = Instantiate(InventoryData.PassiveItemList[i].script, PassiveItemParent.transform);
+            GameObject item = Instantiate(InventoryData.PassiveItemList[i].script, passiveItemParent.transform);
 
             item.GetComponent<PassiveItem_Script>().OnEquip(PlayerController);
         }
@@ -247,6 +250,7 @@ public class PlayerInventory : MonoBehaviour
 
     private void UpdateInventory()
     {
+        // Weapon slots
         for (int i = 0; i < WeaponSlots.Count; i++)
         {
             Image image = inventoryWeaponSlots[i].transform.GetChild(0).GetComponent<Image>();
@@ -262,6 +266,7 @@ public class PlayerInventory : MonoBehaviour
                 image.color = new Color(255, 255, 255, 0);
             }
         }
+        // Active slots
         for (int i = 0; i < activeItemSlots.Length; i++)
         {
             Image image = inventoryActiveItemSlotsUI[i].transform.GetChild(0).GetComponent<Image>();
@@ -276,6 +281,17 @@ public class PlayerInventory : MonoBehaviour
                 image.sprite = null;
                 image.color = new Color(255, 255, 255, 0);
             }
+        }
+        // Passive slots
+        foreach (Transform child in passiveItemUIParent.transform)
+            Destroy(child.gameObject);
+
+        for (int i = 0; i < InventoryData.PassiveItemList.Count; i++)
+        {
+            GameObject slot = Instantiate(passiveItemUIPrefab, passiveItemUIParent.transform);
+            Image image = slot.transform.GetChild(0).GetChild(0).GetComponent<Image>();
+
+            image.sprite = InventoryData.PassiveItemList[i].sprite;
         }
     }
 
