@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Weapon_Data", menuName = "Prefabs/Weapons/Weapon_Data")]
-public class Weapon_DataScript : ScriptableObject
+public class Weapon_DataScript : Item_DataScript
 {
     public enum WeaponType
     {

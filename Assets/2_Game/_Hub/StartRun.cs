@@ -7,11 +7,11 @@ public class StartRun : InteractableOject
     private void Start()
     {
         Inventory_Data inventoryData = Object.FindFirstObjectByType<PlayerController>().playerInventory.InventoryData;
-        for (int i = 0; i < inventoryData.WeaponsList.Count; i++)
+        for (int i = 0; i < inventoryData.WeaponsList.Length; i++)
         {
             inventoryData.WeaponsList[i] = null;
         }
-        for (int i = 0; i < inventoryData.ActiveItemsList.Count; i++)
+        for (int i = 0; i < inventoryData.ActiveItemsList.Length; i++)
         {
             inventoryData.ActiveItemsList[i] = null;
         }
