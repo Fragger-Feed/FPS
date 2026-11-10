@@ -16,7 +16,10 @@ public class LootRoomScript : InteractableOject
 
     public override void Interact(PlayerController player)
     {
-        Item_DataScript item = RollItem();
+        for (int i = 0; i < 3; i++)
+        {
+            Item_DataScript item = RollItem();
+        }
 
         /*        if (item is Weapon_DataScript weapon)
                 {

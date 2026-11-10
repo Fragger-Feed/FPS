@@ -101,7 +101,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void EnableAllPassives()
     {
-        for (int i = 0; i < InventoryData.PassiveItemList.Length; i++)
+        for (int i = 0; i < InventoryData.PassiveItemList.Count; i++)
         {
             GameObject item = Instantiate(InventoryData.PassiveItemList[i].script, passiveItemParent.transform);
 
@@ -286,7 +286,7 @@ public class PlayerInventory : MonoBehaviour
         foreach (Transform child in passiveItemUIParent.transform)
             Destroy(child.gameObject);
 
-        for (int i = 0; i < InventoryData.PassiveItemList.Length; i++)
+        for (int i = 0; i < InventoryData.PassiveItemList.Count; i++)
         {
             GameObject slot = Instantiate(passiveItemUIPrefab, passiveItemUIParent.transform);
             Image image = slot.transform.GetChild(0).GetChild(0).GetComponent<Image>();
