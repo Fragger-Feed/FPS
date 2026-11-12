@@ -2,5 +2,8 @@ using UnityEngine;
 
 public abstract class Item_DataScript : ScriptableObject
 {
-    [SerializeField] private float rarity;
+    public string itemName;
+    public string description;
+    public float rarity;
+    public Sprite icon;
 }

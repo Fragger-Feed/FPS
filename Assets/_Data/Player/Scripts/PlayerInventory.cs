@@ -128,7 +128,7 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    private void UpdateSlots()
+    public void UpdateSlots()
     {
         for (int i = 0; i < WeaponSlots.Count; i++)
         {
@@ -138,7 +138,7 @@ public class PlayerInventory : MonoBehaviour
                 WeaponSlots[i].transform.localScale = iconScale;
                 if (InventoryData.WeaponsList[i] != null)
                 {
-                    image.sprite = InventoryData.WeaponsList[i].ActiveInventoryIcon;
+                    image.sprite = InventoryData.WeaponsList[i].activeIcon;
                     image.color = new Color(255, 255, 255, 1);
                 }
                 else
@@ -152,7 +152,7 @@ public class PlayerInventory : MonoBehaviour
                 WeaponSlots[i].transform.localScale = Vector3.one;
                 if (InventoryData.WeaponsList[i] != null)
                 {
-                    image.sprite = InventoryData.WeaponsList[i].PassiveInventoryIcon;
+                    image.sprite = InventoryData.WeaponsList[i].icon;
                     image.color = new Color(255, 255, 255, 1);
                 }
                 else
@@ -191,7 +191,7 @@ public class PlayerInventory : MonoBehaviour
                     InventoryData.WeaponsList[i] = null;
                 else
                     InventoryData.ActiveItemsList[i] = null;
-                cursorImage.sprite = isWeapon ? movingWeapon.PassiveInventoryIcon : movingItem.sprite;
+                cursorImage.sprite = isWeapon ? movingWeapon.icon : movingItem.icon;
                 cursorImage.color = new Color(255, 255, 255, 1);
                 UpdateInventory();
                 UpdateSlots();
@@ -257,7 +257,7 @@ public class PlayerInventory : MonoBehaviour
 
             if (InventoryData.WeaponsList[i] != null)
             {
-                image.sprite = InventoryData.WeaponsList[i].PassiveInventoryIcon;
+                image.sprite = InventoryData.WeaponsList[i].icon;
                 image.color = new Color(255, 255, 255, 1);
             }
             else
@@ -273,7 +273,7 @@ public class PlayerInventory : MonoBehaviour
 
             if (InventoryData.ActiveItemsList[i] != null)
             {
-                image.sprite = InventoryData.ActiveItemsList[i].sprite;
+                image.sprite = InventoryData.ActiveItemsList[i].icon;
                 image.color = new Color(255, 255, 255, 1);
             }
             else
@@ -291,11 +291,11 @@ public class PlayerInventory : MonoBehaviour
             GameObject slot = Instantiate(passiveItemUIPrefab, passiveItemUIParent.transform);
             Image image = slot.transform.GetChild(0).GetChild(0).GetComponent<Image>();
 
-            image.sprite = InventoryData.PassiveItemList[i].sprite;
+            image.sprite = InventoryData.PassiveItemList[i].icon;
         }
     }
 
-    private void UpdateWeapon()
+    public void UpdateWeapon()
     {
         Weapon_DataScript data = InventoryData.WeaponsList[InventoryData.CurrentWeaponSlot];
         if (currentWeapon != null)
@@ -311,7 +311,7 @@ public class PlayerInventory : MonoBehaviour
 
     // To my future self that WILL forget why there's past item here:
     // It's so if that slot wasn't changed do nothing idk if it's the best way to handle this but at least it works
-    private void UpdateActiveItemSlots()
+    public void UpdateActiveItemSlots()
     {
         for (int i = 0; i < activeItemSlots.Length; i++)
         {
@@ -328,7 +328,7 @@ public class PlayerInventory : MonoBehaviour
 
             if (newItem != null)
             {
-                image.sprite = newItem.sprite;
+                image.sprite = newItem.icon;
                 image.color = new Color(1, 1, 1, 1);
 
                 if (currentItem != null)

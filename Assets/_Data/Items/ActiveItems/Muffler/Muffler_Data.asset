@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2da6887431e4744bf4df59f06f92c9, type: 3}
   m_Name: Muffler_Data
   m_EditorClassIdentifier: Assembly-CSharp::ActiveItem_DataScript
-  sprite: {fileID: 0}
+  itemName: Muffler
+  description: 
+  rarity: 0
+  icon: {fileID: 21300000, guid: b74c31d447d2f5d41a61081bdf5e7126, type: 3}
   script: {fileID: 3563260947901409143, guid: ffce1d56c74d2f64385c7431a945b782, type: 3}

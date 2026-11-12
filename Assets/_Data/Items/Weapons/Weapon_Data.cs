@@ -13,9 +13,7 @@ public class Weapon_DataScript : Item_DataScript
     public WeaponType weaponType;
 
     [Header("Icons")]
-    public Sprite PassiveInventoryIcon;
-
-    public Sprite ActiveInventoryIcon;
+    public Sprite activeIcon;
 
     [Header("Prefab"), Space(5)]
     public GameObject weaponPrefab;

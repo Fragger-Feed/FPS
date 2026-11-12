@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActiveItem_Data
   itemName: Enemie spawner
   description: Spawns enemies for debuging purposes
-  sprite: {fileID: 21300000, guid: ee1ab1e7dd367de43a3004164a9c751c, type: 3}
+  rarity: 0
+  icon: {fileID: 21300000, guid: ee1ab1e7dd367de43a3004164a9c751c, type: 3}
   script: {fileID: 3626780225105925590, guid: 6692dc7a1ec2f5e4e93b6cd8d7684479, type: 3}

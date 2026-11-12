@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e96535beb8e99744a0bb9752f5e0487, type: 3}
   m_Name: Twin_pistol_Data
   m_EditorClassIdentifier: Assembly-CSharp::Weapon_DataScript
+  itemName: Twin pistols
+  description: 
+  rarity: 0
+  icon: {fileID: -1463871365404860613, guid: a18092fc01b594f4abd61139460c6492, type: 3}
   weaponType: 1
-  PassiveInventoryIcon: {fileID: 0}
-  ActiveInventoryIcon: {fileID: 0}
+  activeIcon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   weaponPrefab: {fileID: 7987897541145450801, guid: 40f241b66aaaa6c4dba2f37c27668057, type: 3}
   rangedDamage: 5
   range: 69
