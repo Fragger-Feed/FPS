@@ -13,10 +13,18 @@ public class LootRoomScript : InteractableOject
     private Item_DataScript[][] pools;
 
     [SerializeField] private GameObject canvas;
+
+    [Header("Choose")]
     [SerializeField] private GameObject choosePanel;
+
+    [SerializeField] private GameObject[] chooseItemSlots;
+
+    [Header("Replace")]
     [SerializeField] private GameObject replacePanel;
 
-    [SerializeField] private GameObject[] itemSlots;
+    [SerializeField] private GameObject[] equipedWeaponsSlots;
+    [SerializeField] private GameObject[] equipedActiveItemSlots;
+    /*    [SerializeField] GameObject */
 
     private List<Item_DataScript> items;
 
@@ -44,28 +52,15 @@ public class LootRoomScript : InteractableOject
             if (item == null) continue;
 
             if (item.icon != null)
-                itemSlots[i].transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = item.icon;
+                chooseItemSlots[i].transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = item.icon;
             if (item.itemName != "")
-                itemSlots[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.itemName;
+                chooseItemSlots[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.itemName;
         }
-
-        /*        if (item is Weapon_DataScript weapon)
-                {
-                    player.playerInventory.InventoryData.WeaponsList.Add(weapon);
-                }
-                else if (item is ActiveItem_DataScript active)
-                {
-                    player.playerInventory.InventoryData.ActiveItemsList.Add(active);
-                }
-                else if (item is PassiveItem_DataScript passive)
-                {
-                    player.playerInventory.InventoryData.PassiveItemList.Add(passive);
-                }*/
     }
 
     public void OnItemSelection(GameObject slot)
     {
-        Item_DataScript item = items[Array.IndexOf(itemSlots, slot)];
+        Item_DataScript item = items[Array.IndexOf(chooseItemSlots, slot)];
         PlayerInventory inventory = player.playerInventory;
         Inventory_Data inventoryData = inventory.InventoryData;
         if (item is Weapon_DataScript weapon)
