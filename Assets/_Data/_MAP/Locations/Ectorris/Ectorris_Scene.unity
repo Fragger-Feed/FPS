@@ -1920,7 +1920,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 681585978}
+        m_TargetAssemblyTypeName: LootRoomScript, Assembly-CSharp
+        m_MethodName: OnReplace
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2019239247}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &141330228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6607,8 +6619,11 @@ MonoBehaviour:
   - {fileID: 1201686220}
   - {fileID: 2019239247}
   - {fileID: 830584999}
-  equipedActiveItemSlots: []
-  replacigItem: {fileID: 1329356667}
+  equipedActiveItemSlots:
+  - {fileID: 1597878989}
+  - {fileID: 1783028185}
+  - {fileID: 1382345242}
+  replacingObject: {fileID: 1329356667}
 --- !u!1 &690497712
 GameObject:
   m_ObjectHideFlags: 0
@@ -8100,7 +8115,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 681585978}
+        m_TargetAssemblyTypeName: LootRoomScript, Assembly-CSharp
+        m_MethodName: OnReplace
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1201686220}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &885225639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15777,7 +15804,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 681585978}
+        m_TargetAssemblyTypeName: LootRoomScript, Assembly-CSharp
+        m_MethodName: OnReplace
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 830584999}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1612032957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18052,7 +18091,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 681585978}
+        m_TargetAssemblyTypeName: LootRoomScript, Assembly-CSharp
+        m_MethodName: OnReplace
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 600955173}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1819811978
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -25,8 +25,9 @@ public class LootRoomScript : InteractableOject
     [SerializeField] private GameObject[] itemCategory;
     [SerializeField] private GameObject[] equipedWeaponsSlots;
     [SerializeField] private GameObject[] equipedActiveItemSlots;
-    [SerializeField] private GameObject replacigItem;
+    [SerializeField] private GameObject replacingObject;
 
+    private Item_DataScript replacingItem;
     private List<Item_DataScript> items;
 
     private PlayerController player;
@@ -103,23 +104,49 @@ public class LootRoomScript : InteractableOject
     {
         replacePanel.SetActive(true);
         choosePanel.SetActive(false);
+        replacingItem = item;
+
         if (item is Weapon_DataScript weapon)
         {
             itemCategory[0].SetActive(true);
             itemCategory[1].SetActive(false);
+
+            for (int i = 0; i < equipedWeaponsSlots.Length; i++)
+            {
+                if (player.playerInventory.InventoryData.WeaponsList[i].icon != null)
+                    equipedWeaponsSlots[i].transform.GetChild(0).GetComponent<Image>().sprite = player.playerInventory.InventoryData.WeaponsList[i].icon;
+            }
         }
         else if (item is ActiveItem_DataScript active)
         {
             itemCategory[0].SetActive(false);
             itemCategory[1].SetActive(true);
+            for (int i = 0; i < equipedActiveItemSlots.Length; i++)
+            {
+                if (player.playerInventory.InventoryData.ActiveItemsList[i].icon != null)
+                    equipedActiveItemSlots[i].transform.GetChild(0).GetComponent<Image>().sprite = player.playerInventory.InventoryData.ActiveItemsList[i].icon;
+            }
         }
         if (item.icon != null)
-            replacigItem.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = item.icon;
+            replacingObject.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = item.icon;
     }
 
     public void OnHover(GameObject obj)
     {
-        replacigItem.transform.position = new Vector3(replacigItem.transform.position.x, obj.transform.position.y, replacigItem.transform.position.z);
+        replacingObject.transform.position = new Vector3(replacingObject.transform.position.x, obj.transform.position.y, replacingObject.transform.position.z);
+    }
+
+    public void OnReplace(GameObject obj)
+    {
+        if (replacingItem is Weapon_DataScript weapon)
+        {
+            player.playerInventory.InventoryData.WeaponsList[Array.IndexOf(equipedWeaponsSlots, obj)] = weapon;
+        }
+        else if (replacingItem is ActiveItem_DataScript activeItem)
+        {
+            player.playerInventory.InventoryData.ActiveItemsList[Array.IndexOf(equipedActiveItemSlots, obj)] = activeItem;
+        }
+        UpdateAndDissableAll();
     }
 
     private void UpdateAndDissableAll()
@@ -127,6 +154,8 @@ public class LootRoomScript : InteractableOject
         canvas.SetActive(false);
         choosePanel.SetActive(false);
         replacePanel.SetActive(false);
+
+        replacingItem = null;
 
         Cursor.lockState = CursorLockMode.Locked;
         player.ControllingData.Player.Get().SetActive(player);
