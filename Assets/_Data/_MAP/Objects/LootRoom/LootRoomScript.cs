@@ -41,6 +41,7 @@ public class LootRoomScript : InteractableOject
         player = _player;
         canvas.SetActive(true);
         choosePanel.SetActive(true);
+        replacePanel.SetActive(false);
 
         player.ControllingData.Player.Get().SetActive(false);
         Cursor.lockState = CursorLockMode.None;
@@ -118,6 +119,7 @@ public class LootRoomScript : InteractableOject
 
     public void OnHover(GameObject obj)
     {
+        replacigItem.transform.position = new Vector3(replacigItem.transform.position.x, obj.transform.position.y, replacigItem.transform.position.z);
     }
 
     private void UpdateAndDissableAll()
