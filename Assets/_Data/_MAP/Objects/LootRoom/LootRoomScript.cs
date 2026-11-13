@@ -22,9 +22,10 @@ public class LootRoomScript : InteractableOject
     [Header("Replace")]
     [SerializeField] private GameObject replacePanel;
 
+    [SerializeField] private GameObject[] itemCategory;
     [SerializeField] private GameObject[] equipedWeaponsSlots;
     [SerializeField] private GameObject[] equipedActiveItemSlots;
-    /*    [SerializeField] GameObject */
+    [SerializeField] private GameObject replacigItem;
 
     private List<Item_DataScript> items;
 
@@ -41,6 +42,7 @@ public class LootRoomScript : InteractableOject
         canvas.SetActive(true);
         choosePanel.SetActive(true);
 
+        player.ControllingData.Player.Get().SetActive(false);
         Cursor.lockState = CursorLockMode.None;
 
         items = new List<Item_DataScript>();
@@ -70,6 +72,7 @@ public class LootRoomScript : InteractableOject
                 if (inventoryData.WeaponsList[i] == null)
                 {
                     inventoryData.WeaponsList[i] = weapon;
+                    UpdateAndDissableAll();
                     break;
                 }
             }
@@ -82,6 +85,7 @@ public class LootRoomScript : InteractableOject
                 if (inventoryData.ActiveItemsList[i] == null)
                 {
                     inventoryData.ActiveItemsList[i] = active;
+                    UpdateAndDissableAll();
                     break;
                 }
             }
@@ -90,22 +94,45 @@ public class LootRoomScript : InteractableOject
         else if (item is PassiveItem_DataScript passive)
         {
             player.playerInventory.InventoryData.PassiveItemList.Add(passive);
+            UpdateAndDissableAll();
         }
-
-        canvas.SetActive(false);
-        choosePanel.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-
-        inventory.UpdateSlots();
-        inventory.UpdateWeapon();
-        inventory.UpdateActiveItemSlots();
-        inventory.EnableAllPassives();
     }
 
     private void Replace(Item_DataScript item)
     {
         replacePanel.SetActive(true);
         choosePanel.SetActive(false);
+        if (item is Weapon_DataScript weapon)
+        {
+            itemCategory[0].SetActive(true);
+            itemCategory[1].SetActive(false);
+        }
+        else if (item is ActiveItem_DataScript active)
+        {
+            itemCategory[0].SetActive(false);
+            itemCategory[1].SetActive(true);
+        }
+        if (item.icon != null)
+            replacigItem.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = item.icon;
+    }
+
+    public void OnHover(GameObject obj)
+    {
+    }
+
+    private void UpdateAndDissableAll()
+    {
+        canvas.SetActive(false);
+        choosePanel.SetActive(false);
+        replacePanel.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        player.ControllingData.Player.Get().SetActive(player);
+
+        player.playerInventory.UpdateSlots();
+        player.playerInventory.UpdateWeapon();
+        player.playerInventory.UpdateActiveItemSlots();
+        player.playerInventory.EnableAllPassives();
     }
 
     private Item_DataScript RollItem()

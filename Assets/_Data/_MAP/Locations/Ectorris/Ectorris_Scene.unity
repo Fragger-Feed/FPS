@@ -6479,10 +6479,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2b163df7412a18c4996a4f3352e1520a, type: 2}
   canvas: {fileID: 1420733368}
   choosePanel: {fileID: 1891325714}
-  chooseItemSlots: []
+  chooseItemSlots:
+  - {fileID: 379172491}
+  - {fileID: 1276039878}
+  - {fileID: 1815632668}
   replacePanel: {fileID: 1584730786}
-  equipedWeaponsSlots: []
+  itemCategory:
+  - {fileID: 484074690}
+  - {fileID: 573252222}
+  equipedWeaponsSlots:
+  - {fileID: 600955173}
+  - {fileID: 1201686220}
+  - {fileID: 2019239247}
+  - {fileID: 830584999}
   equipedActiveItemSlots: []
+  replacigItem: {fileID: 1329356667}
 --- !u!1 &690497712
 GameObject:
   m_ObjectHideFlags: 0
@@ -12819,7 +12830,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1420733369
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15146,7 +15157,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1584730787
 RectTransform:
   m_ObjectHideFlags: 0
