@@ -78,6 +78,7 @@ public class LootRoomScript : InteractableOject
                     break;
                 }
             }
+            Replace(weapon);
         }
         else if (item is ActiveItem_DataScript active)
         {
@@ -89,6 +90,7 @@ public class LootRoomScript : InteractableOject
                     break;
                 }
             }
+            Replace(active);
         }
         else if (item is PassiveItem_DataScript passive)
         {
@@ -103,6 +105,12 @@ public class LootRoomScript : InteractableOject
         inventory.UpdateWeapon();
         inventory.UpdateActiveItemSlots();
         inventory.EnableAllPassives();
+    }
+
+    private void Replace(Item_DataScript item)
+    {
+        replacePanel.SetActive(true);
+        choosePanel.SetActive(false);
     }
 
     private Item_DataScript RollItem()
