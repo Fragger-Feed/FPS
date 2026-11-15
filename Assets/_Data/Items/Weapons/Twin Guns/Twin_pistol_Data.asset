@@ -19,7 +19,7 @@ MonoBehaviour:
   weaponType: 1
   activeIcon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   weaponPrefab: {fileID: 7987897541145450801, guid: 40f241b66aaaa6c4dba2f37c27668057, type: 3}
-  rangedDamage: 5
+  rangedDamage: 8
   range: 69
   meleeDamage: 2
   hitTime: 0.1
