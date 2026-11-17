@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Muffler_Data
   m_EditorClassIdentifier: Assembly-CSharp::ActiveItem_DataScript
   itemName: Muffler
-  description: 
+  description: Idk what this was meant to be Asun was working on this
   rarity: 0
   icon: {fileID: 21300000, guid: b74c31d447d2f5d41a61081bdf5e7126, type: 3}
   script: {fileID: 3563260947901409143, guid: ffce1d56c74d2f64385c7431a945b782, type: 3}

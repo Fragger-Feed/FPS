@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PistolData
   m_EditorClassIdentifier: Assembly-CSharp::Weapons_Data
   itemName: The dev pistol
-  description: 
+  description: 'You''re not supposed to have this '
   rarity: 0
   icon: {fileID: -5287583415368288564, guid: a0027bef2af3809458f2b8a407b22383, type: 3}
   weaponType: 1
