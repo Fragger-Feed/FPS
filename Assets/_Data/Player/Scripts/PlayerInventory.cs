@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -26,6 +27,7 @@ public class PlayerInventory : MonoBehaviour
     public GameObject[] inventoryWeaponSlots;
     public RectTransform cursorImageObj;
     public Image cursorImage;
+    public TextMeshProUGUI description;
 
     //
     public GameObject[] activeItemSlots;
@@ -51,6 +53,8 @@ public class PlayerInventory : MonoBehaviour
     private Weapon_DataScript movingWeapon;
 
     private ActiveItem_DataScript movingItem;
+
+    private List<GameObject> spawnedPassiveSlots;
 
     private int indexOfTheMovingItem;
     private bool isWeapon;
@@ -94,6 +98,7 @@ public class PlayerInventory : MonoBehaviour
             inInventory = !inInventory;
             UpdateInventory();
             PlayerController.ControllingData.Player.Get().SetActive(!inInventory);
+            description.text = "";
             Cursor.lockState = (inInventory) ? CursorLockMode.None : CursorLockMode.Locked;
             inventory.SetActive(inInventory);
         }
@@ -162,6 +167,11 @@ public class PlayerInventory : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void onHoverEnter(GameObject gc)
+    {
+        Weapon_DataScript hoveredItem = null;
     }
 
     public void HandleMouseDown()
@@ -283,14 +293,15 @@ public class PlayerInventory : MonoBehaviour
             }
         }
         // Passive slots
-        foreach (Transform child in passiveItemUIParent.transform)
-            Destroy(child.gameObject);
+        foreach (Transform child in passiveItemUIParent.transform) Destroy(child.gameObject);
+        spawnedPassiveSlots.Clear();
 
         for (int i = 0; i < InventoryData.PassiveItemList.Count; i++)
         {
             GameObject slot = Instantiate(passiveItemUIPrefab, passiveItemUIParent.transform);
-            Image image = slot.transform.GetChild(0).GetChild(0).GetComponent<Image>();
+            spawnedPassiveSlots.Add(slot);
 
+            Image image = slot.transform.GetChild(0).GetChild(0).GetComponent<Image>();
             image.sprite = InventoryData.PassiveItemList[i].icon;
         }
     }
@@ -359,3 +370,61 @@ public static class InputExtensions
         else map.Disable();
     }
 }
+
+/*
+
+private List<GameObject> spawnedPassiveSlots = new List<GameObject>();
+
+// Passive slots
+foreach (Transform child in passiveItemUIParent.transform) Destroy(child.gameObject);
+spawnedPassiveSlots.Clear();
+
+for (int i = 0; i < InventoryData.PassiveItemList.Count; i++)
+{
+    GameObject slot = Instantiate(passiveItemUIPrefab, passiveItemUIParent.transform);
+    spawnedPassiveSlots.Add(slot); // Track the instantiated slot
+    Image image = slot.transform.GetChild(0).GetChild(0).GetComponent<Image>();
+    image.sprite = InventoryData.PassiveItemList[i].icon;
+}
+
+public void onHoverEnter(GameObject gc)
+{
+    Item_DataScript hoveredItem = null;
+
+    // 1. Check Weapon Slots
+    int weaponIndex = Array.IndexOf(inventoryWeaponSlots, gc);
+    if (weaponIndex != -1)
+    {
+        hoveredItem = InventoryData.WeaponsList[weaponIndex];
+    }
+
+    // 2. Check Active Item Slots
+    if (hoveredItem == null)
+    {
+        int activeIndex = Array.IndexOf(inventoryActiveItemSlotsUI, gc);
+        if (activeIndex != -1)
+        {
+            hoveredItem = InventoryData.ActiveItemsList[activeIndex];
+        }
+    }
+
+    // 3. Check Passive Item Slots
+    if (hoveredItem == null)
+    {
+        int passiveIndex = spawnedPassiveSlots.IndexOf(gc);
+        if (passiveIndex != -1)
+        {
+            hoveredItem = InventoryData.PassiveItemList[passiveIndex];
+        }
+    }
+
+    // Display description (or clear if slot is empty)
+    description.text = hoveredItem != null ? hoveredItem.description : "";
+}
+
+public void onHoverExit()
+{
+    description.text = "";
+}
+
+*/

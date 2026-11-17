@@ -57,8 +57,10 @@ public class LootRoomScript : InteractableOject
 
             if (item.icon != null)
                 chooseItemSlots[i].transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = item.icon;
-            if (item.itemName != "")
-                chooseItemSlots[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.itemName;
+
+            chooseItemSlots[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.itemName;
+
+            chooseItemSlots[i].transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = item.description;
         }
     }
 
@@ -131,7 +133,17 @@ public class LootRoomScript : InteractableOject
             replacingObject.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = item.icon;
     }
 
-    public void OnHover(GameObject obj)
+    public void OnChooseHover(Animator anim)
+    {
+        anim.SetBool("Hovered", true);
+    }
+
+    public void OnChooseHoverExit(Animator anim)
+    {
+        anim.SetBool("Hovered", false);
+    }
+
+    public void OnReplaceHover(GameObject obj)
     {
         replacingObject.transform.position = new Vector3(replacingObject.transform.position.x, obj.transform.position.y, replacingObject.transform.position.z);
     }
